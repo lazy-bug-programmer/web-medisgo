@@ -258,7 +258,10 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
         <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground">
           The doctor you are looking for does not exist.
         </p>
-        <Button asChild className="mt-6 sm:mt-8 bg-blue-600 hover:bg-blue-700">
+        <Button
+          asChild
+          className="mt-6 sm:mt-8 bg-[#329ff2] hover:bg-[#1e8ddd]"
+        >
           <Link href="/doctors">Back to Doctors</Link>
         </Button>
       </div>
@@ -267,10 +270,10 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
 
   return (
     <div>
-      <div className="bg-gradient-to-r from-blue-900 to-blue-800 py-6 sm:py-8 md:py-12">
+      <div className="bg-gradient-to-r from-[#1f6fad] to-[#2a80c5] py-6 sm:py-8 md:py-12">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-col space-y-2">
-            <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm text-blue-100">
+            <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm text-[#a9dbff]">
               <Link href="/" className="hover:text-white">
                 Home
               </Link>
@@ -284,7 +287,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
             <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
               {doctor.name}
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-blue-200">
+            <p className="text-base sm:text-lg md:text-xl text-[#c9eaff]">
               {doctor.specialty}
             </p>
           </div>
@@ -296,7 +299,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
           {/* Sidebar with doctor image and contact info - stacks on mobile */}
           <div className="lg:col-span-1 order-1 lg:order-1">
             <div className="lg:sticky lg:top-24 space-y-4 sm:space-y-6">
-              <div className="overflow-hidden rounded-lg border-2 sm:border-4 border-blue-100 shadow-lg">
+              <div className="overflow-hidden rounded-lg border-2 sm:border-4 border-[#e5f5ff] shadow-lg">
                 <Image
                   src={doctor.image || "/placeholder.svg"}
                   alt={doctor.name}
@@ -307,28 +310,28 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
               </div>
 
               {/* Mobile-friendly contact card */}
-              <Card className="border-blue-100">
+              <Card className="border-[#e5f5ff]">
                 <CardHeader className="p-4 sm:p-6 pb-2">
-                  <CardTitle className="text-lg sm:text-xl text-blue-800">
+                  <CardTitle className="text-lg sm:text-xl text-[#1f6fad]">
                     Contact Information
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-4 sm:p-6 pt-2 space-y-3 sm:space-y-4">
                   <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base">
-                    <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-blue-100 flex-shrink-0">
-                      <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
+                    <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-[#e5f5ff] flex-shrink-0">
+                      <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />
                     </div>
                     <span className="break-all">{doctor.contact.email}</span>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base">
-                    <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-blue-100 flex-shrink-0">
-                      <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
+                    <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-[#e5f5ff] flex-shrink-0">
+                      <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />
                     </div>
                     <span>{doctor.contact.phone}</span>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base">
-                    <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-blue-100 flex-shrink-0">
-                      <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
+                    <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-[#e5f5ff] flex-shrink-0">
+                      <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />
                     </div>
                     <span>{doctor.contact.office}</span>
                   </div>
@@ -336,9 +339,9 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
               </Card>
 
               {/* Responsive schedule card */}
-              <Card className="border-blue-100">
+              <Card className="border-[#e5f5ff]">
                 <CardHeader className="p-4 sm:p-6 pb-2">
-                  <CardTitle className="text-lg sm:text-xl text-blue-800">
+                  <CardTitle className="text-lg sm:text-xl text-[#1f6fad]">
                     Schedule
                   </CardTitle>
                   <CardDescription className="text-xs sm:text-sm">
@@ -349,17 +352,17 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                   {doctor.schedule.map((schedule, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between border-b border-blue-50 pb-2 last:border-0 text-sm"
+                      className="flex items-center justify-between border-b border-[#f0f9ff] pb-2 last:border-0 text-sm"
                     >
                       <div className="flex items-center gap-2 sm:gap-3">
-                        <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-blue-100 flex-shrink-0">
-                          <Calendar className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
+                        <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-[#e5f5ff] flex-shrink-0">
+                          <Calendar className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />
                         </div>
                         <span>{schedule.day}</span>
                       </div>
                       <div className="flex items-center gap-1 sm:gap-2">
-                        <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-blue-400" />
-                        <span className="text-xs sm:text-sm font-medium text-blue-800">
+                        <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-[#7fcbff]" />
+                        <span className="text-xs sm:text-sm font-medium text-[#1f6fad]">
                           {schedule.hours}
                         </span>
                       </div>
@@ -369,7 +372,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
               </Card>
 
               {/* Full-width button on all screens */}
-              <Button className="w-full bg-blue-600 hover:bg-blue-700 text-sm sm:text-base py-2 sm:py-6">
+              <Button className="w-full bg-[#329ff2] hover:bg-[#1e8ddd] text-sm sm:text-base py-2 sm:py-6">
                 Book Appointment
               </Button>
             </div>
@@ -379,7 +382,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
           <div className="lg:col-span-2 order-2 lg:order-2">
             <div className="space-y-6 sm:space-y-8">
               <div className="space-y-3 sm:space-y-4">
-                <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 text-xs sm:text-sm">
+                <Badge className="bg-[#e5f5ff] text-[#1f6fad] hover:bg-[#d0ecff] text-xs sm:text-sm">
                   About
                 </Badge>
                 <p className="text-sm sm:text-base text-muted-foreground">
@@ -389,8 +392,8 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
 
               {/* Responsive tabs that scroll horizontally on mobile */}
               <div className="overflow-x-auto pb-2">
-                <Tabs defaultValue="education" className="border-blue-100">
-                  <TabsList className="w-max min-w-full sm:w-full sm:min-w-0 grid grid-flow-col auto-cols-auto sm:grid-cols-4 bg-blue-50">
+                <Tabs defaultValue="education" className="border-[#e5f5ff]">
+                  <TabsList className="w-max min-w-full sm:w-full sm:min-w-0 grid grid-flow-col auto-cols-auto sm:grid-cols-4 bg-[#f0f9ff]">
                     <TabsTrigger
                       value="education"
                       className="text-xs sm:text-sm px-2 sm:px-4"
@@ -421,21 +424,21 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                     value="education"
                     className="space-y-3 sm:space-y-4 pt-4"
                   >
-                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-blue-800">
-                      <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />{" "}
+                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-[#1f6fad]">
+                      <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
                       Education & Training
                     </h3>
                     <div className="space-y-3 sm:space-y-4">
                       {doctor.education.map((edu, index) => (
                         <div
                           key={index}
-                          className="rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
+                          className="rounded-lg border border-[#e5f5ff] bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-[#7fcbff] hover:shadow-md"
                         >
                           <div className="flex flex-wrap gap-2 sm:items-center sm:justify-between">
-                            <h4 className="text-sm sm:text-base font-semibold text-blue-800">
+                            <h4 className="text-sm sm:text-base font-semibold text-[#1f6fad]">
                               {edu.degree}
                             </h4>
-                            <span className="rounded-full bg-blue-50 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-blue-700">
+                            <span className="rounded-full bg-[#f0f9ff] px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-[#329ff2]">
                               {edu.year}
                             </span>
                           </div>
@@ -451,21 +454,21 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                     value="experience"
                     className="space-y-3 sm:space-y-4 pt-4"
                   >
-                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-blue-800">
-                      <Briefcase className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />{" "}
+                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-[#1f6fad]">
+                      <Briefcase className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
                       Professional Experience
                     </h3>
                     <div className="space-y-3 sm:space-y-4">
                       {doctor.experience.map((exp, index) => (
                         <div
                           key={index}
-                          className="rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
+                          className="rounded-lg border border-[#e5f5ff] bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-[#7fcbff] hover:shadow-md"
                         >
                           <div className="flex flex-wrap gap-2 sm:items-center sm:justify-between">
-                            <h4 className="text-sm sm:text-base font-semibold text-blue-800">
+                            <h4 className="text-sm sm:text-base font-semibold text-[#1f6fad]">
                               {exp.position}
                             </h4>
-                            <span className="rounded-full bg-blue-50 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-blue-700">
+                            <span className="rounded-full bg-[#f0f9ff] px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-[#329ff2]">
                               {exp.period}
                             </span>
                           </div>
@@ -482,8 +485,8 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                     value="certifications"
                     className="space-y-3 sm:space-y-4 pt-4"
                   >
-                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-blue-800">
-                      <Award className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />{" "}
+                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-[#1f6fad]">
+                      <Award className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
                       Certifications & Licenses
                     </h3>
                     <ul className="list-inside list-disc space-y-1 sm:space-y-2 text-xs sm:text-sm">
@@ -493,21 +496,21 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                         </li>
                       ))}
                     </ul>
-                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold mt-4 sm:mt-6 text-blue-800">
-                      <Star className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />{" "}
+                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold mt-4 sm:mt-6 text-[#1f6fad]">
+                      <Star className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
                       Awards & Recognitions
                     </h3>
                     <div className="space-y-3 sm:space-y-4">
                       {doctor.awards.map((award, index) => (
                         <div
                           key={index}
-                          className="rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
+                          className="rounded-lg border border-[#e5f5ff] bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-[#7fcbff] hover:shadow-md"
                         >
                           <div className="flex flex-wrap gap-2 sm:items-center sm:justify-between">
-                            <h4 className="text-sm sm:text-base font-semibold text-blue-800">
+                            <h4 className="text-sm sm:text-base font-semibold text-[#1f6fad]">
                               {award.title}
                             </h4>
-                            <span className="rounded-full bg-blue-50 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-blue-700">
+                            <span className="rounded-full bg-[#f0f9ff] px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-[#329ff2]">
                               {award.year}
                             </span>
                           </div>
@@ -523,21 +526,21 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                     value="publications"
                     className="space-y-3 sm:space-y-4 pt-4"
                   >
-                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-blue-800">
-                      <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />{" "}
+                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-[#1f6fad]">
+                      <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
                       Research & Publications
                     </h3>
                     <div className="space-y-3 sm:space-y-4">
                       {doctor.publications.map((pub, index) => (
                         <div
                           key={index}
-                          className="rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
+                          className="rounded-lg border border-[#e5f5ff] bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-[#7fcbff] hover:shadow-md"
                         >
                           <div className="flex flex-wrap gap-2 sm:items-center sm:justify-between">
-                            <h4 className="text-sm sm:text-base font-semibold text-blue-800">
+                            <h4 className="text-sm sm:text-base font-semibold text-[#1f6fad]">
                               {pub.title}
                             </h4>
-                            <span className="rounded-full bg-blue-50 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-blue-700">
+                            <span className="rounded-full bg-[#f0f9ff] px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-[#329ff2]">
                               {pub.year}
                             </span>
                           </div>
@@ -553,14 +556,14 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
 
               {/* Languages section */}
               <div className="space-y-3 sm:space-y-4">
-                <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-blue-800">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-[#1f6fad]">
                   Languages
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {doctor.languages.map((language, index) => (
                     <span
                       key={index}
-                      className="rounded-full bg-blue-100 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-blue-700"
+                      className="rounded-full bg-[#e5f5ff] px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-[#329ff2]"
                     >
                       {language}
                     </span>

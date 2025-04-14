@@ -108,7 +108,7 @@ const specialties = [
 export default function DoctorsPage() {
   return (
     <div>
-      <div className="bg-gradient-to-r from-blue-900 to-blue-800 py-8 sm:py-10 md:py-12">
+      <div className="bg-gradient-to-r from-[#1f6fad] to-[#2a80c5] py-8 sm:py-10 md:py-12">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-col items-center text-center text-white">
             <Badge
@@ -120,7 +120,7 @@ export default function DoctorsPage() {
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
               Meet Our Doctors
             </h1>
-            <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-blue-100">
+            <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-[#a9dbff]">
               Our team of experienced and dedicated doctors is committed to
               providing the highest quality care to our patients.
             </p>
@@ -161,7 +161,7 @@ export default function DoctorsPage() {
           {doctors.map((doctor) => (
             <Card
               key={doctor.id}
-              className="group overflow-hidden border-blue-100 transition-all duration-300 hover:border-blue-300 hover:shadow-lg"
+              className="group overflow-hidden border-[#e5f5ff] transition-all duration-300 hover:border-[#7fcbff] hover:shadow-lg"
             >
               <div className="aspect-square relative">
                 <Image
@@ -170,13 +170,13 @@ export default function DoctorsPage() {
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1f6fad]/80 via-[#1f6fad]/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
               </div>
               <CardHeader className="p-4 sm:p-6">
-                <CardTitle className="text-lg sm:text-xl text-blue-800">
+                <CardTitle className="text-lg sm:text-xl text-[#1f6fad]">
                   {doctor.name}
                 </CardTitle>
-                <CardDescription className="text-sm text-blue-600">
+                <CardDescription className="text-sm text-[#329ff2]">
                   {doctor.specialty}
                 </CardDescription>
               </CardHeader>
@@ -196,14 +196,14 @@ export default function DoctorsPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-blue-200 hover:bg-blue-50 hover:text-blue-600 w-full sm:w-auto text-xs sm:text-sm"
+                  className="border-[#d0ecff] hover:bg-[#f0f9ff] hover:text-[#329ff2] w-full sm:w-auto text-xs sm:text-sm"
                   asChild
                 >
                   <Link href={`/doctors/${doctor.id}`}>View Profile</Link>
                 </Button>
                 <Button
                   size="sm"
-                  className="bg-blue-600 hover:bg-blue-700 w-full sm:w-auto text-xs sm:text-sm"
+                  className="bg-[#329ff2] hover:bg-[#1e8ddd] w-full sm:w-auto text-xs sm:text-sm"
                   asChild
                 >
                   <Link href="/appointment">Book Appointment</Link>
@@ -240,7 +240,7 @@ export default function DoctorsPage() {
             <Button
               variant="outline"
               size="sm"
-              className="h-8 w-8 bg-blue-50 text-blue-600 text-xs sm:text-sm"
+              className="h-8 w-8 bg-[#f0f9ff] text-[#329ff2] text-xs sm:text-sm"
             >
               1
             </Button>
