@@ -253,12 +253,12 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
   // If doctor not found, display a message
   if (!doctor) {
     return (
-      <div className="container mx-auto py-12 text-center">
-        <h1 className="text-3xl font-bold">Doctor Not Found</h1>
-        <p className="mt-4 text-muted-foreground">
+      <div className="container mx-auto px-4 py-8 sm:py-12 text-center">
+        <h1 className="text-2xl sm:text-3xl font-bold">Doctor Not Found</h1>
+        <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground">
           The doctor you are looking for does not exist.
         </p>
-        <Button asChild className="mt-8 bg-blue-600 hover:bg-blue-700">
+        <Button asChild className="mt-6 sm:mt-8 bg-blue-600 hover:bg-blue-700">
           <Link href="/doctors">Back to Doctors</Link>
         </Button>
       </div>
@@ -267,31 +267,36 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
 
   return (
     <div>
-      <div className="bg-gradient-to-r from-blue-900 to-blue-800 py-12">
-        <div className="container mx-auto">
+      <div className="bg-gradient-to-r from-blue-900 to-blue-800 py-6 sm:py-8 md:py-12">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-col space-y-2">
-            <div className="flex items-center gap-2 text-blue-100">
+            <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm text-blue-100">
               <Link href="/" className="hover:text-white">
                 Home
               </Link>
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
               <Link href="/doctors" className="hover:text-white">
                 Doctors
               </Link>
-              <ChevronRight className="h-4 w-4" />
-              <span>{doctor.name}</span>
+              <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="truncate">{doctor.name}</span>
             </div>
-            <h1 className="text-3xl font-bold text-white">{doctor.name}</h1>
-            <p className="text-xl text-blue-200">{doctor.specialty}</p>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+              {doctor.name}
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl text-blue-200">
+              {doctor.specialty}
+            </p>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto py-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <div className="md:col-span-1">
-            <div className="sticky top-24 space-y-6">
-              <div className="overflow-hidden rounded-lg border-4 border-blue-100 shadow-lg">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 md:py-12">
+        <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-3">
+          {/* Sidebar with doctor image and contact info - stacks on mobile */}
+          <div className="lg:col-span-1 order-1 lg:order-1">
+            <div className="lg:sticky lg:top-24 space-y-4 sm:space-y-6">
+              <div className="overflow-hidden rounded-lg border-2 sm:border-4 border-blue-100 shadow-lg">
                 <Image
                   src={doctor.image || "/placeholder.svg"}
                   alt={doctor.name}
@@ -300,53 +305,61 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                   className="w-full object-cover"
                 />
               </div>
+
+              {/* Mobile-friendly contact card */}
               <Card className="border-blue-100">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-blue-800">
+                <CardHeader className="p-4 sm:p-6 pb-2">
+                  <CardTitle className="text-lg sm:text-xl text-blue-800">
                     Contact Information
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
-                      <Mail className="h-4 w-4 text-blue-600" />
+                <CardContent className="p-4 sm:p-6 pt-2 space-y-3 sm:space-y-4">
+                  <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base">
+                    <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-blue-100 flex-shrink-0">
+                      <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
                     </div>
-                    <span>{doctor.contact.email}</span>
+                    <span className="break-all">{doctor.contact.email}</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
-                      <Phone className="h-4 w-4 text-blue-600" />
+                  <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base">
+                    <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-blue-100 flex-shrink-0">
+                      <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
                     </div>
                     <span>{doctor.contact.phone}</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
-                      <MapPin className="h-4 w-4 text-blue-600" />
+                  <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base">
+                    <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-blue-100 flex-shrink-0">
+                      <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
                     </div>
                     <span>{doctor.contact.office}</span>
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Responsive schedule card */}
               <Card className="border-blue-100">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-blue-800">Schedule</CardTitle>
-                  <CardDescription>Available appointment times</CardDescription>
+                <CardHeader className="p-4 sm:p-6 pb-2">
+                  <CardTitle className="text-lg sm:text-xl text-blue-800">
+                    Schedule
+                  </CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">
+                    Available appointment times
+                  </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="p-4 sm:p-6 pt-2 space-y-3 sm:space-y-4">
                   {doctor.schedule.map((schedule, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between border-b border-blue-50 pb-2 last:border-0"
+                      className="flex items-center justify-between border-b border-blue-50 pb-2 last:border-0 text-sm"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
-                          <Calendar className="h-4 w-4 text-blue-600" />
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-blue-100 flex-shrink-0">
+                          <Calendar className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
                         </div>
                         <span>{schedule.day}</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="h-4 w-4 text-blue-400" />
-                        <span className="text-sm font-medium text-blue-800">
+                      <div className="flex items-center gap-1 sm:gap-2">
+                        <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-blue-400" />
+                        <span className="text-xs sm:text-sm font-medium text-blue-800">
                           {schedule.hours}
                         </span>
                       </div>
@@ -354,151 +367,200 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                   ))}
                 </CardContent>
               </Card>
-              <Button className="w-full bg-blue-600 hover:bg-blue-700">
+
+              {/* Full-width button on all screens */}
+              <Button className="w-full bg-blue-600 hover:bg-blue-700 text-sm sm:text-base py-2 sm:py-6">
                 Book Appointment
               </Button>
             </div>
           </div>
-          <div className="md:col-span-2">
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">
+
+          {/* Main content section - stacks on mobile */}
+          <div className="lg:col-span-2 order-2 lg:order-2">
+            <div className="space-y-6 sm:space-y-8">
+              <div className="space-y-3 sm:space-y-4">
+                <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 text-xs sm:text-sm">
                   About
                 </Badge>
-                <p className="text-muted-foreground">{doctor.bio}</p>
+                <p className="text-sm sm:text-base text-muted-foreground">
+                  {doctor.bio}
+                </p>
               </div>
-              <Tabs defaultValue="education" className="border-blue-100">
-                <TabsList className="grid w-full grid-cols-4 bg-blue-50">
-                  <TabsTrigger value="education">Education</TabsTrigger>
-                  <TabsTrigger value="experience">Experience</TabsTrigger>
-                  <TabsTrigger value="certifications">
-                    Certifications
-                  </TabsTrigger>
-                  <TabsTrigger value="publications">Publications</TabsTrigger>
-                </TabsList>
-                <TabsContent value="education" className="space-y-4 pt-4">
-                  <h3 className="flex items-center gap-2 text-xl font-semibold text-blue-800">
-                    <BookOpen className="h-5 w-5 text-blue-600" /> Education &
-                    Training
-                  </h3>
-                  <div className="space-y-4">
-                    {doctor.education.map((edu, index) => (
-                      <div
-                        key={index}
-                        className="rounded-lg border border-blue-100 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
-                      >
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-semibold text-blue-800">
-                            {edu.degree}
-                          </h4>
-                          <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700">
-                            {edu.year}
-                          </span>
+
+              {/* Responsive tabs that scroll horizontally on mobile */}
+              <div className="overflow-x-auto pb-2">
+                <Tabs defaultValue="education" className="border-blue-100">
+                  <TabsList className="w-max min-w-full sm:w-full sm:min-w-0 grid grid-flow-col auto-cols-auto sm:grid-cols-4 bg-blue-50">
+                    <TabsTrigger
+                      value="education"
+                      className="text-xs sm:text-sm px-2 sm:px-4"
+                    >
+                      Education
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="experience"
+                      className="text-xs sm:text-sm px-2 sm:px-4"
+                    >
+                      Experience
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="certifications"
+                      className="text-xs sm:text-sm px-2 sm:px-4"
+                    >
+                      Certifications
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="publications"
+                      className="text-xs sm:text-sm px-2 sm:px-4"
+                    >
+                      Publications
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <TabsContent
+                    value="education"
+                    className="space-y-3 sm:space-y-4 pt-4"
+                  >
+                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-blue-800">
+                      <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />{" "}
+                      Education & Training
+                    </h3>
+                    <div className="space-y-3 sm:space-y-4">
+                      {doctor.education.map((edu, index) => (
+                        <div
+                          key={index}
+                          className="rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
+                        >
+                          <div className="flex flex-wrap gap-2 sm:items-center sm:justify-between">
+                            <h4 className="text-sm sm:text-base font-semibold text-blue-800">
+                              {edu.degree}
+                            </h4>
+                            <span className="rounded-full bg-blue-50 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-blue-700">
+                              {edu.year}
+                            </span>
+                          </div>
+                          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                            {edu.institution}
+                          </p>
                         </div>
-                        <p className="text-muted-foreground">
-                          {edu.institution}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-                <TabsContent value="experience" className="space-y-4 pt-4">
-                  <h3 className="flex items-center gap-2 text-xl font-semibold text-blue-800">
-                    <Briefcase className="h-5 w-5 text-blue-600" /> Professional
-                    Experience
-                  </h3>
-                  <div className="space-y-4">
-                    {doctor.experience.map((exp, index) => (
-                      <div
-                        key={index}
-                        className="rounded-lg border border-blue-100 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
-                      >
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-semibold text-blue-800">
-                            {exp.position}
-                          </h4>
-                          <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700">
-                            {exp.period}
-                          </span>
+                      ))}
+                    </div>
+                  </TabsContent>
+
+                  <TabsContent
+                    value="experience"
+                    className="space-y-3 sm:space-y-4 pt-4"
+                  >
+                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-blue-800">
+                      <Briefcase className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />{" "}
+                      Professional Experience
+                    </h3>
+                    <div className="space-y-3 sm:space-y-4">
+                      {doctor.experience.map((exp, index) => (
+                        <div
+                          key={index}
+                          className="rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
+                        >
+                          <div className="flex flex-wrap gap-2 sm:items-center sm:justify-between">
+                            <h4 className="text-sm sm:text-base font-semibold text-blue-800">
+                              {exp.position}
+                            </h4>
+                            <span className="rounded-full bg-blue-50 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-blue-700">
+                              {exp.period}
+                            </span>
+                          </div>
+                          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                            {exp.institution}
+                          </p>
                         </div>
-                        <p className="text-muted-foreground">
-                          {exp.institution}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-                <TabsContent value="certifications" className="space-y-4 pt-4">
-                  <h3 className="flex items-center gap-2 text-xl font-semibold text-blue-800">
-                    <Award className="h-5 w-5 text-blue-600" /> Certifications &
-                    Licenses
-                  </h3>
-                  <ul className="list-inside list-disc space-y-2">
-                    {doctor.certifications.map((cert, index) => (
-                      <li key={index} className="text-muted-foreground">
-                        {cert}
-                      </li>
-                    ))}
-                  </ul>
-                  <h3 className="flex items-center gap-2 text-xl font-semibold mt-6 text-blue-800">
-                    <Star className="h-5 w-5 text-blue-600" /> Awards &
-                    Recognitions
-                  </h3>
-                  <div className="space-y-4">
-                    {doctor.awards.map((award, index) => (
-                      <div
-                        key={index}
-                        className="rounded-lg border border-blue-100 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
-                      >
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-semibold text-blue-800">
-                            {award.title}
-                          </h4>
-                          <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700">
-                            {award.year}
-                          </span>
+                      ))}
+                    </div>
+                  </TabsContent>
+
+                  {/* Similar pattern for certifications and publications tabs */}
+                  <TabsContent
+                    value="certifications"
+                    className="space-y-3 sm:space-y-4 pt-4"
+                  >
+                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-blue-800">
+                      <Award className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />{" "}
+                      Certifications & Licenses
+                    </h3>
+                    <ul className="list-inside list-disc space-y-1 sm:space-y-2 text-xs sm:text-sm">
+                      {doctor.certifications.map((cert, index) => (
+                        <li key={index} className="text-muted-foreground">
+                          {cert}
+                        </li>
+                      ))}
+                    </ul>
+                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold mt-4 sm:mt-6 text-blue-800">
+                      <Star className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />{" "}
+                      Awards & Recognitions
+                    </h3>
+                    <div className="space-y-3 sm:space-y-4">
+                      {doctor.awards.map((award, index) => (
+                        <div
+                          key={index}
+                          className="rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
+                        >
+                          <div className="flex flex-wrap gap-2 sm:items-center sm:justify-between">
+                            <h4 className="text-sm sm:text-base font-semibold text-blue-800">
+                              {award.title}
+                            </h4>
+                            <span className="rounded-full bg-blue-50 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-blue-700">
+                              {award.year}
+                            </span>
+                          </div>
+                          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                            {award.organization}
+                          </p>
                         </div>
-                        <p className="text-muted-foreground">
-                          {award.organization}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-                <TabsContent value="publications" className="space-y-4 pt-4">
-                  <h3 className="flex items-center gap-2 text-xl font-semibold text-blue-800">
-                    <BookOpen className="h-5 w-5 text-blue-600" /> Research &
-                    Publications
-                  </h3>
-                  <div className="space-y-4">
-                    {doctor.publications.map((pub, index) => (
-                      <div
-                        key={index}
-                        className="rounded-lg border border-blue-100 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
-                      >
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-semibold text-blue-800">
-                            {pub.title}
-                          </h4>
-                          <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700">
-                            {pub.year}
-                          </span>
+                      ))}
+                    </div>
+                  </TabsContent>
+
+                  <TabsContent
+                    value="publications"
+                    className="space-y-3 sm:space-y-4 pt-4"
+                  >
+                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-blue-800">
+                      <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />{" "}
+                      Research & Publications
+                    </h3>
+                    <div className="space-y-3 sm:space-y-4">
+                      {doctor.publications.map((pub, index) => (
+                        <div
+                          key={index}
+                          className="rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
+                        >
+                          <div className="flex flex-wrap gap-2 sm:items-center sm:justify-between">
+                            <h4 className="text-sm sm:text-base font-semibold text-blue-800">
+                              {pub.title}
+                            </h4>
+                            <span className="rounded-full bg-blue-50 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-blue-700">
+                              {pub.year}
+                            </span>
+                          </div>
+                          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                            {pub.journal}
+                          </p>
                         </div>
-                        <p className="text-muted-foreground">{pub.journal}</p>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-              </Tabs>
-              <div className="space-y-4">
-                <h2 className="text-2xl font-semibold text-blue-800">
+                      ))}
+                    </div>
+                  </TabsContent>
+                </Tabs>
+              </div>
+
+              {/* Languages section */}
+              <div className="space-y-3 sm:space-y-4">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-blue-800">
                   Languages
                 </h2>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   {doctor.languages.map((language, index) => (
                     <span
                       key={index}
-                      className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700"
+                      className="rounded-full bg-blue-100 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-blue-700"
                     >
                       {language}
                     </span>

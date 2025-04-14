@@ -30,34 +30,34 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 py-20 md:py-28 lg:py-32">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 py-16 sm:py-20 md:py-28 lg:py-32">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute -left-20 -top-20 h-[500px] w-[500px] rounded-full bg-blue-400 blur-3xl"></div>
           <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-blue-600 blur-3xl"></div>
         </div>
-        <div className="container mx-auto relative z-10">
-          <div className="grid gap-12 md:grid-cols-2 md:items-center">
-            <div className="flex flex-col space-y-6 text-white">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid gap-8 md:gap-12 md:grid-cols-2 md:items-center">
+            <div className="flex flex-col space-y-4 sm:space-y-6 text-white">
               <Badge
                 className="w-fit bg-white/10 text-white hover:bg-white/20"
                 variant="secondary"
               >
                 Leading Healthcare Provider
               </Badge>
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
+              <h1 className="text-3xl sm:text-4xl font-bold tracking-tighter md:text-5xl lg:text-6xl xl:text-7xl">
                 Your Health Is Our{" "}
                 <span className="gradient-text">Priority</span>
               </h1>
-              <p className="max-w-[600px] text-lg text-blue-100 md:text-xl">
+              <p className="max-w-[600px] text-base sm:text-lg text-blue-100 md:text-xl">
                 Providing exceptional healthcare services with compassion and
                 excellence. Our team of expert doctors is committed to your
                 well-being.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                 <Button
                   size="lg"
                   asChild
-                  className="bg-white text-blue-700 hover:bg-white/90"
+                  className="bg-white text-blue-700 hover:bg-white/90 w-full sm:w-auto"
                 >
                   <Link href="/doctors">
                     Meet Our Doctors <ChevronRight className="ml-2 h-4 w-4" />
@@ -67,17 +67,17 @@ export default function Home() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-white text-white hover:bg-white/10"
+                  className="border-white text-white hover:bg-white/10 w-full sm:w-auto"
                 >
                   <Link href="/appointment">Book Appointment</Link>
                 </Button>
               </div>
-              <div className="flex flex-wrap items-center gap-6 pt-4">
-                <div className="flex -space-x-4">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2 sm:pt-4">
+                <div className="flex -space-x-3 sm:-space-x-4">
                   {[1, 2, 3, 4].map((i) => (
                     <div
                       key={i}
-                      className="h-10 w-10 overflow-hidden rounded-full border-2 border-white"
+                      className="h-8 w-8 sm:h-10 sm:w-10 overflow-hidden rounded-full border-2 border-white"
                     >
                       <Image
                         src={`/placeholder.svg?height=40&width=40&text=${i}`}
@@ -94,18 +94,18 @@ export default function Home() {
                     {[1, 2, 3, 4, 5].map((star) => (
                       <Star
                         key={star}
-                        className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                        className="h-3 w-3 sm:h-4 sm:w-4 fill-yellow-400 text-yellow-400"
                       />
                     ))}
                   </div>
-                  <span className="text-sm font-medium">
+                  <span className="text-xs sm:text-sm font-medium">
                     <span className="font-bold">4.9</span> (2.5k+ reviews)
                   </span>
                 </div>
               </div>
             </div>
-            <div className="relative mx-auto md:ml-auto">
-              <div className="relative h-[400px] w-[400px] animate-float">
+            <div className="relative mx-auto md:ml-auto mt-8 md:mt-0">
+              <div className="relative h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] md:h-[350px] md:w-[350px] lg:h-[400px] lg:w-[400px] animate-float">
                 <div className="absolute left-0 top-0 h-full w-full rounded-full bg-blue-500/20 blur-3xl"></div>
                 <div className="blob-shape relative h-full w-full overflow-hidden border-8 border-white/10 bg-gradient-to-br from-blue-400 to-blue-600">
                   <Image
@@ -116,31 +116,31 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <div className="absolute -bottom-6 -left-6 rounded-2xl bg-white p-4 shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
-                    <Activity className="h-6 w-6 text-blue-600" />
+              <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 rounded-xl sm:rounded-2xl bg-white p-3 sm:p-4 shadow-lg">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex h-8 w-8 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-blue-100">
+                    <Activity className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500">
+                    <p className="text-xs sm:text-sm font-medium text-gray-500">
                       Emergency Service
                     </p>
-                    <p className="text-lg font-bold text-blue-700">
+                    <p className="text-sm sm:text-lg font-bold text-blue-700">
                       24/7 Available
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="absolute -right-6 top-1/4 rounded-2xl bg-white p-4 shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
-                    <Shield className="h-6 w-6 text-blue-600" />
+              <div className="absolute -right-4 top-1/4 sm:-right-6 rounded-xl sm:rounded-2xl bg-white p-3 sm:p-4 shadow-lg">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex h-8 w-8 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-blue-100">
+                    <Shield className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500">
+                    <p className="text-xs sm:text-sm font-medium text-gray-500">
                       Trusted Care
                     </p>
-                    <p className="text-lg font-bold text-blue-700">
+                    <p className="text-sm sm:text-lg font-bold text-blue-700">
                       Since 1985
                     </p>
                   </div>
@@ -161,37 +161,37 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="container mx-auto py-12">
-        <div className="grid grid-cols-2 gap-4 rounded-2xl border bg-white p-6 shadow-lg md:grid-cols-4 md:gap-8 md:p-8">
-          <div className="flex flex-col items-center justify-center text-center">
-            <span className="text-3xl font-bold text-blue-600 md:text-4xl lg:text-5xl">
+      <section className="container mx-auto px-4 py-8 sm:py-12">
+        <div className="grid grid-cols-1 xs:grid-cols-2 gap-4 rounded-xl sm:rounded-2xl border bg-white p-4 sm:p-6 shadow-lg md:grid-cols-4 md:gap-6 lg:gap-8 md:p-8">
+          <div className="flex flex-col items-center justify-center text-center p-3">
+            <span className="text-2xl sm:text-3xl font-bold text-blue-600 md:text-4xl lg:text-5xl">
               35+
             </span>
-            <span className="mt-2 text-sm text-gray-500 md:text-base">
+            <span className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-500 md:text-base">
               Experienced Doctors
             </span>
           </div>
-          <div className="flex flex-col items-center justify-center text-center">
-            <span className="text-3xl font-bold text-blue-600 md:text-4xl lg:text-5xl">
+          <div className="flex flex-col items-center justify-center text-center p-3">
+            <span className="text-2xl sm:text-3xl font-bold text-blue-600 md:text-4xl lg:text-5xl">
               15k+
             </span>
-            <span className="mt-2 text-sm text-gray-500 md:text-base">
+            <span className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-500 md:text-base">
               Satisfied Patients
             </span>
           </div>
-          <div className="flex flex-col items-center justify-center text-center">
-            <span className="text-3xl font-bold text-blue-600 md:text-4xl lg:text-5xl">
+          <div className="flex flex-col items-center justify-center text-center p-3">
+            <span className="text-2xl sm:text-3xl font-bold text-blue-600 md:text-4xl lg:text-5xl">
               12+
             </span>
-            <span className="mt-2 text-sm text-gray-500 md:text-base">
+            <span className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-500 md:text-base">
               Medical Specialties
             </span>
           </div>
-          <div className="flex flex-col items-center justify-center text-center">
-            <span className="text-3xl font-bold text-blue-600 md:text-4xl lg:text-5xl">
+          <div className="flex flex-col items-center justify-center text-center p-3">
+            <span className="text-2xl sm:text-3xl font-bold text-blue-600 md:text-4xl lg:text-5xl">
               24/7
             </span>
-            <span className="mt-2 text-sm text-gray-500 md:text-base">
+            <span className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-500 md:text-base">
               Emergency Service
             </span>
           </div>
@@ -199,59 +199,60 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="wavy-bg py-16 md:py-24">
-        <div className="container mx-auto">
+      <section className="wavy-bg py-12 sm:py-16 md:py-20 lg:py-24">
+        <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-4" variant="outline">
               Our Services
             </Badge>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
               Comprehensive <span className="text-blue-600">Healthcare</span>{" "}
               Services
             </h2>
-            <p className="mt-4 max-w-[700px] text-muted-foreground">
+            <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
               We offer a wide range of medical services to meet your healthcare
               needs. Our team of specialists is dedicated to providing the
               highest quality care.
             </p>
           </div>
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <Card className="group overflow-hidden border-blue-100 transition-all duration-300 hover:border-blue-300 hover:shadow-lg">
               <div className="absolute right-4 top-4 rounded-full bg-blue-100 p-2 text-blue-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <ArrowRight className="h-4 w-4" />
               </div>
-              <CardHeader className="flex flex-row items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 transition-all duration-300 group-hover:bg-blue-600 group-hover:text-white">
-                  <HeartPulse className="h-7 w-7 text-blue-600 transition-colors duration-300 group-hover:text-white" />
+              <CardHeader className="flex flex-row items-center gap-3 sm:gap-4 p-4 sm:p-6">
+                <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-blue-100 transition-all duration-300 group-hover:bg-blue-600 group-hover:text-white">
+                  <HeartPulse className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 transition-colors duration-300 group-hover:text-white" />
                 </div>
-                <CardTitle>Cardiology</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Cardiology</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
+              <CardContent className="px-4 pb-2 sm:px-6 sm:pb-4">
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Comprehensive care for heart conditions with advanced
                   diagnostic and treatment options.
                 </p>
-                <ul className="mt-4 space-y-2">
-                  <li className="flex items-center gap-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-blue-600" />{" "}
+                <ul className="mt-3 sm:mt-4 space-y-1 sm:space-y-2">
+                  <li className="flex items-center gap-2 text-xs sm:text-sm">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />{" "}
                     Echocardiography
                   </li>
-                  <li className="flex items-center gap-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-blue-600" /> Cardiac
-                    Catheterization
+                  <li className="flex items-center gap-2 text-xs sm:text-sm">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />{" "}
+                    Cardiac Catheterization
                   </li>
-                  <li className="flex items-center gap-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-blue-600" />{" "}
+                  <li className="flex items-center gap-2 text-xs sm:text-sm">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />{" "}
                     Electrophysiology Studies
                   </li>
                 </ul>
               </CardContent>
-              <CardFooter>
+              <CardFooter className="px-4 pt-2 pb-4 sm:px-6 sm:pt-2 sm:pb-6">
                 <Link
                   href="/services/cardiology"
-                  className="flex items-center text-sm text-blue-600 hover:underline"
+                  className="flex items-center text-xs sm:text-sm text-blue-600 hover:underline"
                 >
-                  Learn More <ArrowRight className="ml-1 h-4 w-4" />
+                  Learn More{" "}
+                  <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
                 </Link>
               </CardFooter>
             </Card>
@@ -259,38 +260,39 @@ export default function Home() {
               <div className="absolute right-4 top-4 rounded-full bg-blue-100 p-2 text-blue-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <ArrowRight className="h-4 w-4" />
               </div>
-              <CardHeader className="flex flex-row items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 transition-all duration-300 group-hover:bg-blue-600 group-hover:text-white">
-                  <Stethoscope className="h-7 w-7 text-blue-600 transition-colors duration-300 group-hover:text-white" />
+              <CardHeader className="flex flex-row items-center gap-3 sm:gap-4 p-4 sm:p-6">
+                <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-blue-100 transition-all duration-300 group-hover:bg-blue-600 group-hover:text-white">
+                  <Stethoscope className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 transition-colors duration-300 group-hover:text-white" />
                 </div>
-                <CardTitle>Neurology</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Neurology</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
+              <CardContent className="px-4 pb-2 sm:px-6 sm:pb-4">
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Expert care for neurological disorders with state-of-the-art
                   diagnostic and therapeutic services.
                 </p>
-                <ul className="mt-4 space-y-2">
-                  <li className="flex items-center gap-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-blue-600" />{" "}
+                <ul className="mt-3 sm:mt-4 space-y-1 sm:space-y-2">
+                  <li className="flex items-center gap-2 text-xs sm:text-sm">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />{" "}
                     Electroencephalography (EEG)
                   </li>
-                  <li className="flex items-center gap-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-blue-600" />{" "}
+                  <li className="flex items-center gap-2 text-xs sm:text-sm">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />{" "}
                     Neuroimaging
                   </li>
-                  <li className="flex items-center gap-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-blue-600" />{" "}
+                  <li className="flex items-center gap-2 text-xs sm:text-sm">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />{" "}
                     Neurosurgical Procedures
                   </li>
                 </ul>
               </CardContent>
-              <CardFooter>
+              <CardFooter className="px-4 pt-2 pb-4 sm:px-6 sm:pt-2 sm:pb-6">
                 <Link
                   href="/services/neurology"
-                  className="flex items-center text-sm text-blue-600 hover:underline"
+                  className="flex items-center text-xs sm:text-sm text-blue-600 hover:underline"
                 >
-                  Learn More <ArrowRight className="ml-1 h-4 w-4" />
+                  Learn More{" "}
+                  <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
                 </Link>
               </CardFooter>
             </Card>
@@ -298,44 +300,48 @@ export default function Home() {
               <div className="absolute right-4 top-4 rounded-full bg-blue-100 p-2 text-blue-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <ArrowRight className="h-4 w-4" />
               </div>
-              <CardHeader className="flex flex-row items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 transition-all duration-300 group-hover:bg-blue-600 group-hover:text-white">
-                  <Users className="h-7 w-7 text-blue-600 transition-colors duration-300 group-hover:text-white" />
+              <CardHeader className="flex flex-row items-center gap-3 sm:gap-4 p-4 sm:p-6">
+                <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-blue-100 transition-all duration-300 group-hover:bg-blue-600 group-hover:text-white">
+                  <Users className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 transition-colors duration-300 group-hover:text-white" />
                 </div>
-                <CardTitle>Pediatrics</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Pediatrics</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
+              <CardContent className="px-4 pb-2 sm:px-6 sm:pb-4">
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Specialized healthcare for children from birth through
                   adolescence, focusing on their unique needs.
                 </p>
-                <ul className="mt-4 space-y-2">
-                  <li className="flex items-center gap-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-blue-600" /> Well-Child
-                    Visits
+                <ul className="mt-3 sm:mt-4 space-y-1 sm:space-y-2">
+                  <li className="flex items-center gap-2 text-xs sm:text-sm">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />{" "}
+                    Well-Child Visits
                   </li>
-                  <li className="flex items-center gap-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-blue-600" />{" "}
+                  <li className="flex items-center gap-2 text-xs sm:text-sm">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />{" "}
                     Immunizations
                   </li>
-                  <li className="flex items-center gap-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-blue-600" />{" "}
+                  <li className="flex items-center gap-2 text-xs sm:text-sm">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />{" "}
                     Developmental Assessments
                   </li>
                 </ul>
               </CardContent>
-              <CardFooter>
+              <CardFooter className="px-4 pt-2 pb-4 sm:px-6 sm:pt-2 sm:pb-6">
                 <Link
                   href="/services/pediatrics"
-                  className="flex items-center text-sm text-blue-600 hover:underline"
+                  className="flex items-center text-xs sm:text-sm text-blue-600 hover:underline"
                 >
-                  Learn More <ArrowRight className="ml-1 h-4 w-4" />
+                  Learn More{" "}
+                  <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
                 </Link>
               </CardFooter>
             </Card>
           </div>
-          <div className="mt-12 text-center">
-            <Button asChild className="bg-blue-600 hover:bg-blue-700">
+          <div className="mt-8 sm:mt-12 text-center">
+            <Button
+              asChild
+              className="bg-blue-600 hover:bg-blue-700 w-full sm:w-auto"
+            >
               <Link href="/services">
                 View All Services <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -345,21 +351,21 @@ export default function Home() {
       </section>
 
       {/* Featured Doctors Section */}
-      <section className="dots-bg py-16 md:py-24">
-        <div className="container mx-auto">
+      <section className="dots-bg py-12 sm:py-16 md:py-20 lg:py-24">
+        <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-4" variant="outline">
               Expert Team
             </Badge>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
               Meet Our <span className="text-blue-600">Specialists</span>
             </h2>
-            <p className="mt-4 max-w-[700px] text-muted-foreground">
+            <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
               Our team of experienced and dedicated doctors is committed to
               providing the highest quality care to our patients.
             </p>
           </div>
-          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <div className="group relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
               <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
               <div className="relative aspect-[3/4]">
@@ -370,30 +376,34 @@ export default function Home() {
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white opacity-0 transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
-                <h3 className="text-xl font-bold">Dr. Sarah Johnson</h3>
-                <p className="text-blue-200">Cardiology</p>
-                <div className="mt-3 flex gap-2">
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white opacity-0 transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+                <h3 className="text-lg sm:text-xl font-bold">
+                  Dr. Sarah Johnson
+                </h3>
+                <p className="text-sm text-blue-200">Cardiology</p>
+                <div className="mt-2 sm:mt-3 flex gap-2">
                   <Button
                     size="sm"
                     variant="secondary"
-                    className="bg-white/20 hover:bg-white/30"
+                    className="bg-white/20 hover:bg-white/30 text-xs sm:text-sm"
                     asChild
                   >
                     <Link href="/doctors/sarah-johnson">View Profile</Link>
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-blue-600 hover:bg-blue-700"
+                    className="bg-blue-600 hover:bg-blue-700 text-xs sm:text-sm"
                     asChild
                   >
                     <Link href="/appointment">Book</Link>
                   </Button>
                 </div>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-white p-4 transition-all duration-300 group-hover:translate-y-full">
-                <h3 className="text-lg font-bold">Dr. Sarah Johnson</h3>
-                <p className="text-sm text-blue-600">Cardiology</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-white p-3 sm:p-4 transition-all duration-300 group-hover:translate-y-full">
+                <h3 className="text-base sm:text-lg font-bold">
+                  Dr. Sarah Johnson
+                </h3>
+                <p className="text-xs sm:text-sm text-blue-600">Cardiology</p>
               </div>
             </div>
             <div className="group relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -406,30 +416,34 @@ export default function Home() {
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white opacity-0 transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
-                <h3 className="text-xl font-bold">Dr. Michael Chen</h3>
-                <p className="text-blue-200">Neurology</p>
-                <div className="mt-3 flex gap-2">
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white opacity-0 transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+                <h3 className="text-lg sm:text-xl font-bold">
+                  Dr. Michael Chen
+                </h3>
+                <p className="text-sm text-blue-200">Neurology</p>
+                <div className="mt-2 sm:mt-3 flex gap-2">
                   <Button
                     size="sm"
                     variant="secondary"
-                    className="bg-white/20 hover:bg-white/30"
+                    className="bg-white/20 hover:bg-white/30 text-xs sm:text-sm"
                     asChild
                   >
                     <Link href="/doctors/michael-chen">View Profile</Link>
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-blue-600 hover:bg-blue-700"
+                    className="bg-blue-600 hover:bg-blue-700 text-xs sm:text-sm"
                     asChild
                   >
                     <Link href="/appointment">Book</Link>
                   </Button>
                 </div>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-white p-4 transition-all duration-300 group-hover:translate-y-full">
-                <h3 className="text-lg font-bold">Dr. Michael Chen</h3>
-                <p className="text-sm text-blue-600">Neurology</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-white p-3 sm:p-4 transition-all duration-300 group-hover:translate-y-full">
+                <h3 className="text-base sm:text-lg font-bold">
+                  Dr. Michael Chen
+                </h3>
+                <p className="text-xs sm:text-sm text-blue-600">Neurology</p>
               </div>
             </div>
             <div className="group relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -442,35 +456,42 @@ export default function Home() {
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white opacity-0 transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
-                <h3 className="text-xl font-bold">Dr. Emily Rodriguez</h3>
-                <p className="text-blue-200">Pediatrics</p>
-                <div className="mt-3 flex gap-2">
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white opacity-0 transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+                <h3 className="text-lg sm:text-xl font-bold">
+                  Dr. Emily Rodriguez
+                </h3>
+                <p className="text-sm text-blue-200">Pediatrics</p>
+                <div className="mt-2 sm:mt-3 flex gap-2">
                   <Button
                     size="sm"
                     variant="secondary"
-                    className="bg-white/20 hover:bg-white/30"
+                    className="bg-white/20 hover:bg-white/30 text-xs sm:text-sm"
                     asChild
                   >
                     <Link href="/doctors/emily-rodriguez">View Profile</Link>
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-blue-600 hover:bg-blue-700"
+                    className="bg-blue-600 hover:bg-blue-700 text-xs sm:text-sm"
                     asChild
                   >
                     <Link href="/appointment">Book</Link>
                   </Button>
                 </div>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-white p-4 transition-all duration-300 group-hover:translate-y-full">
-                <h3 className="text-lg font-bold">Dr. Emily Rodriguez</h3>
-                <p className="text-sm text-blue-600">Pediatrics</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-white p-3 sm:p-4 transition-all duration-300 group-hover:translate-y-full">
+                <h3 className="text-base sm:text-lg font-bold">
+                  Dr. Emily Rodriguez
+                </h3>
+                <p className="text-xs sm:text-sm text-blue-600">Pediatrics</p>
               </div>
             </div>
           </div>
-          <div className="mt-12 text-center">
-            <Button asChild className="bg-blue-600 hover:bg-blue-700">
+          <div className="mt-8 sm:mt-12 text-center">
+            <Button
+              asChild
+              className="bg-blue-600 hover:bg-blue-700 w-full sm:w-auto"
+            >
               <Link href="/doctors">
                 View All Doctors <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -480,50 +501,54 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="bg-gradient-to-b from-white to-blue-50 py-16 md:py-24">
-        <div className="container mx-auto">
+      <section className="bg-gradient-to-b from-white to-blue-50 py-12 sm:py-16 md:py-20 lg:py-24">
+        <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-4" variant="outline">
               Testimonials
             </Badge>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
               What Our <span className="text-blue-600">Patients</span> Say
             </h2>
-            <p className="mt-4 max-w-[700px] text-muted-foreground">
+            <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
               Hear what our patients have to say about their experience at
               MediCare Hospital.
             </p>
           </div>
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <Card className="relative overflow-hidden border-none bg-white shadow-lg">
-              <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-blue-100/50"></div>
-              <div className="absolute -left-10 -top-10 h-20 w-20 rounded-full bg-blue-100/30"></div>
-              <CardHeader className="relative">
-                <div className="mb-2 text-4xl font-bold text-blue-200">
+              <div className="absolute -right-6 -top-6 h-16 w-16 sm:h-24 sm:w-24 rounded-full bg-blue-100/50"></div>
+              <div className="absolute -left-8 -top-8 h-14 w-14 sm:h-20 sm:w-20 rounded-full bg-blue-100/30"></div>
+              <CardHeader className="relative p-4 sm:p-6">
+                <div className="mb-2 text-3xl sm:text-4xl font-bold text-blue-200">
                   &quot;
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="h-14 w-14 overflow-hidden rounded-full bg-blue-100 ring-4 ring-blue-50">
-                    <div className="flex h-full w-full items-center justify-center bg-blue-600 text-xl font-bold text-white">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="h-10 w-10 sm:h-14 sm:w-14 overflow-hidden rounded-full bg-blue-100 ring-2 sm:ring-4 ring-blue-50">
+                    <div className="flex h-full w-full items-center justify-center bg-blue-600 text-base sm:text-xl font-bold text-white">
                       JD
                     </div>
                   </div>
                   <div>
-                    <CardTitle>John Doe</CardTitle>
-                    <CardDescription>Cardiology Patient</CardDescription>
+                    <CardTitle className="text-base sm:text-lg">
+                      John Doe
+                    </CardTitle>
+                    <CardDescription className="text-xs sm:text-sm">
+                      Cardiology Patient
+                    </CardDescription>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="relative">
-                <div className="flex pb-4">
+              <CardContent className="relative p-4 sm:p-6 pt-0 sm:pt-0">
+                <div className="flex pb-2 sm:pb-4">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
-                      className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                      className="h-3 w-3 sm:h-4 sm:w-4 fill-yellow-400 text-yellow-400"
                     />
                   ))}
                 </div>
-                <p className="text-muted-foreground">
+                <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
                   &quot;The care I received at MediCare Hospital was
                   exceptional. Dr. Johnson and her team were attentive,
                   professional, and compassionate. I highly recommend their
@@ -532,34 +557,38 @@ export default function Home() {
               </CardContent>
             </Card>
             <Card className="relative overflow-hidden border-none bg-white shadow-lg">
-              <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-blue-100/50"></div>
-              <div className="absolute -left-10 -top-10 h-20 w-20 rounded-full bg-blue-100/30"></div>
-              <CardHeader className="relative">
-                <div className="mb-2 text-4xl font-bold text-blue-200">
+              <div className="absolute -right-6 -top-6 h-16 w-16 sm:h-24 sm:w-24 rounded-full bg-blue-100/50"></div>
+              <div className="absolute -left-8 -top-8 h-14 w-14 sm:h-20 sm:w-20 rounded-full bg-blue-100/30"></div>
+              <CardHeader className="relative p-4 sm:p-6">
+                <div className="mb-2 text-3xl sm:text-4xl font-bold text-blue-200">
                   &quot;
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="h-14 w-14 overflow-hidden rounded-full bg-blue-100 ring-4 ring-blue-50">
-                    <div className="flex h-full w-full items-center justify-center bg-blue-600 text-xl font-bold text-white">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="h-10 w-10 sm:h-14 sm:w-14 overflow-hidden rounded-full bg-blue-100 ring-2 sm:ring-4 ring-blue-50">
+                    <div className="flex h-full w-full items-center justify-center bg-blue-600 text-base sm:text-xl font-bold text-white">
                       JS
                     </div>
                   </div>
                   <div>
-                    <CardTitle>Jane Smith</CardTitle>
-                    <CardDescription>Neurology Patient</CardDescription>
+                    <CardTitle className="text-base sm:text-lg">
+                      Jane Smith
+                    </CardTitle>
+                    <CardDescription className="text-xs sm:text-sm">
+                      Neurology Patient
+                    </CardDescription>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="relative">
-                <div className="flex pb-4">
+              <CardContent className="relative p-4 sm:p-6 pt-0 sm:pt-0">
+                <div className="flex pb-2 sm:pb-4">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
-                      className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                      className="h-3 w-3 sm:h-4 sm:w-4 fill-yellow-400 text-yellow-400"
                     />
                   ))}
                 </div>
-                <p className="text-muted-foreground">
+                <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
                   &quot;Dr. Chen&apos;s expertise and the hospital&apos;s
                   advanced technology made a significant difference in my
                   treatment. The staff was supportive throughout my recovery
@@ -568,34 +597,38 @@ export default function Home() {
               </CardContent>
             </Card>
             <Card className="relative overflow-hidden border-none bg-white shadow-lg">
-              <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-blue-100/50"></div>
-              <div className="absolute -left-10 -top-10 h-20 w-20 rounded-full bg-blue-100/30"></div>
-              <CardHeader className="relative">
-                <div className="mb-2 text-4xl font-bold text-blue-200">
+              <div className="absolute -right-6 -top-6 h-16 w-16 sm:h-24 sm:w-24 rounded-full bg-blue-100/50"></div>
+              <div className="absolute -left-8 -top-8 h-14 w-14 sm:h-20 sm:w-20 rounded-full bg-blue-100/30"></div>
+              <CardHeader className="relative p-4 sm:p-6">
+                <div className="mb-2 text-3xl sm:text-4xl font-bold text-blue-200">
                   &quot;
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="h-14 w-14 overflow-hidden rounded-full bg-blue-100 ring-4 ring-blue-50">
-                    <div className="flex h-full w-full items-center justify-center bg-blue-600 text-xl font-bold text-white">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="h-10 w-10 sm:h-14 sm:w-14 overflow-hidden rounded-full bg-blue-100 ring-2 sm:ring-4 ring-blue-50">
+                    <div className="flex h-full w-full items-center justify-center bg-blue-600 text-base sm:text-xl font-bold text-white">
                       RB
                     </div>
                   </div>
                   <div>
-                    <CardTitle>Robert Brown</CardTitle>
-                    <CardDescription>Pediatrics Patient</CardDescription>
+                    <CardTitle className="text-base sm:text-lg">
+                      Robert Brown
+                    </CardTitle>
+                    <CardDescription className="text-xs sm:text-sm">
+                      Pediatrics Patient
+                    </CardDescription>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="relative">
-                <div className="flex pb-4">
+              <CardContent className="relative p-4 sm:p-6 pt-0 sm:pt-0">
+                <div className="flex pb-2 sm:pb-4">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
-                      className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                      className="h-3 w-3 sm:h-4 sm:w-4 fill-yellow-400 text-yellow-400"
                     />
                   ))}
                 </div>
-                <p className="text-muted-foreground">
+                <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
                   &quot;As a parent, I appreciate the care and attention Dr.
                   Rodriguez provided to my child. The pediatric department is
                   child-friendly and the staff is incredibly patient and
@@ -608,39 +641,43 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden bg-blue-600 py-16 md:py-24">
+      <section className="relative overflow-hidden bg-blue-600 py-12 sm:py-16 md:py-20 lg:py-24">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute -left-20 -top-20 h-[500px] w-[500px] rounded-full bg-white blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-blue-300 blur-3xl"></div>
+          <div className="absolute -left-20 -top-20 h-[300px] w-[300px] sm:h-[500px] sm:w-[500px] rounded-full bg-white blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 h-[300px] w-[300px] sm:h-[500px] sm:w-[500px] rounded-full bg-blue-300 blur-3xl"></div>
         </div>
-        <div className="container mx-auto relative z-10">
-          <div className="mx-auto max-w-3xl rounded-3xl bg-white/10 p-8 backdrop-blur-sm md:p-12">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="mx-auto max-w-3xl rounded-2xl sm:rounded-3xl bg-white/10 p-4 sm:p-8 md:p-12 backdrop-blur-sm">
             <div className="flex flex-col items-center text-center">
-              <h2 className="text-3xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl">
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter text-white md:text-4xl lg:text-5xl">
                 Ready to Schedule an Appointment?
               </h2>
-              <p className="mt-4 max-w-[700px] text-blue-100">
+              <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-blue-100">
                 Our team of healthcare professionals is ready to provide you
                 with the care you need. Schedule an appointment today.
               </p>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row w-full sm:w-auto gap-3 sm:gap-4">
                 <Button
                   size="lg"
                   asChild
-                  className="bg-white text-blue-700 hover:bg-white/90"
+                  className="bg-white text-blue-700 hover:bg-white/90 w-full sm:w-auto"
                 >
                   <Link href="/appointment">
-                    Book Appointment <Calendar className="ml-2 h-5 w-5" />
+                    Book Appointment{" "}
+                    <Calendar className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                   </Link>
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-white text-white hover:bg-white/10"
+                  className="border-white text-white hover:bg-white/10 w-full sm:w-auto"
                 >
-                  <Link href="/contact" className="flex items-center gap-2">
-                    <Phone className="h-5 w-5" /> Call Us
+                  <Link
+                    href="/contact"
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <Phone className="h-4 w-4 sm:h-5 sm:w-5" /> Call Us
                   </Link>
                 </Button>
               </div>
@@ -650,67 +687,75 @@ export default function Home() {
       </section>
 
       {/* Working Hours Section */}
-      <section className="container mx-auto py-16 md:py-24">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <section className="container mx-auto px-4 py-12 sm:py-16 md:py-20 lg:py-24">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
           <div>
-            <Badge className="mb-4" variant="outline">
+            <Badge className="mb-3 sm:mb-4" variant="outline">
               Working Hours
             </Badge>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl">
               <span className="text-blue-600">When</span> We&apos;re Available
             </h2>
-            <p className="mt-4 text-muted-foreground">
+            <p className="mt-2 sm:mt-4 text-sm sm:text-base text-muted-foreground">
               Our hospital is open 24/7 for emergencies. Regular department
               hours are listed below.
             </p>
-            <div className="mt-8 space-y-4">
-              <div className="flex items-center justify-between rounded-lg border border-blue-100 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                    <Clock className="h-5 w-5 text-blue-600" />
+            <div className="mt-6 sm:mt-8 space-y-3 sm:space-y-4">
+              <div className="flex items-center justify-between rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-blue-100">
+                    <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
                   </div>
-                  <span className="font-medium">Monday - Friday</span>
+                  <span className="text-sm sm:text-base font-medium">
+                    Monday - Friday
+                  </span>
                 </div>
-                <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700">
+                <span className="rounded-full bg-blue-50 px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm font-medium text-blue-700">
                   8:00 AM - 8:00 PM
                 </span>
               </div>
-              <div className="flex items-center justify-between rounded-lg border border-blue-100 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                    <Clock className="h-5 w-5 text-blue-600" />
+              <div className="flex items-center justify-between rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-blue-100">
+                    <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
                   </div>
-                  <span className="font-medium">Saturday</span>
+                  <span className="text-sm sm:text-base font-medium">
+                    Saturday
+                  </span>
                 </div>
-                <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700">
+                <span className="rounded-full bg-blue-50 px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm font-medium text-blue-700">
                   9:00 AM - 6:00 PM
                 </span>
               </div>
-              <div className="flex items-center justify-between rounded-lg border border-blue-100 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                    <Clock className="h-5 w-5 text-blue-600" />
+              <div className="flex items-center justify-between rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-blue-100">
+                    <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
                   </div>
-                  <span className="font-medium">Sunday</span>
+                  <span className="text-sm sm:text-base font-medium">
+                    Sunday
+                  </span>
                 </div>
-                <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700">
+                <span className="rounded-full bg-blue-50 px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm font-medium text-blue-700">
                   10:00 AM - 4:00 PM
                 </span>
               </div>
-              <div className="flex items-center justify-between rounded-lg border border-blue-100 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                    <Clock className="h-5 w-5 text-blue-600" />
+              <div className="flex items-center justify-between rounded-lg border border-blue-100 bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-blue-100">
+                    <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
                   </div>
-                  <span className="font-medium">Emergency Services</span>
+                  <span className="text-sm sm:text-base font-medium">
+                    Emergency Services
+                  </span>
                 </div>
-                <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700">
+                <span className="rounded-full bg-blue-50 px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm font-medium text-blue-700">
                   24/7
                 </span>
               </div>
             </div>
           </div>
-          <div className="relative h-[400px] overflow-hidden rounded-2xl md:h-auto">
+          <div className="relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] overflow-hidden rounded-xl sm:rounded-2xl mt-6 sm:mt-0">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent"></div>
             <Image
               src="/placeholder.svg?height=600&width=800&text=Hospital"
@@ -718,15 +763,18 @@ export default function Home() {
               fill
               className="object-cover"
             />
-            <div className="absolute bottom-8 left-8 max-w-xs rounded-xl bg-white/90 p-6 backdrop-blur-sm">
-              <h3 className="text-xl font-bold text-blue-700">
+            <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 max-w-[220px] sm:max-w-xs rounded-lg sm:rounded-xl bg-white/90 p-4 sm:p-6 backdrop-blur-sm">
+              <h3 className="text-base sm:text-xl font-bold text-blue-700">
                 Visit Our Facility
               </h3>
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">
                 Our state-of-the-art facility is equipped with the latest
                 medical technology to provide the best care possible.
               </p>
-              <Button className="mt-4 bg-blue-600 hover:bg-blue-700" asChild>
+              <Button
+                className="mt-2 sm:mt-4 bg-blue-600 hover:bg-blue-700 w-full sm:w-auto text-xs sm:text-sm"
+                asChild
+              >
                 <Link href="/contact">Get Directions</Link>
               </Button>
             </div>
