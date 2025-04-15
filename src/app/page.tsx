@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  Clock,
   HeartPulse,
   Stethoscope,
   Users,
@@ -30,16 +29,16 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#1f6fad] via-[#2a80c5] to-[#1f6fad] py-16 sm:py-20 md:py-28 lg:py-32">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute -left-20 -top-20 h-[500px] w-[500px] rounded-full bg-[#7fcbff] blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-[#329ff2] blur-3xl"></div>
+      <section className="relative overflow-hidden bg-white py-16 sm:py-20 md:py-28 lg:py-32">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute -left-20 -top-20 h-[500px] w-[500px] rounded-full bg-[#329ff2] blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-[#1f6fad] blur-3xl"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid gap-8 md:gap-12 md:grid-cols-2 md:items-center">
-            <div className="flex flex-col space-y-4 sm:space-y-6 text-white">
+            <div className="flex flex-col space-y-4 sm:space-y-6 text-[#1f6fad]">
               <Badge
-                className="w-fit bg-white/10 text-white hover:bg-white/20"
+                className="w-fit bg-[#e5f5ff] text-[#329ff2] hover:bg-[#d0ebff]"
                 variant="secondary"
               >
                 Leading Healthcare Provider
@@ -48,7 +47,7 @@ export default function Home() {
                 Your Health Is Our{" "}
                 <span className="gradient-text">Priority</span>
               </h1>
-              <p className="max-w-[600px] text-base sm:text-lg text-[#a9dbff] md:text-xl">
+              <p className="max-w-[600px] text-base sm:text-lg text-gray-600 md:text-xl">
                 Providing exceptional healthcare services with compassion and
                 excellence. Our team of expert doctors is committed to your
                 well-being.
@@ -57,7 +56,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   asChild
-                  className="bg-white text-[#329ff2] hover:bg-white/90 w-full sm:w-auto"
+                  className="bg-[#329ff2] text-white hover:bg-[#1e8ddd] w-full sm:w-auto"
                 >
                   <Link href="/doctors">
                     Meet Our Doctors <ChevronRight className="ml-2 h-4 w-4" />
@@ -67,7 +66,7 @@ export default function Home() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-white text-white hover:bg-white/10 w-full sm:w-auto"
+                  className="border-[#329ff2] text-[#329ff2] hover:bg-[#e5f5ff] w-full sm:w-auto"
                 >
                   <Link href="/appointment">Book Appointment</Link>
                 </Button>
@@ -77,10 +76,10 @@ export default function Home() {
                   {[1, 2, 3, 4].map((i) => (
                     <div
                       key={i}
-                      className="h-8 w-8 sm:h-10 sm:w-10 overflow-hidden rounded-full border-2 border-white"
+                      className="h-8 w-8 sm:h-10 sm:w-10 overflow-hidden rounded-full border-2 border-[#e5f5ff]"
                     >
                       <Image
-                        src={`/placeholder.svg?height=40&width=40&text=${i}`}
+                        src={`/600x600.svg`}
                         alt={`Doctor ${i}`}
                         width={40}
                         height={40}
@@ -98,7 +97,7 @@ export default function Home() {
                       />
                     ))}
                   </div>
-                  <span className="text-xs sm:text-sm font-medium">
+                  <span className="text-xs sm:text-sm font-medium text-gray-600">
                     <span className="font-bold">4.9</span> (2.5k+ reviews)
                   </span>
                 </div>
@@ -106,10 +105,10 @@ export default function Home() {
             </div>
             <div className="relative mx-auto md:ml-auto mt-8 md:mt-0">
               <div className="relative h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] md:h-[350px] md:w-[350px] lg:h-[400px] lg:w-[400px] animate-float">
-                <div className="absolute left-0 top-0 h-full w-full rounded-full bg-[#329ff2]/20 blur-3xl"></div>
-                <div className="blob-shape relative h-full w-full overflow-hidden border-8 border-white/10 bg-gradient-to-br from-[#7fcbff] to-[#329ff2]">
+                <div className="absolute left-0 top-0 h-full w-full rounded-full bg-[#329ff2]/10 blur-3xl"></div>
+                <div className="blob-shape relative h-full w-full overflow-hidden border-8 border-[#e5f5ff] bg-gradient-to-br from-[#7fcbff] to-[#329ff2]">
                   <Image
-                    src="/placeholder.svg?height=600&width=600&text=Doctor"
+                    src="/600x600.svg"
                     alt="Doctor"
                     fill
                     className="h-full w-full object-cover opacity-90 mix-blend-overlay"
@@ -152,7 +151,7 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path
-              fill="#ffffff"
+              fill="#f7fafc"
               fillOpacity="1"
               d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,224C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
             ></path>
@@ -681,102 +680,6 @@ export default function Home() {
                   </Link>
                 </Button>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Working Hours Section */}
-      <section className="container mx-auto px-4 py-12 sm:py-16 md:py-20 lg:py-24">
-        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
-          <div>
-            <Badge className="mb-3 sm:mb-4" variant="outline">
-              Working Hours
-            </Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl">
-              <span className="text-[#329ff2]">When</span> We&apos;re Available
-            </h2>
-            <p className="mt-2 sm:mt-4 text-sm sm:text-base text-muted-foreground">
-              Our hospital is open 24/7 for emergencies. Regular department
-              hours are listed below.
-            </p>
-            <div className="mt-6 sm:mt-8 space-y-3 sm:space-y-4">
-              <div className="flex items-center justify-between rounded-lg border border-[#e5f5ff] bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-[#7fcbff] hover:shadow-md">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#e5f5ff]">
-                    <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />
-                  </div>
-                  <span className="text-sm sm:text-base font-medium">
-                    Monday - Friday
-                  </span>
-                </div>
-                <span className="rounded-full bg-[#f0f9ff] px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm font-medium text-[#329ff2]">
-                  8:00 AM - 8:00 PM
-                </span>
-              </div>
-              <div className="flex items-center justify-between rounded-lg border border-[#e5f5ff] bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-[#7fcbff] hover:shadow-md">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#e5f5ff]">
-                    <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />
-                  </div>
-                  <span className="text-sm sm:text-base font-medium">
-                    Saturday
-                  </span>
-                </div>
-                <span className="rounded-full bg-[#f0f9ff] px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm font-medium text-[#329ff2]">
-                  9:00 AM - 6:00 PM
-                </span>
-              </div>
-              <div className="flex items-center justify-between rounded-lg border border-[#e5f5ff] bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-[#7fcbff] hover:shadow-md">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#e5f5ff]">
-                    <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />
-                  </div>
-                  <span className="text-sm sm:text-base font-medium">
-                    Sunday
-                  </span>
-                </div>
-                <span className="rounded-full bg-[#f0f9ff] px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm font-medium text-[#329ff2]">
-                  10:00 AM - 4:00 PM
-                </span>
-              </div>
-              <div className="flex items-center justify-between rounded-lg border border-[#e5f5ff] bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-[#7fcbff] hover:shadow-md">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#e5f5ff]">
-                    <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />
-                  </div>
-                  <span className="text-sm sm:text-base font-medium">
-                    Emergency Services
-                  </span>
-                </div>
-                <span className="rounded-full bg-[#f0f9ff] px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm font-medium text-[#329ff2]">
-                  24/7
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] overflow-hidden rounded-xl sm:rounded-2xl mt-6 sm:mt-0">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#329ff2]/20 to-transparent"></div>
-            <Image
-              src="/placeholder.svg?height=600&width=800&text=Hospital"
-              alt="Hospital Building"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 max-w-[220px] sm:max-w-xs rounded-lg sm:rounded-xl bg-white/90 p-4 sm:p-6 backdrop-blur-sm">
-              <h3 className="text-base sm:text-xl font-bold text-[#329ff2]">
-                Visit Our Facility
-              </h3>
-              <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">
-                Our state-of-the-art facility is equipped with the latest
-                medical technology to provide the best care possible.
-              </p>
-              <Button
-                className="mt-2 sm:mt-4 bg-[#329ff2] hover:bg-[#1e8ddd] w-full sm:w-auto text-xs sm:text-sm"
-                asChild
-              >
-                <Link href="/contact">Get Directions</Link>
-              </Button>
             </div>
           </div>
         </div>
