@@ -12,6 +12,11 @@ import {
   Calendar,
   Shield,
   Activity,
+  MapIcon,
+  ExternalLink,
+  Mail,
+  Instagram,
+  Facebook,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -639,6 +644,128 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Location Section */}
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center text-center">
+            <Badge className="mb-4" variant="outline">
+              Our Location
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
+              Visit Our <span className="text-[#329ff2]">Medical Center</span>
+            </h2>
+            <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
+              We are conveniently located in Medan City. Feel free to visit us
+              or get in touch for more information.
+            </p>
+          </div>
+
+          <div className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="flex flex-col h-full justify-center">
+              <div className="bg-white rounded-xl p-6 shadow-lg border border-[#e5f5ff]">
+                <h3 className="text-xl sm:text-2xl font-bold text-[#1f6fad] mb-4">
+                  Our Address
+                </h3>
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#e5f5ff]">
+                    <MapIcon className="h-4 w-4 text-[#329ff2]" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-base">
+                      Uniland Plaza, LT 2 (MEDISGO)
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Jl. M. T. Haryono, Gg. Buntu, Kec. Medan Tim.,
+                      <br />
+                      Kota Medan, Sumatera Utara 20212, Indonesia
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#e5f5ff]">
+                    <Phone className="h-4 w-4 text-[#329ff2]" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-base">Contact Numbers</p>
+                    <div className="text-sm text-muted-foreground mt-1 space-y-1">
+                      <p>+62 811-6380-895</p>
+                      <p>+62 811-6302-188</p>
+                      <p>+62 821-6005-7765</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#e5f5ff]">
+                    <Mail className="h-4 w-4 text-[#329ff2]" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-base">Email</p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      <a
+                        href="mailto:ask@medisgo.com"
+                        className="hover:text-[#329ff2]"
+                      >
+                        ask@medisgo.com
+                      </a>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex flex-col gap-4">
+                  <div>
+                    <p className="font-medium text-base mb-2">Follow Us</p>
+                    <div className="flex gap-3">
+                      <Link
+                        href="https://www.instagram.com/medisgo.official/"
+                        target="_blank"
+                        className="flex items-center justify-center h-8 w-8 rounded-full bg-[#e5f5ff] hover:bg-[#329ff2] group"
+                      >
+                        <Instagram className="h-4 w-4 text-[#329ff2] group-hover:text-white" />
+                      </Link>
+                      <Link
+                        href="https://www.facebook.com/medisgo.official/"
+                        target="_blank"
+                        className="flex items-center justify-center h-8 w-8 rounded-full bg-[#e5f5ff] hover:bg-[#329ff2] group"
+                      >
+                        <Facebook className="h-4 w-4 text-[#329ff2] group-hover:text-white" />
+                      </Link>
+                    </div>
+                  </div>
+
+                  <Button
+                    asChild
+                    className="bg-[#329ff2] hover:bg-[#1e8ddd] w-full sm:w-auto"
+                  >
+                    <Link
+                      href="https://maps.google.com/?q=Uniland+Plaza,+Medan+Indonesia"
+                      target="_blank"
+                    >
+                      Get Directions <ExternalLink className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <div className="h-[300px] sm:h-[400px] md:h-[450px] rounded-xl overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.0822428727146!2d98.67566507575791!3d3.5796501505888383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x303131c939e7adc3%3A0xbf7f57a65eb28131!2sUniland%20Plaza!5e0!3m2!1sen!2sid!4v1714490705090!5m2!1sen!2sid"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="rounded-xl"
+                title="Medisgo Location Map"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="relative overflow-hidden bg-[#329ff2] py-12 sm:py-16 md:py-20 lg:py-24">
         <div className="absolute inset-0 opacity-10">
@@ -680,6 +807,36 @@ export default function Home() {
                   </Link>
                 </Button>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Public Holiday Section */}
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center text-center">
+            <Badge className="mb-4" variant="outline">
+              Important Notice
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
+              Public <span className="text-[#329ff2]">Holiday</span> Schedule
+            </h2>
+            <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground mb-8">
+              Please note our adjusted operational hours during public holidays.
+              Emergency services remain available 24/7.
+            </p>
+          </div>
+
+          <div className="rounded-xl overflow-hidden shadow-lg mx-auto max-w-4xl">
+            <div className="relative">
+              <Image
+                src="/ph_2025.jpg"
+                alt="Public Holiday Schedule"
+                width={1200}
+                height={600}
+                className="w-full object-cover"
+              />
             </div>
           </div>
         </div>

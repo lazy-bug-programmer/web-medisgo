@@ -227,6 +227,222 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Services at your finger section */}
+      <section className="container mx-auto px-4 py-12 md:py-16">
+        <div className="flex flex-col items-center text-center">
+          <h2 className="text-3xl font-bold tracking-tighter text-[#329ff2] sm:text-4xl">
+            Services At Your Fingertips
+          </h2>
+          <p className="mt-4 max-w-[700px] text-muted-foreground">
+            Quick access to our most requested services and information
+          </p>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
+          <div className="flex flex-col items-center text-center">
+            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
+              <Calendar className="h-12 w-12 text-white" />
+            </div>
+            <h3 className="mb-2 font-semibold">
+              Doctor Schedule & Appointments
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Check doctor schedules and make appointments
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center">
+            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-12 w-12 text-white"
+              >
+                <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0" />
+                <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2" />
+                <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8" />
+                <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" />
+              </svg>
+            </div>
+            <h3 className="mb-2 font-semibold">Hospital Ready Team</h3>
+            <p className="text-sm text-muted-foreground">
+              Support staff ready at the hospital to assist you
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center">
+            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-12 w-12 text-white"
+              >
+                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.6-.4-1-1-1h-2V7c0-1.1-.9-2-2-2H7C5.9 5 5 5.9 5 7v5H3c-.6 0-1 .4-1 1v3c0 .6.4 1 1 1h2" />
+                <circle cx="7" cy="17" r="2" />
+                <path d="M9 17h6" />
+                <circle cx="17" cy="17" r="2" />
+              </svg>
+            </div>
+            <h3 className="mb-2 font-semibold">Airport Transfer Service</h3>
+            <p className="text-sm text-muted-foreground">
+              Free pickup service from airport to hospital
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center">
+            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-12 w-12 text-white"
+              >
+                <path d="M19 3v12h-5c-.023-3.681.184-7.406 5-12zm0 12v6h-1v-6h1zm-6 0v6h-2v-6h2zm-3 0v6h-1v-6h1zm-5-12v12h-5v-12h5zm0 0c-3.333 5.333-5 9-5 12v-12h5z" />
+              </svg>
+            </div>
+            <h3 className="mb-2 font-semibold">Hotel & Flight Booking</h3>
+            <p className="text-sm text-muted-foreground">
+              Assistance with hotel and flight reservations
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center">
+            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-12 w-12 text-white"
+              >
+                <path d="M9 10h.01" />
+                <path d="M15 10h.01" />
+                <path d="M12 18H9c-1 0-1.8-.6-2-1.5L5 10h14l-2 6.5c-.2.9-1 1.5-2 1.5h-3Z" />
+                <path d="M5 10V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4" />
+              </svg>
+            </div>
+            <h3 className="mb-2 font-semibold">Insurance Claim Status</h3>
+            <p className="text-sm text-muted-foreground">
+              Check the status of your insurance claims
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center">
+            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-12 w-12 text-white"
+              >
+                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                <path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4" />
+                <path d="M11 21H7a2 2 0 0 1-2-2v-6" />
+                <path d="M9 18h12" />
+                <path d="m9 15 3 3-3 3" />
+              </svg>
+            </div>
+            <h3 className="mb-2 font-semibold">
+              Document & Medication Delivery
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Collection and delivery of documents and medications
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center">
+            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-12 w-12 text-white"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                <circle cx="12" cy="16" r="1" />
+              </svg>
+            </div>
+            <h3 className="mb-2 font-semibold">Visa Extension & Management</h3>
+            <p className="text-sm text-muted-foreground">
+              Assistance with visa extension and arrangements
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center">
+            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-12 w-12 text-white"
+              >
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                <path d="m15 9 5-5" />
+                <path d="M19.5 4.5h-5v5" />
+              </svg>
+            </div>
+            <h3 className="mb-2 font-semibold">Medical Evacuation Flights</h3>
+            <p className="text-sm text-muted-foreground">
+              Arrangement of medical evacuation flights
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center">
+            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-12 w-12 text-white"
+              >
+                <path d="M16 22h2c.5 0 1-.2 1.4-.6.4-.4.6-.9.6-1.4V7.5L14.5 2H6c-.5 0-1 .2-1.4.6C4.2 3 4 3.5 4 4v3" />
+                <polyline points="14 2 14 8 20 8" />
+                <circle cx="7" cy="17" r="5" />
+                <path d="m11 17-4-2v4" />
+              </svg>
+            </div>
+            <h3 className="mb-2 font-semibold">Hospital Follow-up Team</h3>
+            <p className="text-sm text-muted-foreground">
+              Team follow-up support during hospital stay
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Services Section */}
       <section className="container mx-auto px-4 py-12 md:py-24">
         <div className="flex flex-col items-center text-center">

@@ -282,6 +282,39 @@ export default function DoctorsPage() {
           </div>
         </div>
       </div>
+
+      {/* Hospital Partners Section */}
+      <div className="bg-[#f0f9ff] py-8 sm:py-12 md:py-16">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-col items-center text-center">
+            <Badge className="mb-3 sm:mb-4" variant="outline">
+              Working Together
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl mb-3 sm:mb-4">
+              Our Hospital <span className="text-[#329ff2]">Partners</span>
+            </h2>
+            <p className="max-w-[700px] text-sm sm:text-base text-muted-foreground mb-8 sm:mb-10">
+              We collaborate with leading healthcare institutions in Malaysia to
+              ensure you receive the best medical care available.
+            </p>
+          </div>
+
+          {/* Single featured hospital partners image */}
+          <div className="max-w-4xl mx-auto">
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <div className="w-full">
+                <Image
+                  src="/latest_partners.jpg"
+                  alt="Hospital Partners"
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
