@@ -9,7 +9,6 @@ import {
   Star,
   CheckCircle,
   ChevronRight,
-  Calendar,
   Shield,
   Activity,
   MapIcon,
@@ -46,16 +45,16 @@ export default function Home() {
                 className="w-fit bg-[#e5f5ff] text-[#329ff2] hover:bg-[#d0ebff]"
                 variant="secondary"
               >
-                Leading Healthcare Provider
+                Penyedia Layanan Kesehatan Terkemuka
               </Badge>
               <h1 className="text-3xl sm:text-4xl font-bold tracking-tighter md:text-5xl lg:text-6xl xl:text-7xl">
-                Your Health Is Our{" "}
-                <span className="gradient-text">Priority</span>
+                Kesehatan Anda Adalah{" "}
+                <span className="gradient-text">Prioritas Kami</span>
               </h1>
               <p className="max-w-[600px] text-base sm:text-lg text-gray-600 md:text-xl">
-                Providing exceptional healthcare services with compassion and
-                excellence. Our team of expert doctors is committed to your
-                well-being.
+                Menyediakan layanan kesehatan yang luar biasa dengan kasih
+                sayang dan keunggulan. Tim dokter ahli kami berkomitmen untuk
+                kesejahteraan Anda.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                 <Button
@@ -64,7 +63,7 @@ export default function Home() {
                   className="bg-[#329ff2] text-white hover:bg-[#1e8ddd] w-full sm:w-auto"
                 >
                   <Link href="/doctors">
-                    Meet Our Doctors <ChevronRight className="ml-2 h-4 w-4" />
+                    Temui Dokter Kami <ChevronRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
                 <Button
@@ -73,7 +72,7 @@ export default function Home() {
                   asChild
                   className="border-[#329ff2] text-[#329ff2] hover:bg-[#e5f5ff] w-full sm:w-auto"
                 >
-                  <Link href="/appointment">Book Appointment</Link>
+                  <Link href="/appointment">Buat Janji Temu</Link>
                 </Button>
               </div>
               <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2 sm:pt-4">
@@ -85,7 +84,7 @@ export default function Home() {
                     >
                       <Image
                         src={`/600x600.svg`}
-                        alt={`Doctor ${i}`}
+                        alt={`Dokter ${i}`}
                         width={40}
                         height={40}
                         className="h-full w-full object-cover"
@@ -103,7 +102,7 @@ export default function Home() {
                     ))}
                   </div>
                   <span className="text-xs sm:text-sm font-medium text-gray-600">
-                    <span className="font-bold">4.9</span> (2.5k+ reviews)
+                    <span className="font-bold">4.9</span> (2.5k+ ulasan)
                   </span>
                 </div>
               </div>
@@ -114,7 +113,7 @@ export default function Home() {
                 <div className="blob-shape relative h-full w-full overflow-hidden border-8 border-[#e5f5ff] bg-gradient-to-br from-[#7fcbff] to-[#329ff2]">
                   <Image
                     src="/600x600.svg"
-                    alt="Doctor"
+                    alt="Dokter"
                     fill
                     className="h-full w-full object-cover opacity-90 mix-blend-overlay"
                   />
@@ -127,10 +126,10 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="text-xs sm:text-sm font-medium text-gray-500">
-                      Emergency Service
+                      Layanan Darurat
                     </p>
                     <p className="text-sm sm:text-lg font-bold text-[#329ff2]">
-                      24/7 Available
+                      Tersedia 24/7
                     </p>
                   </div>
                 </div>
@@ -142,10 +141,10 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="text-xs sm:text-sm font-medium text-gray-500">
-                      Trusted Care
+                      Perawatan Terpercaya
                     </p>
                     <p className="text-sm sm:text-lg font-bold text-[#329ff2]">
-                      Since 1985
+                      Sejak 1985
                     </p>
                   </div>
                 </div>
@@ -172,7 +171,7 @@ export default function Home() {
               35+
             </span>
             <span className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-500 md:text-base">
-              Experienced Doctors
+              Dokter Berpengalaman
             </span>
           </div>
           <div className="flex flex-col items-center justify-center text-center p-3">
@@ -180,7 +179,7 @@ export default function Home() {
               15k+
             </span>
             <span className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-500 md:text-base">
-              Satisfied Patients
+              Pasien Puas
             </span>
           </div>
           <div className="flex flex-col items-center justify-center text-center p-3">
@@ -188,7 +187,7 @@ export default function Home() {
               12+
             </span>
             <span className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-500 md:text-base">
-              Medical Specialties
+              Spesialisasi Medis
             </span>
           </div>
           <div className="flex flex-col items-center justify-center text-center p-3">
@@ -196,7 +195,7 @@ export default function Home() {
               24/7
             </span>
             <span className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-500 md:text-base">
-              Emergency Service
+              Layanan Darurat
             </span>
           </div>
         </div>
@@ -207,16 +206,16 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-4" variant="outline">
-              Our Services
+              Layanan Kami
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Comprehensive <span className="text-[#329ff2]">Healthcare</span>{" "}
-              Services
+              Layanan <span className="text-[#329ff2]">Kesehatan</span>{" "}
+              Komprehensif
             </h2>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
-              We offer a wide range of medical services to meet your healthcare
-              needs. Our team of specialists is dedicated to providing the
-              highest quality care.
+              Kami menawarkan berbagai layanan medis untuk memenuhi kebutuhan
+              perawatan kesehatan Anda. Tim spesialis kami berdedikasi untuk
+              memberikan perawatan dengan kualitas tertinggi.
             </p>
           </div>
           <div className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -228,25 +227,25 @@ export default function Home() {
                 <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#e5f5ff] transition-all duration-300 group-hover:bg-[#329ff2] group-hover:text-white">
                   <HeartPulse className="h-6 w-6 sm:h-7 sm:w-7 text-[#329ff2] transition-colors duration-300 group-hover:text-white" />
                 </div>
-                <CardTitle className="text-lg sm:text-xl">Cardiology</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Kardiologi</CardTitle>
               </CardHeader>
               <CardContent className="px-4 pb-2 sm:px-6 sm:pb-4">
                 <p className="text-sm sm:text-base text-muted-foreground">
-                  Comprehensive care for heart conditions with advanced
-                  diagnostic and treatment options.
+                  Perawatan komprehensif untuk kondisi jantung dengan pilihan
+                  diagnostik dan pengobatan canggih.
                 </p>
                 <ul className="mt-3 sm:mt-4 space-y-1 sm:space-y-2">
                   <li className="flex items-center gap-2 text-xs sm:text-sm">
                     <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />{" "}
-                    Echocardiography
+                    Ekokardiografi
                   </li>
                   <li className="flex items-center gap-2 text-xs sm:text-sm">
                     <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />{" "}
-                    Cardiac Catheterization
+                    Kateterisasi Jantung
                   </li>
                   <li className="flex items-center gap-2 text-xs sm:text-sm">
                     <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />{" "}
-                    Electrophysiology Studies
+                    Studi Elektrofisiologi
                   </li>
                 </ul>
               </CardContent>
@@ -255,7 +254,7 @@ export default function Home() {
                   href="/services/cardiology"
                   className="flex items-center text-xs sm:text-sm text-[#329ff2] hover:underline"
                 >
-                  Learn More{" "}
+                  Pelajari Lebih Lanjut{" "}
                   <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
                 </Link>
               </CardFooter>
@@ -268,25 +267,25 @@ export default function Home() {
                 <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#e5f5ff] transition-all duration-300 group-hover:bg-[#329ff2] group-hover:text-white">
                   <Stethoscope className="h-6 w-6 sm:h-7 sm:w-7 text-[#329ff2] transition-colors duration-300 group-hover:text-white" />
                 </div>
-                <CardTitle className="text-lg sm:text-xl">Neurology</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Neurologi</CardTitle>
               </CardHeader>
               <CardContent className="px-4 pb-2 sm:px-6 sm:pb-4">
                 <p className="text-sm sm:text-base text-muted-foreground">
-                  Expert care for neurological disorders with state-of-the-art
-                  diagnostic and therapeutic services.
+                  Perawatan ahli untuk gangguan neurologis dengan layanan
+                  diagnostik dan terapi canggih.
                 </p>
                 <ul className="mt-3 sm:mt-4 space-y-1 sm:space-y-2">
                   <li className="flex items-center gap-2 text-xs sm:text-sm">
                     <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />{" "}
-                    Electroencephalography (EEG)
+                    Elektroensefalografi (EEG)
                   </li>
                   <li className="flex items-center gap-2 text-xs sm:text-sm">
                     <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />{" "}
-                    Neuroimaging
+                    Pencitraan Saraf
                   </li>
                   <li className="flex items-center gap-2 text-xs sm:text-sm">
                     <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />{" "}
-                    Neurosurgical Procedures
+                    Prosedur Bedah Saraf
                   </li>
                 </ul>
               </CardContent>
@@ -295,7 +294,7 @@ export default function Home() {
                   href="/services/neurology"
                   className="flex items-center text-xs sm:text-sm text-[#329ff2] hover:underline"
                 >
-                  Learn More{" "}
+                  Pelajari Lebih Lanjut{" "}
                   <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
                 </Link>
               </CardFooter>
@@ -308,25 +307,25 @@ export default function Home() {
                 <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#e5f5ff] transition-all duration-300 group-hover:bg-[#329ff2] group-hover:text-white">
                   <Users className="h-6 w-6 sm:h-7 sm:w-7 text-[#329ff2] transition-colors duration-300 group-hover:text-white" />
                 </div>
-                <CardTitle className="text-lg sm:text-xl">Pediatrics</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Pediatri</CardTitle>
               </CardHeader>
               <CardContent className="px-4 pb-2 sm:px-6 sm:pb-4">
                 <p className="text-sm sm:text-base text-muted-foreground">
-                  Specialized healthcare for children from birth through
-                  adolescence, focusing on their unique needs.
+                  Perawatan kesehatan khusus untuk anak-anak dari lahir hingga
+                  remaja, berfokus pada kebutuhan unik mereka.
                 </p>
                 <ul className="mt-3 sm:mt-4 space-y-1 sm:space-y-2">
                   <li className="flex items-center gap-2 text-xs sm:text-sm">
                     <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />{" "}
-                    Well-Child Visits
+                    Kunjungan Pemeriksaan Anak
                   </li>
                   <li className="flex items-center gap-2 text-xs sm:text-sm">
                     <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />{" "}
-                    Immunizations
+                    Imunisasi
                   </li>
                   <li className="flex items-center gap-2 text-xs sm:text-sm">
                     <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-[#329ff2]" />{" "}
-                    Developmental Assessments
+                    Penilaian Perkembangan
                   </li>
                 </ul>
               </CardContent>
@@ -335,7 +334,7 @@ export default function Home() {
                   href="/services/pediatrics"
                   className="flex items-center text-xs sm:text-sm text-[#329ff2] hover:underline"
                 >
-                  Learn More{" "}
+                  Pelajari Lebih Lanjut{" "}
                   <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
                 </Link>
               </CardFooter>
@@ -347,7 +346,7 @@ export default function Home() {
               className="bg-[#329ff2] hover:bg-[#1e8ddd] w-full sm:w-auto"
             >
               <Link href="/services">
-                View All Services <ArrowRight className="ml-2 h-4 w-4" />
+                Lihat Semua Layanan <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
@@ -359,14 +358,15 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-4" variant="outline">
-              Expert Team
+              Tim Ahli
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Meet Our <span className="text-[#329ff2]">Specialists</span>
+              Temui <span className="text-[#329ff2]">Spesialis</span> Kami
             </h2>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
-              Our team of experienced and dedicated doctors is committed to
-              providing the highest quality care to our patients.
+              Tim dokter kami yang berpengalaman dan berdedikasi berkomitmen
+              untuk memberikan perawatan dengan kualitas tertinggi kepada pasien
+              kami.
             </p>
           </div>
           <div className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -384,7 +384,7 @@ export default function Home() {
                 <h3 className="text-lg sm:text-xl font-bold">
                   Dr. Sarah Johnson
                 </h3>
-                <p className="text-sm text-[#a9dbff]">Cardiology</p>
+                <p className="text-sm text-[#a9dbff]">Kardiologi</p>
                 <div className="mt-2 sm:mt-3 flex gap-2">
                   <Button
                     size="sm"
@@ -392,14 +392,14 @@ export default function Home() {
                     className="bg-white/20 hover:bg-white/30 text-xs sm:text-sm"
                     asChild
                   >
-                    <Link href="/doctors/sarah-johnson">View Profile</Link>
+                    <Link href="/doctors/sarah-johnson">Lihat Profil</Link>
                   </Button>
                   <Button
                     size="sm"
                     className="bg-[#329ff2] hover:bg-[#1e8ddd] text-xs sm:text-sm"
                     asChild
                   >
-                    <Link href="/appointment">Book</Link>
+                    <Link href="/appointment">Booking</Link>
                   </Button>
                 </div>
               </div>
@@ -407,7 +407,7 @@ export default function Home() {
                 <h3 className="text-base sm:text-lg font-bold">
                   Dr. Sarah Johnson
                 </h3>
-                <p className="text-xs sm:text-sm text-[#329ff2]">Cardiology</p>
+                <p className="text-xs sm:text-sm text-[#329ff2]">Kardiologi</p>
               </div>
             </div>
             <div className="group relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -424,7 +424,7 @@ export default function Home() {
                 <h3 className="text-lg sm:text-xl font-bold">
                   Dr. Michael Chen
                 </h3>
-                <p className="text-sm text-[#a9dbff]">Neurology</p>
+                <p className="text-sm text-[#a9dbff]">Neurologi</p>
                 <div className="mt-2 sm:mt-3 flex gap-2">
                   <Button
                     size="sm"
@@ -432,14 +432,14 @@ export default function Home() {
                     className="bg-white/20 hover:bg-white/30 text-xs sm:text-sm"
                     asChild
                   >
-                    <Link href="/doctors/michael-chen">View Profile</Link>
+                    <Link href="/doctors/michael-chen">Lihat Profil</Link>
                   </Button>
                   <Button
                     size="sm"
                     className="bg-[#329ff2] hover:bg-[#1e8ddd] text-xs sm:text-sm"
                     asChild
                   >
-                    <Link href="/appointment">Book</Link>
+                    <Link href="/appointment">Booking</Link>
                   </Button>
                 </div>
               </div>
@@ -447,7 +447,7 @@ export default function Home() {
                 <h3 className="text-base sm:text-lg font-bold">
                   Dr. Michael Chen
                 </h3>
-                <p className="text-xs sm:text-sm text-[#329ff2]">Neurology</p>
+                <p className="text-xs sm:text-sm text-[#329ff2]">Neurologi</p>
               </div>
             </div>
             <div className="group relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -464,7 +464,7 @@ export default function Home() {
                 <h3 className="text-lg sm:text-xl font-bold">
                   Dr. Emily Rodriguez
                 </h3>
-                <p className="text-sm text-[#a9dbff]">Pediatrics</p>
+                <p className="text-sm text-[#a9dbff]">Pediatri</p>
                 <div className="mt-2 sm:mt-3 flex gap-2">
                   <Button
                     size="sm"
@@ -472,14 +472,14 @@ export default function Home() {
                     className="bg-white/20 hover:bg-white/30 text-xs sm:text-sm"
                     asChild
                   >
-                    <Link href="/doctors/emily-rodriguez">View Profile</Link>
+                    <Link href="/doctors/emily-rodriguez">Lihat Profil</Link>
                   </Button>
                   <Button
                     size="sm"
                     className="bg-[#329ff2] hover:bg-[#1e8ddd] text-xs sm:text-sm"
                     asChild
                   >
-                    <Link href="/appointment">Book</Link>
+                    <Link href="/appointment">Booking</Link>
                   </Button>
                 </div>
               </div>
@@ -487,7 +487,7 @@ export default function Home() {
                 <h3 className="text-base sm:text-lg font-bold">
                   Dr. Emily Rodriguez
                 </h3>
-                <p className="text-xs sm:text-sm text-[#329ff2]">Pediatrics</p>
+                <p className="text-xs sm:text-sm text-[#329ff2]">Pediatri</p>
               </div>
             </div>
           </div>
@@ -497,7 +497,7 @@ export default function Home() {
               className="bg-[#329ff2] hover:bg-[#1e8ddd] w-full sm:w-auto"
             >
               <Link href="/doctors">
-                View All Doctors <ArrowRight className="ml-2 h-4 w-4" />
+                Lihat Semua Dokter <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
@@ -509,14 +509,14 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-4" variant="outline">
-              Testimonials
+              Testimoni
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              What Our <span className="text-[#329ff2]">Patients</span> Say
+              Apa Kata <span className="text-[#329ff2]">Pasien</span> Kami
             </h2>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
-              Hear what our patients have to say about their experience at
-              MediCare Hospital.
+              Dengarkan apa yang dikatakan pasien kami tentang pengalaman mereka
+              di Rumah Sakit MediCare.
             </p>
           </div>
           <div className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -538,7 +538,7 @@ export default function Home() {
                       John Doe
                     </CardTitle>
                     <CardDescription className="text-xs sm:text-sm">
-                      Cardiology Patient
+                      Pasien Kardiologi
                     </CardDescription>
                   </div>
                 </div>
@@ -553,10 +553,10 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
-                  &quot;The care I received at MediCare Hospital was
-                  exceptional. Dr. Johnson and her team were attentive,
-                  professional, and compassionate. I highly recommend their
-                  services.&quot;
+                  &quot;Perawatan yang saya terima di Rumah Sakit MediCare
+                  sangat luar biasa. Dr. Johnson dan timnya penuh perhatian,
+                  profesional, dan penuh kasih sayang. Saya sangat
+                  merekomendasikan layanan mereka.&quot;
                 </p>
               </CardContent>
             </Card>
@@ -578,7 +578,7 @@ export default function Home() {
                       Jane Smith
                     </CardTitle>
                     <CardDescription className="text-xs sm:text-sm">
-                      Neurology Patient
+                      Pasien Neurologi
                     </CardDescription>
                   </div>
                 </div>
@@ -593,10 +593,9 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
-                  &quot;Dr. Chen&apos;s expertise and the hospital&apos;s
-                  advanced technology made a significant difference in my
-                  treatment. The staff was supportive throughout my recovery
-                  journey.&quot;
+                  &quot;Keahlian Dr. Chen dan teknologi canggih rumah sakit
+                  membuat perbedaan signifikan dalam pengobatan saya. Staf
+                  sangat mendukung sepanjang perjalanan pemulihan saya.&quot;
                 </p>
               </CardContent>
             </Card>
@@ -618,7 +617,7 @@ export default function Home() {
                       Robert Brown
                     </CardTitle>
                     <CardDescription className="text-xs sm:text-sm">
-                      Pediatrics Patient
+                      Pasien Pediatri
                     </CardDescription>
                   </div>
                 </div>
@@ -633,10 +632,10 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
-                  &quot;As a parent, I appreciate the care and attention Dr.
-                  Rodriguez provided to my child. The pediatric department is
-                  child-friendly and the staff is incredibly patient and
-                  kind.&quot;
+                  &quot;Sebagai orang tua, saya menghargai perhatian dan
+                  perawatan yang diberikan Dr. Rodriguez kepada anak saya.
+                  Departemen pediatri sangat ramah anak dan stafnya sangat sabar
+                  dan baik.&quot;
                 </p>
               </CardContent>
             </Card>
@@ -649,14 +648,15 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-4" variant="outline">
-              Our Location
+              Lokasi Kami
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Visit Our <span className="text-[#329ff2]">Medical Center</span>
+              Kunjungi <span className="text-[#329ff2]">Pusat Medis</span> Kami
             </h2>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
-              We are conveniently located in Medan City. Feel free to visit us
-              or get in touch for more information.
+              Kami berlokasi strategis di Kota Medan. Jangan ragu untuk
+              mengunjungi kami atau menghubungi kami untuk informasi lebih
+              lanjut.
             </p>
           </div>
 
@@ -664,7 +664,7 @@ export default function Home() {
             <div className="flex flex-col h-full justify-center">
               <div className="bg-white rounded-xl p-6 shadow-lg border border-[#e5f5ff]">
                 <h3 className="text-xl sm:text-2xl font-bold text-[#1f6fad] mb-4">
-                  Our Address
+                  Alamat Kami
                 </h3>
                 <div className="flex items-start gap-3 mb-4">
                   <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#e5f5ff]">
@@ -687,7 +687,7 @@ export default function Home() {
                     <Phone className="h-4 w-4 text-[#329ff2]" />
                   </div>
                   <div>
-                    <p className="font-medium text-base">Contact Numbers</p>
+                    <p className="font-medium text-base">Nomor Kontak</p>
                     <div className="text-sm text-muted-foreground mt-1 space-y-1">
                       <p>+62 811-6380-895</p>
                       <p>+62 811-6302-188</p>
@@ -715,7 +715,7 @@ export default function Home() {
 
                 <div className="mt-6 flex flex-col gap-4">
                   <div>
-                    <p className="font-medium text-base mb-2">Follow Us</p>
+                    <p className="font-medium text-base mb-2">Ikuti Kami</p>
                     <div className="flex gap-3">
                       <Link
                         href="https://www.instagram.com/medisgo.official/"
@@ -742,7 +742,7 @@ export default function Home() {
                       href="https://maps.google.com/?q=Uniland+Plaza,+Medan+Indonesia"
                       target="_blank"
                     >
-                      Get Directions <ExternalLink className="ml-2 h-4 w-4" />
+                      Petunjuk Arah <ExternalLink className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
@@ -759,54 +759,8 @@ export default function Home() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="rounded-xl"
-                title="Medisgo Location Map"
+                title="Lokasi Medisgo"
               ></iframe>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="relative overflow-hidden bg-[#329ff2] py-12 sm:py-16 md:py-20 lg:py-24">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute -left-20 -top-20 h-[300px] w-[300px] sm:h-[500px] sm:w-[500px] rounded-full bg-white blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 h-[300px] w-[300px] sm:h-[500px] sm:w-[500px] rounded-full bg-[#7fcbff] blur-3xl"></div>
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="mx-auto max-w-3xl rounded-2xl sm:rounded-3xl bg-white/10 p-4 sm:p-8 md:p-12 backdrop-blur-sm">
-            <div className="flex flex-col items-center text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter text-white md:text-4xl lg:text-5xl">
-                Ready to Schedule an Appointment?
-              </h2>
-              <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-[#a9dbff]">
-                Our team of healthcare professionals is ready to provide you
-                with the care you need. Schedule an appointment today.
-              </p>
-              <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row w-full sm:w-auto gap-3 sm:gap-4">
-                <Button
-                  size="lg"
-                  asChild
-                  className="bg-white text-[#329ff2] hover:bg-white/90 w-full sm:w-auto"
-                >
-                  <Link href="/appointment">
-                    Book Appointment{" "}
-                    <Calendar className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                  </Link>
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  asChild
-                  className="border-white text-white hover:bg-white/10 w-full sm:w-auto"
-                >
-                  <Link
-                    href="/contact"
-                    className="flex items-center justify-center gap-2"
-                  >
-                    <Phone className="h-4 w-4 sm:h-5 sm:w-5" /> Call Us
-                  </Link>
-                </Button>
-              </div>
             </div>
           </div>
         </div>
@@ -817,14 +771,14 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-4" variant="outline">
-              Important Notice
+              Pemberitahuan Penting
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Public <span className="text-[#329ff2]">Holiday</span> Schedule
+              Jadwal <span className="text-[#329ff2]">Hari Libur</span> Nasional
             </h2>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground mb-8">
-              Please note our adjusted operational hours during public holidays.
-              Emergency services remain available 24/7.
+              Harap perhatikan penyesuaian jam operasional kami selama hari
+              libur nasional. Layanan darurat tetap tersedia 24/7.
             </p>
           </div>
 
@@ -832,7 +786,7 @@ export default function Home() {
             <div className="relative">
               <Image
                 src="/ph_2025.jpg"
-                alt="Public Holiday Schedule"
+                alt="Jadwal Hari Libur"
                 width={1200}
                 height={600}
                 className="w-full object-cover"

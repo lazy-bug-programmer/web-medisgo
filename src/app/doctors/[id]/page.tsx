@@ -30,12 +30,12 @@ const doctors = [
   {
     id: "sarah-johnson",
     name: "Dr. Sarah Johnson",
-    specialty: "Cardiology",
+    specialty: "Kardiologi",
     image: "/placeholder.svg?height=600&width=600",
     education: [
       { degree: "MD", institution: "Harvard Medical School", year: "2005" },
       {
-        degree: "Residency",
+        degree: "Residensi",
         institution: "Massachusetts General Hospital",
         year: "2009",
       },
@@ -43,14 +43,14 @@ const doctors = [
     ],
     experience: [
       {
-        position: "Senior Cardiologist",
+        position: "Kardiologis Senior",
         institution: "Mayo Clinic",
         period: "2011-2018",
       },
       {
-        position: "Chief of Cardiology",
+        position: "Kepala Kardiologi",
         institution: "MediCare Hospital",
-        period: "2018-Present",
+        period: "2018-Sekarang",
       },
     ],
     certifications: [
@@ -60,66 +60,66 @@ const doctors = [
     ],
     publications: [
       {
-        title: "Advances in Cardiac Imaging Techniques",
+        title: "Kemajuan dalam Teknik Pencitraan Jantung",
         journal: "Journal of Cardiology",
         year: "2015",
       },
       {
-        title: "Long-term Outcomes of Stent Placement",
+        title: "Hasil Jangka Panjang Pemasangan Stent",
         journal: "New England Journal of Medicine",
         year: "2017",
       },
       {
-        title: "Preventive Cardiology: A Comprehensive Review",
+        title: "Kardiologi Preventif: Tinjauan Komprehensif",
         journal: "Circulation",
         year: "2019",
       },
     ],
     awards: [
       {
-        title: "Excellence in Clinical Care",
+        title: "Keunggulan dalam Perawatan Klinis",
         organization: "American Heart Association",
         year: "2016",
       },
       {
-        title: "Outstanding Researcher Award",
+        title: "Penghargaan Peneliti Terbaik",
         organization: "Cardiovascular Research Foundation",
         year: "2018",
       },
     ],
-    languages: ["English", "Spanish"],
-    bio: "Dr. Sarah Johnson is a board-certified cardiologist with over 15 years of experience in diagnosing and treating heart conditions. She specializes in interventional cardiology, cardiac imaging, and preventive cardiology. Dr. Johnson is passionate about patient education and empowering individuals to take control of their heart health through lifestyle modifications and appropriate medical interventions.",
+    languages: ["Inggris", "Spanyol"],
+    bio: "Dr. Sarah Johnson adalah kardiologis bersertifikat dengan pengalaman lebih dari 15 tahun dalam mendiagnosis dan mengobati kondisi jantung. Dia mengkhususkan diri dalam kardiologi intervensi, pencitraan jantung, dan kardiologi preventif. Dr. Johnson memiliki semangat untuk pendidikan pasien dan memberdayakan individu untuk mengontrol kesehatan jantung mereka melalui modifikasi gaya hidup dan intervensi medis yang tepat.",
     contact: {
       email: "sarah.johnson@medicare-hospital.com",
       phone: "+1 (555) 123-4567",
-      office: "Cardiology Department, 3rd Floor, MediCare Hospital",
+      office: "Departemen Kardiologi, Lantai 3, MediCare Hospital",
     },
     schedule: [
-      { day: "Monday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Wednesday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Friday", hours: "9:00 AM - 1:00 PM" },
+      { day: "Senin", hours: "9:00 - 17:00" },
+      { day: "Rabu", hours: "9:00 - 17:00" },
+      { day: "Jumat", hours: "9:00 - 13:00" },
     ],
   },
   {
     id: "michael-chen",
     name: "Dr. Michael Chen",
-    specialty: "Neurology",
+    specialty: "Neurologi",
     image: "/placeholder.svg?height=600&width=600",
     education: [
       { degree: "MD", institution: "Johns Hopkins University", year: "2008" },
-      { degree: "Residency", institution: "UCSF Medical Center", year: "2012" },
+      { degree: "Residensi", institution: "UCSF Medical Center", year: "2012" },
       { degree: "Fellowship", institution: "Mayo Clinic", year: "2014" },
     ],
     experience: [
       {
-        position: "Neurologist",
+        position: "Neurolog",
         institution: "Cleveland Clinic",
         period: "2014-2019",
       },
       {
-        position: "Senior Neurologist",
+        position: "Neurolog Senior",
         institution: "MediCare Hospital",
-        period: "2019-Present",
+        period: "2019-Sekarang",
       },
     ],
     certifications: [
@@ -128,55 +128,55 @@ const doctors = [
     ],
     publications: [
       {
-        title: "Neuroplasticity in Stroke Recovery",
+        title: "Neuroplastisitas dalam Pemulihan Stroke",
         journal: "Neurology",
         year: "2016",
       },
       {
-        title: "Advances in Multiple Sclerosis Treatment",
+        title: "Kemajuan dalam Pengobatan Multiple Sclerosis",
         journal: "Journal of Neuroscience",
         year: "2018",
       },
       {
-        title: "Biomarkers for Alzheimer's Disease",
+        title: "Biomarker untuk Penyakit Alzheimer",
         journal: "Nature Neuroscience",
         year: "2020",
       },
     ],
     awards: [
       {
-        title: "Young Investigator Award",
+        title: "Penghargaan Peneliti Muda",
         organization: "American Academy of Neurology",
         year: "2017",
       },
       {
-        title: "Excellence in Patient Care",
+        title: "Keunggulan dalam Perawatan Pasien",
         organization: "National Neurology Association",
         year: "2019",
       },
     ],
-    languages: ["English", "Mandarin"],
-    bio: "Dr. Michael Chen is a board-certified neurologist specializing in the diagnosis and treatment of neurological disorders. His areas of expertise include stroke management, multiple sclerosis, and neurodegenerative diseases. Dr. Chen is committed to providing compassionate care and utilizing the latest advancements in neurology to improve patient outcomes.",
+    languages: ["Inggris", "Mandarin"],
+    bio: "Dr. Michael Chen adalah neurolog bersertifikat yang mengkhususkan diri dalam diagnosis dan pengobatan gangguan neurologis. Bidang keahliannya meliputi manajemen stroke, multiple sclerosis, dan penyakit neurodegeneratif. Dr. Chen berkomitmen untuk memberikan perawatan yang penuh kasih dan memanfaatkan kemajuan terbaru dalam neurologi untuk meningkatkan hasil pasien.",
     contact: {
       email: "michael.chen@medicare-hospital.com",
       phone: "+1 (555) 234-5678",
-      office: "Neurology Department, 4th Floor, MediCare Hospital",
+      office: "Departemen Neurologi, Lantai 4, MediCare Hospital",
     },
     schedule: [
-      { day: "Tuesday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Thursday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Saturday", hours: "9:00 AM - 1:00 PM" },
+      { day: "Selasa", hours: "9:00 - 17:00" },
+      { day: "Kamis", hours: "9:00 - 17:00" },
+      { day: "Sabtu", hours: "9:00 - 13:00" },
     ],
   },
   {
     id: "emily-rodriguez",
     name: "Dr. Emily Rodriguez",
-    specialty: "Pediatrics",
+    specialty: "Pediatri",
     image: "/placeholder.svg?height=600&width=600",
     education: [
       { degree: "MD", institution: "Stanford University", year: "2010" },
       {
-        degree: "Residency",
+        degree: "Residensi",
         institution: "Children's Hospital of Philadelphia",
         year: "2013",
       },
@@ -188,14 +188,14 @@ const doctors = [
     ],
     experience: [
       {
-        position: "Pediatrician",
+        position: "Dokter Anak",
         institution: "Children's National Hospital",
         period: "2015-2020",
       },
       {
-        position: "Senior Pediatrician",
+        position: "Dokter Anak Senior",
         institution: "MediCare Hospital",
-        period: "2020-Present",
+        period: "2020-Sekarang",
       },
     ],
     certifications: [
@@ -204,44 +204,44 @@ const doctors = [
     ],
     publications: [
       {
-        title: "Childhood Obesity Prevention Strategies",
+        title: "Strategi Pencegahan Obesitas Anak",
         journal: "Pediatrics",
         year: "2017",
       },
       {
-        title: "Vaccine Hesitancy Among Parents",
+        title: "Keraguan Vaksin di Kalangan Orang Tua",
         journal: "Journal of Pediatric Health",
         year: "2019",
       },
       {
-        title: "Early Intervention in Developmental Delays",
+        title: "Intervensi Dini dalam Keterlambatan Perkembangan",
         journal: "Child Development",
         year: "2021",
       },
     ],
     awards: [
       {
-        title: "Compassionate Doctor Award",
+        title: "Penghargaan Dokter Penuh Kasih",
         organization: "Patient's Choice",
         year: "2018",
       },
       {
-        title: "Top Pediatrician",
+        title: "Dokter Anak Terbaik",
         organization: "City Health Magazine",
         year: "2020",
       },
     ],
-    languages: ["English", "Spanish"],
-    bio: "Dr. Emily Rodriguez is a board-certified pediatrician dedicated to providing comprehensive healthcare for children from birth through adolescence. She has a special interest in preventive care, childhood development, and adolescent medicine. Dr. Rodriguez believes in building strong relationships with her patients and their families to promote healthy lifestyles and address health concerns promptly.",
+    languages: ["Inggris", "Spanyol"],
+    bio: "Dr. Emily Rodriguez adalah dokter anak bersertifikat yang berdedikasi untuk memberikan perawatan kesehatan komprehensif untuk anak-anak dari lahir hingga remaja. Dia memiliki minat khusus dalam perawatan preventif, perkembangan anak, dan kedokteran remaja. Dr. Rodriguez percaya pada membangun hubungan yang kuat dengan pasien dan keluarga mereka untuk mempromosikan gaya hidup sehat dan mengatasi masalah kesehatan dengan cepat.",
     contact: {
       email: "emily.rodriguez@medicare-hospital.com",
       phone: "+1 (555) 345-6789",
-      office: "Pediatrics Department, 2nd Floor, MediCare Hospital",
+      office: "Departemen Pediatri, Lantai 2, MediCare Hospital",
     },
     schedule: [
-      { day: "Monday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Wednesday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Thursday", hours: "9:00 AM - 5:00 PM" },
+      { day: "Senin", hours: "9:00 - 17:00" },
+      { day: "Rabu", hours: "9:00 - 17:00" },
+      { day: "Kamis", hours: "9:00 - 17:00" },
     ],
   },
 ];
@@ -254,15 +254,17 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
   if (!doctor) {
     return (
       <div className="container mx-auto px-4 py-8 sm:py-12 text-center">
-        <h1 className="text-2xl sm:text-3xl font-bold">Doctor Not Found</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold">
+          Dokter Tidak Ditemukan
+        </h1>
         <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground">
-          The doctor you are looking for does not exist.
+          Dokter yang Anda cari tidak ada.
         </p>
         <Button
           asChild
           className="mt-6 sm:mt-8 bg-[#329ff2] hover:bg-[#1e8ddd]"
         >
-          <Link href="/doctors">Back to Doctors</Link>
+          <Link href="/doctors">Kembali ke Dokter</Link>
         </Button>
       </div>
     );
@@ -275,11 +277,11 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
           <div className="flex flex-col space-y-2">
             <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm text-[#a9dbff]">
               <Link href="/" className="hover:text-white">
-                Home
+                Beranda
               </Link>
               <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
               <Link href="/doctors" className="hover:text-white">
-                Doctors
+                Dokter
               </Link>
               <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="truncate">{doctor.name}</span>
@@ -313,7 +315,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
               <Card className="border-[#e5f5ff]">
                 <CardHeader className="p-4 sm:p-6 pb-2">
                   <CardTitle className="text-lg sm:text-xl text-[#1f6fad]">
-                    Contact Information
+                    Informasi Kontak
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-4 sm:p-6 pt-2 space-y-3 sm:space-y-4">
@@ -342,10 +344,10 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
               <Card className="border-[#e5f5ff]">
                 <CardHeader className="p-4 sm:p-6 pb-2">
                   <CardTitle className="text-lg sm:text-xl text-[#1f6fad]">
-                    Schedule
+                    Jadwal
                   </CardTitle>
                   <CardDescription className="text-xs sm:text-sm">
-                    Available appointment times
+                    Waktu janji temu yang tersedia
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-4 sm:p-6 pt-2 space-y-3 sm:space-y-4">
@@ -373,7 +375,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
 
               {/* Full-width button on all screens */}
               <Button className="w-full bg-[#329ff2] hover:bg-[#1e8ddd] text-sm sm:text-base py-2 sm:py-6">
-                Book Appointment
+                Buat Janji Temu
               </Button>
             </div>
           </div>
@@ -383,7 +385,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
             <div className="space-y-6 sm:space-y-8">
               <div className="space-y-3 sm:space-y-4">
                 <Badge className="bg-[#e5f5ff] text-[#1f6fad] hover:bg-[#d0ecff] text-xs sm:text-sm">
-                  About
+                  Tentang
                 </Badge>
                 <p className="text-sm sm:text-base text-muted-foreground">
                   {doctor.bio}
@@ -398,25 +400,25 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                       value="education"
                       className="text-xs sm:text-sm px-2 sm:px-4"
                     >
-                      Education
+                      Pendidikan
                     </TabsTrigger>
                     <TabsTrigger
                       value="experience"
                       className="text-xs sm:text-sm px-2 sm:px-4"
                     >
-                      Experience
+                      Pengalaman
                     </TabsTrigger>
                     <TabsTrigger
                       value="certifications"
                       className="text-xs sm:text-sm px-2 sm:px-4"
                     >
-                      Certifications
+                      Sertifikasi
                     </TabsTrigger>
                     <TabsTrigger
                       value="publications"
                       className="text-xs sm:text-sm px-2 sm:px-4"
                     >
-                      Publications
+                      Publikasi
                     </TabsTrigger>
                   </TabsList>
 
@@ -426,7 +428,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                   >
                     <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-[#1f6fad]">
                       <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
-                      Education & Training
+                      Pendidikan & Pelatihan
                     </h3>
                     <div className="space-y-3 sm:space-y-4">
                       {doctor.education.map((edu, index) => (
@@ -456,7 +458,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                   >
                     <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-[#1f6fad]">
                       <Briefcase className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
-                      Professional Experience
+                      Pengalaman Profesional
                     </h3>
                     <div className="space-y-3 sm:space-y-4">
                       {doctor.experience.map((exp, index) => (
@@ -487,7 +489,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                   >
                     <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-[#1f6fad]">
                       <Award className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
-                      Certifications & Licenses
+                      Sertifikasi & Lisensi
                     </h3>
                     <ul className="list-inside list-disc space-y-1 sm:space-y-2 text-xs sm:text-sm">
                       {doctor.certifications.map((cert, index) => (
@@ -498,7 +500,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                     </ul>
                     <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold mt-4 sm:mt-6 text-[#1f6fad]">
                       <Star className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
-                      Awards & Recognitions
+                      Penghargaan & Pengakuan
                     </h3>
                     <div className="space-y-3 sm:space-y-4">
                       {doctor.awards.map((award, index) => (
@@ -528,7 +530,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
                   >
                     <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-[#1f6fad]">
                       <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
-                      Research & Publications
+                      Penelitian & Publikasi
                     </h3>
                     <div className="space-y-3 sm:space-y-4">
                       {doctor.publications.map((pub, index) => (
@@ -557,7 +559,7 @@ export default async function DoctorDetailPage({ params }: { params: any }) {
               {/* Languages section */}
               <div className="space-y-3 sm:space-y-4">
                 <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-[#1f6fad]">
-                  Languages
+                  Bahasa
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {doctor.languages.map((language, index) => (

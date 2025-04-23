@@ -33,14 +33,14 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-4" variant="outline">
-              Get In Touch
+              Hubungi Kami
             </Badge>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tighter md:text-5xl lg:text-6xl">
-              Contact <span className="text-[#329ff2]">Us</span>
+              Kontak <span className="text-[#329ff2]">Kami</span>
             </h1>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
-              We are here to help you with any questions or concerns. Feel free
-              to reach out to us.
+              Kami siap membantu Anda dengan pertanyaan atau masalah apapun.
+              Jangan ragu untuk menghubungi kami.
             </p>
           </div>
         </div>
@@ -62,7 +62,7 @@ export default function ContactPage() {
             <div className="flex flex-col h-full justify-center">
               <div className="bg-white rounded-xl p-6 shadow-lg border border-[#e5f5ff]">
                 <h3 className="text-xl sm:text-2xl font-bold text-[#1f6fad] mb-4">
-                  Our Address
+                  Alamat Kami
                 </h3>
                 <div className="flex items-start gap-3 mb-4">
                   <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#e5f5ff]">
@@ -85,7 +85,7 @@ export default function ContactPage() {
                     <Phone className="h-4 w-4 text-[#329ff2]" />
                   </div>
                   <div>
-                    <p className="font-medium text-base">Contact Numbers</p>
+                    <p className="font-medium text-base">Nomor Kontak</p>
                     <div className="text-sm text-muted-foreground mt-1 space-y-1">
                       <p>+62 811-6380-895</p>
                       <p>+62 811-6302-188</p>
@@ -113,7 +113,7 @@ export default function ContactPage() {
 
                 <div className="mt-6">
                   <div>
-                    <p className="font-medium text-base mb-2">Follow Us</p>
+                    <p className="font-medium text-base mb-2">Ikuti Kami</p>
                     <div className="flex gap-3">
                       <Link
                         href="https://www.instagram.com/medisgo.official/"
@@ -140,7 +140,7 @@ export default function ContactPage() {
                       href="https://maps.google.com/?q=Uniland+Plaza,+Medan+Indonesia"
                       target="_blank"
                     >
-                      Get Directions <ExternalLink className="ml-2 h-4 w-4" />
+                      Petunjuk Arah <ExternalLink className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
@@ -157,7 +157,7 @@ export default function ContactPage() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="rounded-xl"
-                title="Medisgo Location Map"
+                title="Lokasi Medisgo"
               ></iframe>
             </div>
           </div>
@@ -169,24 +169,26 @@ export default function ContactPage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center mb-8">
             <Badge className="mb-4" variant="outline">
-              Reach Out
+              Hubungi Kami
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl">
-              Make an <span className="text-[#329ff2]">Appointment</span> or
-              Send <span className="text-[#329ff2]">Feedback</span>
+              Buat <span className="text-[#329ff2]">Janji Temu</span> atau Kirim{" "}
+              <span className="text-[#329ff2]">Masukan</span>
             </h2>
             <p className="mt-3 max-w-[700px] text-sm sm:text-base text-muted-foreground">
-              Fill out the form below and our team will get back to you as soon
-              as possible.
+              Isi formulir di bawah ini dan tim kami akan menghubungi Anda
+              sesegera mungkin.
             </p>
           </div>
 
           <div className="max-w-3xl mx-auto">
             <Card className="border border-[#e5f5ff] shadow-md">
               <CardHeader className="bg-[#f0f9ff] border-b border-[#e5f5ff] rounded-t-lg">
-                <CardTitle className="text-[#1f6fad]">Contact Form</CardTitle>
+                <CardTitle className="text-[#1f6fad]">
+                  Formulir Kontak
+                </CardTitle>
                 <CardDescription>
-                  Please provide your information and message
+                  Harap berikan informasi dan pesan Anda
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-6">
@@ -194,21 +196,21 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-sm font-medium">
-                        Name
+                        Nama
                       </label>
                       <Input
                         id="name"
-                        placeholder="Enter your full name"
+                        placeholder="Masukkan nama lengkap Anda"
                         className="border-[#e5f5ff] focus-visible:ring-[#329ff2]"
                       />
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="phone" className="text-sm font-medium">
-                        Phone number
+                        Nomor telepon
                       </label>
                       <Input
                         id="phone"
-                        placeholder="Enter your phone number"
+                        placeholder="Masukkan nomor telepon Anda"
                         className="border-[#e5f5ff] focus-visible:ring-[#329ff2]"
                       />
                     </div>
@@ -221,29 +223,29 @@ export default function ContactPage() {
                     <Input
                       id="email"
                       type="email"
-                      placeholder="Enter your email address"
+                      placeholder="Masukkan alamat email Anda"
                       className="border-[#e5f5ff] focus-visible:ring-[#329ff2]"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <label htmlFor="subject" className="text-sm font-medium">
-                      Subject
+                      Subjek
                     </label>
                     <Input
                       id="subject"
-                      placeholder="Enter your subject"
+                      placeholder="Masukkan subjek Anda"
                       className="border-[#e5f5ff] focus-visible:ring-[#329ff2]"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-sm font-medium">
-                      Message
+                      Pesan
                     </label>
                     <Textarea
                       id="message"
-                      placeholder="Enter your message here"
+                      placeholder="Tulis pesan Anda di sini"
                       className="min-h-[120px] border-[#e5f5ff] focus-visible:ring-[#329ff2]"
                     />
                   </div>
@@ -252,7 +254,7 @@ export default function ContactPage() {
                     type="submit"
                     className="w-full bg-[#329ff2] hover:bg-[#1e8ddd] mt-4"
                   >
-                    Send Message
+                    Kirim Pesan
                     <Send className="ml-2 h-4 w-4" />
                   </Button>
                 </form>

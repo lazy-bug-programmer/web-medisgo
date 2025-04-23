@@ -14,14 +14,14 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-4" variant="outline">
-              Our Story
+              Cerita Kami
             </Badge>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tighter md:text-5xl lg:text-6xl">
-              About <span className="text-[#329ff2]">Us</span>
+              Tentang <span className="text-[#329ff2]">Kami</span>
             </h1>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
-              Learn more about our journey, our vision, and our mission to
-              provide the best healthcare services.
+              Pelajari lebih lanjut tentang perjalanan kami, visi kami, dan misi
+              kami untuk menyediakan layanan kesehatan terbaik.
             </p>
           </div>
         </div>
@@ -42,22 +42,24 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="order-2 md:order-1">
               <h2 className="text-2xl sm:text-3xl font-bold text-[#1f6fad] mb-4">
-                About Us
+                Tentang Kami
               </h2>
               <p className="text-sm sm:text-base text-gray-700 mb-6">
-                MEDISGO is a healthcare information and support service platform
-                with over 10 years of experience helping Indonesian patients
-                access the best medical services in Malaysia.
+                MEDISGO adalah platform layanan informasi dan pendampingan
+                kesehatan yang telah berpengalaman lebih dari 10 tahun dalam
+                membantu pasien Indonesia mendapatkan akses ke layanan medis
+                terbaik di Malaysia.
               </p>
               <p className="text-sm sm:text-base text-gray-700 mb-6">
-                We are here to simplify the process of finding and booking
-                appointments with specialist doctors at various renowned
-                hospitals located in Penang, Kuala Lumpur, Johor, and Melaka.
+                Kami hadir untuk mempermudah proses pencarian dan pemesanan
+                janji temu dengan dokter spesialis di berbagai rumah sakit
+                ternama yang berlokasi di Penang, Kuala Lumpur, Johor, dan
+                Melaka.
               </p>
               <p className="text-sm sm:text-base text-gray-700">
-                With the support of our professional team and network of trusted
-                medical partners, we are committed to providing friendly,
-                efficient services tailored to your healthcare needs.
+                Dengan dukungan tim yang profesional dan jaringan mitra medis
+                terpercaya, kami berkomitmen untuk memberikan pelayanan yang
+                ramah, efisien, dan sesuai dengan kebutuhan kesehatan Anda.
               </p>
             </div>
             <div className="order-1 md:order-2">
@@ -65,8 +67,8 @@ export default function AboutPage() {
                 <div className="absolute -left-4 -top-4 w-3/4 h-3/4 bg-[#e5f5ff] rounded-lg"></div>
                 <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
                   <Image
-                    src="/placeholder.svg?height=500&width=700&text=MEDISGO+Team"
-                    alt="MEDISGO Team"
+                    src="/placeholder.svg?height=500&width=700&text=Tim+MEDISGO"
+                    alt="Tim MEDISGO"
                     width={700}
                     height={500}
                     className="w-full object-cover"
@@ -83,17 +85,17 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <Badge className="mb-4" variant="outline">
-              Our Vision
+              Visi Kami
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl mb-6">
-              Our <span className="text-[#329ff2]">Vision</span>
+              <span className="text-[#329ff2]">Visi</span> Kami
             </h2>
             <div className="bg-[#f0f9ff] p-6 rounded-xl border border-[#e5f5ff] shadow-md">
               <p className="text-sm sm:text-base text-gray-700 italic">
-                &quot;To become the number one healthcare companion platform
-                trusted by Indonesians in gaining access to international
-                quality medical services in Malaysia, through the utilization of
-                technology and strategic partnerships.&quot;
+                &quot;Menjadi platform pendamping kesehatan nomor satu yang
+                dipercaya oleh masyarakat Indonesia dalam mendapatkan akses ke
+                layanan medis berkualitas internasional di Malaysia, melalui
+                pemanfaatan teknologi dan kerja sama strategis.&quot;
               </p>
             </div>
           </div>
@@ -106,13 +108,14 @@ export default function AboutPage() {
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-8">
               <Badge className="mb-4" variant="outline">
-                Our Goals
+                Tujuan Kami
               </Badge>
               <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl">
-                Our <span className="text-[#329ff2]">Mission</span>
+                <span className="text-[#329ff2]">Misi</span> Kami
               </h2>
               <p className="mt-3 max-w-[700px] mx-auto text-sm sm:text-base text-muted-foreground">
-                How we plan to achieve our vision and serve our patients better
+                Bagaimana kami berencana mencapai visi kami dan melayani pasien
+                kami dengan lebih baik
               </p>
             </div>
 
@@ -125,8 +128,8 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Provide accurate, reliable, and easy-to-understand health
-                    information for patients.
+                    Memberikan informasi kesehatan yang akurat, terpercaya, dan
+                    mudah dipahami oleh pasien.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -136,8 +139,8 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Facilitate the process of finding and booking appointments
-                    with the best specialist doctors abroad.
+                    Memfasilitasi proses pencarian dan pemesanan janji temu
+                    dengan dokter spesialis terbaik di luar negeri.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -147,8 +150,8 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Provide friendly, professional, and personalized
-                    consultation and support services.
+                    Menyediakan layanan konsultasi dan pendampingan yang ramah,
+                    profesional, dan personal.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -158,8 +161,8 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Build a solid cooperation network with hospitals and medical
-                    professionals in Malaysia and the Southeast Asian region.
+                    Membangun jaringan kerja sama yang solid dengan rumah sakit
+                    dan tenaga medis di Malaysia serta kawasan Asia Tenggara.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -169,9 +172,9 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Raise public awareness about the importance of proper and
-                    prompt treatment through access to cross-country healthcare
-                    services.
+                    Meningkatkan kesadaran masyarakat akan pentingnya pengobatan
+                    yang tepat dan cepat melalui akses layanan kesehatan lintas
+                    negara.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -181,9 +184,9 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Deliver digital platform-based medical services that are
-                    easily accessible and efficient to support remote patient
-                    care.
+                    Menghadirkan layanan medis berbasis platform digital yang
+                    mudah diakses dan efisien untuk mendukung perawatan pasien
+                    dari jarak jauh.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -193,8 +196,8 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Encourage growth in the medical industry by leveraging the
-                    latest technology and regional collaboration.
+                    Mendorong pertumbuhan industri medis dengan memanfaatkan
+                    teknologi terkini dan kolaborasi regional.
                   </p>
                 </li>
               </ul>
@@ -208,13 +211,13 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
             <Badge className="mb-4" variant="outline">
-              What We Stand For
+              Nilai-Nilai Kami
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl">
-              Our <span className="text-[#329ff2]">Core Values</span>
+              Nilai <span className="text-[#329ff2]">Inti Kami</span>
             </h2>
             <p className="mt-3 max-w-[700px] mx-auto text-sm sm:text-base text-muted-foreground">
-              The principles that guide our actions and decisions
+              Prinsip-prinsip yang memandu tindakan dan keputusan kami
             </p>
           </div>
 
@@ -236,10 +239,12 @@ export default function AboutPage() {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-lg font-bold text-[#1f6fad] mb-2">Trust</h3>
+              <h3 className="text-lg font-bold text-[#1f6fad] mb-2">
+                Kepercayaan
+              </h3>
               <p className="text-sm text-gray-700">
-                Building trust through transparent communication and reliable
-                services
+                Membangun kepercayaan melalui komunikasi yang transparan dan
+                layanan yang andal
               </p>
             </div>
             <div className="bg-[#f0f9ff] rounded-xl p-6 text-center shadow-md border border-[#e5f5ff] hover:border-[#329ff2] transition-all duration-300">
@@ -261,10 +266,11 @@ export default function AboutPage() {
                 </div>
               </div>
               <h3 className="text-lg font-bold text-[#1f6fad] mb-2">
-                Excellence
+                Keunggulan
               </h3>
               <p className="text-sm text-gray-700">
-                Striving for excellence in every aspect of our service delivery
+                Berusaha untuk mencapai keunggulan dalam setiap aspek pemberian
+                layanan kami
               </p>
             </div>
             <div className="bg-[#f0f9ff] rounded-xl p-6 text-center shadow-md border border-[#e5f5ff] hover:border-[#329ff2] transition-all duration-300">
@@ -287,10 +293,10 @@ export default function AboutPage() {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-lg font-bold text-[#1f6fad] mb-2">Empathy</h3>
+              <h3 className="text-lg font-bold text-[#1f6fad] mb-2">Empati</h3>
               <p className="text-sm text-gray-700">
-                Understanding and caring for our patients&apos; needs and
-                concerns
+                Memahami dan peduli terhadap kebutuhan dan kekhawatiran pasien
+                kami
               </p>
             </div>
             <div className="bg-[#f0f9ff] rounded-xl p-6 text-center shadow-md border border-[#e5f5ff] hover:border-[#329ff2] transition-all duration-300">
@@ -311,10 +317,10 @@ export default function AboutPage() {
                 </div>
               </div>
               <h3 className="text-lg font-bold text-[#1f6fad] mb-2">
-                Integrity
+                Integritas
               </h3>
               <p className="text-sm text-gray-700">
-                Maintaining the highest ethical standards in all our operations
+                Menjaga standar etika tertinggi dalam semua operasi kami
               </p>
             </div>
           </div>

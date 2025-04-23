@@ -20,89 +20,89 @@ const doctors = [
   {
     id: "sarah-johnson",
     name: "Dr. Sarah Johnson",
-    specialty: "Cardiology",
+    specialty: "Kardiologi",
     image: "/placeholder.svg?height=400&width=400",
     education: "Harvard Medical School",
-    experience: "15 years",
+    experience: "15 tahun",
   },
   {
     id: "michael-chen",
     name: "Dr. Michael Chen",
-    specialty: "Neurology",
+    specialty: "Neurologi",
     image: "/placeholder.svg?height=400&width=400",
     education: "Johns Hopkins University",
-    experience: "12 years",
+    experience: "12 tahun",
   },
   {
     id: "emily-rodriguez",
     name: "Dr. Emily Rodriguez",
-    specialty: "Pediatrics",
+    specialty: "Pediatri",
     image: "/placeholder.svg?height=400&width=400",
     education: "Stanford University",
-    experience: "10 years",
+    experience: "10 tahun",
   },
   {
     id: "david-patel",
     name: "Dr. David Patel",
-    specialty: "Orthopedics",
+    specialty: "Ortopedi",
     image: "/placeholder.svg?height=400&width=400",
     education: "Yale University",
-    experience: "18 years",
+    experience: "18 tahun",
   },
   {
     id: "lisa-wong",
     name: "Dr. Lisa Wong",
-    specialty: "Dermatology",
+    specialty: "Dermatologi",
     image: "/placeholder.svg?height=400&width=400",
     education: "University of California",
-    experience: "8 years",
+    experience: "8 tahun",
   },
   {
     id: "james-wilson",
     name: "Dr. James Wilson",
-    specialty: "Oncology",
+    specialty: "Onkologi",
     image: "/placeholder.svg?height=400&width=400",
     education: "Columbia University",
-    experience: "20 years",
+    experience: "20 tahun",
   },
   {
     id: "maria-garcia",
     name: "Dr. Maria Garcia",
-    specialty: "Gynecology",
+    specialty: "Ginekologi",
     image: "/placeholder.svg?height=400&width=400",
     education: "University of Pennsylvania",
-    experience: "14 years",
+    experience: "14 tahun",
   },
   {
     id: "robert-kim",
     name: "Dr. Robert Kim",
-    specialty: "Urology",
+    specialty: "Urologi",
     image: "/placeholder.svg?height=400&width=400",
     education: "Duke University",
-    experience: "16 years",
+    experience: "16 tahun",
   },
   {
     id: "jennifer-taylor",
     name: "Dr. Jennifer Taylor",
-    specialty: "Psychiatry",
+    specialty: "Psikiatri",
     image: "/placeholder.svg?height=400&width=400",
     education: "University of Michigan",
-    experience: "11 years",
+    experience: "11 tahun",
   },
 ];
 
 // Specialties for filtering
 const specialties = [
-  "All",
-  "Cardiology",
-  "Neurology",
-  "Pediatrics",
-  "Orthopedics",
-  "Dermatology",
-  "Oncology",
-  "Gynecology",
-  "Urology",
-  "Psychiatry",
+  "Semua",
+  "Kardiologi",
+  "Neurologi",
+  "Pediatri",
+  "Ortopedi",
+  "Dermatologi",
+  "Onkologi",
+  "Ginekologi",
+  "Urologi",
+  "Psikiatri",
 ];
 
 export default function DoctorsPage() {
@@ -115,14 +115,15 @@ export default function DoctorsPage() {
               className="mb-3 sm:mb-4 bg-white/10 text-white hover:bg-white/20"
               variant="secondary"
             >
-              Our Team
+              Tim Kami
             </Badge>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Meet Our Doctors
+              Temui Dokter Kami
             </h1>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-[#a9dbff]">
-              Our team of experienced and dedicated doctors is committed to
-              providing the highest quality care to our patients.
+              Tim dokter kami yang berpengalaman dan berdedikasi berkomitmen
+              untuk memberikan perawatan dengan kualitas tertinggi kepada pasien
+              kami.
             </p>
           </div>
         </div>
@@ -134,14 +135,14 @@ export default function DoctorsPage() {
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search doctors..."
+              placeholder="Cari dokter..."
               className="w-full pl-8"
             />
           </div>
 
           {/* Responsive tabs with scrollable overflow on small screens */}
           <div className="w-full md:w-auto overflow-x-auto pb-2">
-            <Tabs defaultValue="All" className="w-full md:w-auto">
+            <Tabs defaultValue="Semua" className="w-full md:w-auto">
               <TabsList className="w-max min-w-full md:w-auto md:min-w-0 grid grid-flow-col auto-cols-auto md:grid-cols-5 gap-px">
                 {specialties.slice(0, 5).map((specialty) => (
                   <TabsTrigger
@@ -183,11 +184,11 @@ export default function DoctorsPage() {
               <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
                 <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
                   <div>
-                    <p className="font-medium">Education</p>
+                    <p className="font-medium">Pendidikan</p>
                     <p className="text-muted-foreground">{doctor.education}</p>
                   </div>
                   <div>
-                    <p className="font-medium">Experience</p>
+                    <p className="font-medium">Pengalaman</p>
                     <p className="text-muted-foreground">{doctor.experience}</p>
                   </div>
                 </div>
@@ -199,14 +200,14 @@ export default function DoctorsPage() {
                   className="border-[#d0ecff] hover:bg-[#f0f9ff] hover:text-[#329ff2] w-full sm:w-auto text-xs sm:text-sm"
                   asChild
                 >
-                  <Link href={`/doctors/${doctor.id}`}>View Profile</Link>
+                  <Link href={`/doctors/${doctor.id}`}>Lihat Profil</Link>
                 </Button>
                 <Button
                   size="sm"
                   className="bg-[#329ff2] hover:bg-[#1e8ddd] w-full sm:w-auto text-xs sm:text-sm"
                   asChild
                 >
-                  <Link href="/appointment">Book Appointment</Link>
+                  <Link href="/appointment">Buat Janji</Link>
                 </Button>
               </CardFooter>
             </Card>
@@ -221,7 +222,7 @@ export default function DoctorsPage() {
               className="h-8 w-8 sm:h-9 sm:w-9"
               disabled
             >
-              <span className="sr-only">Previous page</span>
+              <span className="sr-only">Halaman sebelumnya</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -263,7 +264,7 @@ export default function DoctorsPage() {
               size="icon"
               className="h-8 w-8 sm:h-9 sm:w-9"
             >
-              <span className="sr-only">Next page</span>
+              <span className="sr-only">Halaman berikutnya</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -288,14 +289,15 @@ export default function DoctorsPage() {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-3 sm:mb-4" variant="outline">
-              Working Together
+              Bekerja Sama
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl mb-3 sm:mb-4">
-              Our Hospital <span className="text-[#329ff2]">Partners</span>
+              Rumah Sakit <span className="text-[#329ff2]">Mitra Kami</span>
             </h2>
             <p className="max-w-[700px] text-sm sm:text-base text-muted-foreground mb-8 sm:mb-10">
-              We collaborate with leading healthcare institutions in Malaysia to
-              ensure you receive the best medical care available.
+              Kami berkolaborasi dengan institusi kesehatan terkemuka di
+              Malaysia untuk memastikan Anda mendapatkan perawatan medis terbaik
+              yang tersedia.
             </p>
           </div>
 
@@ -305,7 +307,7 @@ export default function DoctorsPage() {
               <div className="w-full">
                 <Image
                   src="/latest_partners.jpg"
-                  alt="Hospital Partners"
+                  alt="Rumah Sakit Mitra"
                   width={1200}
                   height={800}
                   className="w-full h-auto object-contain"
