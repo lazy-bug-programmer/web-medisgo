@@ -45,21 +45,26 @@ export default function AboutPage() {
                 Tentang Kami
               </h2>
               <p className="text-sm sm:text-base text-gray-700 mb-6">
-                MEDISGO adalah platform layanan informasi dan pendampingan
-                kesehatan yang telah berpengalaman lebih dari 10 tahun dalam
-                membantu pasien Indonesia mendapatkan akses ke layanan medis
-                terbaik di Malaysia.
+                Medisgo adalah platform informasi medis yang tepat, efisien, dan
+                efektif untuk membantu pasien Indonesia mendapatkan layanan
+                kesehatan terbaik di Penang, Malaysia. Dengan pengalaman yang
+                lebih dari 10 tahun dan telah membantu lebih dari Ribuan Pasien
+                selamanya, kami menjembatani Anda dengan rumah sakit dan dokter
+                spesialis terpercaya.
               </p>
               <p className="text-sm sm:text-base text-gray-700 mb-6">
-                Kami hadir untuk mempermudah proses pencarian dan pemesanan
-                janji temu dengan dokter spesialis di berbagai rumah sakit
-                ternama yang berlokasi di Penang, Kuala Lumpur, Johor, dan
-                Melaka.
+                Kami bekerja sama dengan rumah sakit ternama dan dokter
+                spesialis berpengalaman di MALAYSIA, serta menyediakan layanan
+                mulai dari konsultasi awal, pemesanan janji temu, hingga
+                pengaturan kebutuhan selama proses pengobatan. Dengan tim yang
+                profesional dan ramah, kami memastikan setiap pasien merasa
+                aman, nyaman, dan terlayani dengan baik.
               </p>
               <p className="text-sm sm:text-base text-gray-700">
-                Dengan dukungan tim yang profesional dan jaringan mitra medis
-                terpercaya, kami berkomitmen untuk memberikan pelayanan yang
-                ramah, efisien, dan sesuai dengan kebutuhan kesehatan Anda.
+                Medisgo hadir bukan hanya sebagai penghubung, tapi sebagai
+                sahabat dalam perjalanan kesehatan Anda. Karena kami percaya,
+                setiap orang berhak mendapatkan perawatan medis yang optimal
+                dengan proses yang mudah dan transparan.
               </p>
             </div>
             <div className="order-1 md:order-2">
@@ -92,10 +97,9 @@ export default function AboutPage() {
             </h2>
             <div className="bg-[#f0f9ff] p-6 rounded-xl border border-[#e5f5ff] shadow-md">
               <p className="text-sm sm:text-base text-gray-700 italic">
-                &quot;Menjadi platform pendamping kesehatan nomor satu yang
-                dipercaya oleh masyarakat Indonesia dalam mendapatkan akses ke
-                layanan medis berkualitas internasional di Malaysia, melalui
-                pemanfaatan teknologi dan kerja sama strategis.&quot;
+                &quot;Menjadi jembatan utama bagi masyarakat Indonesia untuk
+                mendapatkan akses layanan kesehatan internasional yang
+                terpercaya, tepat, dan efisien&quot;
               </p>
             </div>
           </div>
@@ -114,8 +118,7 @@ export default function AboutPage() {
                 <span className="text-[#329ff2]">Misi</span> Kami
               </h2>
               <p className="mt-3 max-w-[700px] mx-auto text-sm sm:text-base text-muted-foreground">
-                Bagaimana kami berencana mencapai visi kami dan melayani pasien
-                kami dengan lebih baik
+                Bagaimana Medisgo Mewujudkan Visi Kami
               </p>
             </div>
 
@@ -128,8 +131,9 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Memberikan informasi kesehatan yang akurat, terpercaya, dan
-                    mudah dipahami oleh pasien.
+                    Memberikan informasi medis yang tepat, terpercaya, dan mudah
+                    dipahami, agar setiap pasien dapat mengambil keputusan
+                    pengobatan dengan yakin dan terinformasi.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -139,8 +143,10 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Memfasilitasi proses pencarian dan pemesanan janji temu
-                    dengan dokter spesialis terbaik di luar negeri.
+                    Mempermudah akses ke layanan medis internasional melalui
+                    pencarian dan pemesanan janji temu dengan dokter spesialis
+                    terbaik di rumah sakit terkemuka di Malaysia dan Asia
+                    Tenggara.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -150,8 +156,9 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Menyediakan layanan konsultasi dan pendampingan yang ramah,
-                    profesional, dan personal.
+                    Menyediakan layanan konsultasi yang profesional, ramah, dan
+                    personal, sehingga setiap pasien merasa didengar dan
+                    diprioritaskan.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -161,8 +168,9 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Membangun jaringan kerja sama yang solid dengan rumah sakit
-                    dan tenaga medis di Malaysia serta kawasan Asia Tenggara.
+                    Menjalin kemitraan strategis dengan rumah sakit dan tenaga
+                    medis berstandar internasional, untuk memastikan kualitas
+                    layanan yang tinggi dan berkelanjutan.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -172,9 +180,9 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Meningkatkan kesadaran masyarakat akan pentingnya pengobatan
-                    yang tepat dan cepat melalui akses layanan kesehatan lintas
-                    negara.
+                    Meningkatkan literasi kesehatan masyarakat tentang
+                    pentingnya deteksi dini dan pengobatan tepat waktu melalui
+                    edukasi dan kampanye kesehatan lintas negara.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -184,9 +192,9 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Menghadirkan layanan medis berbasis platform digital yang
-                    mudah diakses dan efisien untuk mendukung perawatan pasien
-                    dari jarak jauh.
+                    Mengembangkan platform digital yang efisien dan mudah
+                    diakses, agar pasien dapat mengelola perjalanan medis mereka
+                    dari mana saja secara praktis dan aman.
                   </p>
                 </li>
                 <li className="flex gap-4">
@@ -196,8 +204,9 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700">
-                    Mendorong pertumbuhan industri medis dengan memanfaatkan
-                    teknologi terkini dan kolaborasi regional.
+                    Berinovasi dengan teknologi dan kolaborasi regional, guna
+                    mendukung pertumbuhan ekosistem layanan medis lintas batas
+                    yang modern dan terintegrasi.
                   </p>
                 </li>
               </ul>

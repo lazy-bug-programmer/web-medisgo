@@ -77,11 +77,8 @@ export default function ServicesPage() {
       <section className="container mx-auto px-4 py-12 md:py-16">
         <div className="flex flex-col items-center text-center">
           <h2 className="text-3xl font-bold tracking-tighter text-[#329ff2] sm:text-4xl">
-            Layanan di Ujung Jari Anda
+            Layanan MEDISGO
           </h2>
-          <p className="mt-4 max-w-[700px] text-muted-foreground">
-            Akses cepat ke layanan dan informasi yang paling banyak diminta
-          </p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">

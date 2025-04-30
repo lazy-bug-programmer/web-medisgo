@@ -52,9 +52,9 @@ export default function Home() {
                 <span className="gradient-text">Prioritas Kami</span>
               </h1>
               <p className="max-w-[600px] text-base sm:text-lg text-gray-600 md:text-xl">
-                Menyediakan layanan kesehatan yang luar biasa dengan kasih
-                sayang dan keunggulan. Tim dokter ahli kami berkomitmen untuk
-                kesejahteraan Anda.
+                Menyedia information berobat di Malaysia, secara effektif dan
+                efissien. Tim doktor yg siap sedia terima anda (paisen dari
+                Indoensia).
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                 <Button
@@ -361,12 +361,12 @@ export default function Home() {
               Tim Ahli
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Temui <span className="text-[#329ff2]">Spesialis</span> Kami
+              Temui <span className="text-[#329ff2]">Spesialis</span> Kami -
+              Profil doktor
             </h2>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
-              Tim dokter kami yang berpengalaman dan berdedikasi berkomitmen
-              untuk memberikan perawatan dengan kualitas tertinggi kepada pasien
-              kami.
+              Tim doktor yangg pengalamm dan siap sedia menrima pasien
+              Indonesia.
             </p>
           </div>
           <div className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -512,11 +512,11 @@ export default function Home() {
               Testimoni
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Apa Kata <span className="text-[#329ff2]">Pasien</span> Kami
+              Komentar dari Pasien
+              <span className="text-[#329ff2]">Pasien</span>
             </h2>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
-              Dengarkan apa yang dikatakan pasien kami tentang pengalaman mereka
-              di Rumah Sakit MediCare.
+              Bisa pelajari pengalaman oleh pasien pasien kami.
             </p>
           </div>
           <div className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -664,7 +664,7 @@ export default function Home() {
             <div className="flex flex-col h-full justify-center">
               <div className="bg-white rounded-xl p-6 shadow-lg border border-[#e5f5ff]">
                 <h3 className="text-xl sm:text-2xl font-bold text-[#1f6fad] mb-4">
-                  Alamat Kami
+                  Hubungi Kami
                 </h3>
                 <div className="flex items-start gap-3 mb-4">
                   <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#e5f5ff]">
@@ -774,11 +774,11 @@ export default function Home() {
               Pemberitahuan Penting
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Jadwal <span className="text-[#329ff2]">Hari Libur</span> Nasional
+              Jadwal <span className="text-[#329ff2]">Libur</span> Nasional
             </h2>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground mb-8">
-              Harap perhatikan penyesuaian jam operasional kami selama hari
-              libur nasional. Layanan darurat tetap tersedia 24/7.
+              Mohon perhatikan hari libur Malaysia, biar bisa konsul di tanggal
+              yg tepat. IGD (Darurat tetap bersedia 24/7)
             </p>
           </div>
 

@@ -13,13 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function ContactPage() {
   return (
@@ -32,9 +26,6 @@ export default function ContactPage() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col items-center text-center">
-            <Badge className="mb-4" variant="outline">
-              Hubungi Kami
-            </Badge>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tighter md:text-5xl lg:text-6xl">
               Kontak <span className="text-[#329ff2]">Kami</span>
             </h1>
@@ -172,8 +163,8 @@ export default function ContactPage() {
               Hubungi Kami
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl">
-              Buat <span className="text-[#329ff2]">Janji Temu</span> atau Kirim{" "}
-              <span className="text-[#329ff2]">Masukan</span>
+              Buat <span className="text-[#329ff2]">Janji Temu</span> atau{" "}
+              <span className="text-[#329ff2]">Umpan Balik (Feedback)</span>
             </h2>
             <p className="mt-3 max-w-[700px] text-sm sm:text-base text-muted-foreground">
               Isi formulir di bawah ini dan tim kami akan menghubungi Anda
@@ -187,9 +178,6 @@ export default function ContactPage() {
                 <CardTitle className="text-[#1f6fad]">
                   Formulir Kontak
                 </CardTitle>
-                <CardDescription>
-                  Harap berikan informasi dan pesan Anda
-                </CardDescription>
               </CardHeader>
               <CardContent className="p-6">
                 <form className="space-y-4">
