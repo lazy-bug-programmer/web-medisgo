@@ -209,13 +209,12 @@ export default function Home() {
               Layanan Kami
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Layanan <span className="text-[#329ff2]">Kesehatan</span>{" "}
-              Komprehensif
+              Komprehensif Layanan Pengobatan yg Tepat
             </h2>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
-              Menyedia information berobat di Malaysia, secara effektif dan
-              efissien. Tim doktor yg siap sedia terima anda (paisen dari
-              Indonesia)
+              Kami informasi medis yg tepat utk pengobatan di Penang, Kuala
+              Lumpur, Melakan dan Johor. Tim medis yg bersedia menangnai
+              teman-teman
             </p>
           </div>
           <div className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
