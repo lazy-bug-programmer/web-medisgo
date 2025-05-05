@@ -54,7 +54,7 @@ export default function Home() {
               <p className="max-w-[600px] text-base sm:text-lg text-gray-600 md:text-xl">
                 Menyedia information berobat di Malaysia, secara effektif dan
                 efissien. Tim doktor yg siap sedia terima anda (paisen dari
-                Indoensia).
+                Indonesia).
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                 <Button
@@ -512,8 +512,7 @@ export default function Home() {
               Testimoni
             </Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Komentar dari Pasien
-              <span className="text-[#329ff2]">Pasien</span>
+              Komentar dari <span className="text-[#329ff2]">Pasien</span>
             </h2>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
               Bisa pelajari pengalaman oleh pasien pasien kami.
