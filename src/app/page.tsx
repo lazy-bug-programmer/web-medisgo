@@ -213,9 +213,9 @@ export default function Home() {
               Komprehensif
             </h2>
             <p className="mt-3 sm:mt-4 max-w-[700px] text-sm sm:text-base text-muted-foreground">
-              Kami menawarkan berbagai layanan medis untuk memenuhi kebutuhan
-              perawatan kesehatan Anda. Tim spesialis kami berdedikasi untuk
-              memberikan perawatan dengan kualitas tertinggi.
+              Menyedia information berobat di Malaysia, secara effektif dan
+              efissien. Tim doktor yg siap sedia terima anda (paisen dari
+              Indonesia)
             </p>
           </div>
           <div className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
