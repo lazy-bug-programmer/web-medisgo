@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, HelpCircle } from "lucide-react";
+import { HelpCircle } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,29 +14,34 @@ import {
 
 const faqs = [
   {
-    question: "Asuransi apa saja yang Anda terima?",
+    question:
+      "Rumah sakit apa saja yang bagus di Malaysia untuk pasien asal Indonesia?",
     answer:
-      "Kami menerima sebagian besar asuransi besar termasuk Medicare, Medicaid, Blue Cross Blue Shield, Aetna, Cigna, dan UnitedHealthcare. Silakan hubungi departemen penagihan kami untuk informasi spesifik tentang cakupan asuransi Anda.",
+      "Malaysia memiliki banyak rumah sakit dengan standar internasional yang menjadi pilihan utama bagi pasien asal Indonesia.\n\n**Di Penang**, beberapa rumah sakit unggulan yang sering direkomendasikan antara lain:\n- Island Hospital\n- Gleneagles Penang\n- Loh Guan Lye Specialist Centre\n- Northern Heart Specialist Hospital\n\nSelain Penang, tersedia juga opsi pengobatan di **Kuala Lumpur**, seperti:\n- Gleneagles Kuala Lumpur\n- Sunway Medical Centre\n- Prince Court Medical Centre\n- Thomson Hospital Kota Damansara (OncoCare)\n\nSemuanya dikenal memiliki fasilitas medis yang lengkap dan tenaga medis yang berpengalaman. Perlu dicatat, tim Medisgo saat ini hanya tersedia secara langsung di rumah sakit-rumah sakit di Penang untuk membantu dan mendukung pasien selama proses pengobatan.",
   },
   {
-    question: "Bagaimana cara membuat janji temu?",
+    question:
+      "Bagaimana cara mendapatkan perawatan medis yang berkualitas di Penang?",
     answer:
-      "Anda dapat membuat janji temu dengan menelepon nomor utama kami, menggunakan sistem pemesanan online kami, atau menghubungi departemen tertentu secara langsung. Untuk pasien baru, kami sarankan menelepon tim layanan pasien kami yang dapat memandu Anda melalui proses tersebut.",
+      "Untuk mendapatkan perawatan medis yang berkualitas di Malaysia bisa berupa:\n\n- Memilih rumah sakit yang terakreditasi dan memiliki reputasi baik\n- Mencari dokter yang spesialis dan berpengalaman dalam bidang yang Anda butuhkan\n- Menggunakan layanan medis yang terpercaya dan memiliki standar kualitas tinggi\n- Konsultasikan dengan Medisgo untuk informasi lebih lanjut",
   },
   {
-    question: "Apa yang harus saya bawa saat kunjungan pertama saya?",
+    question:
+      "Bagaimana cara menggunakan layanan MedisGo untuk berobat di Malaysia?",
     answer:
-      "Harap bawa kartu asuransi Anda, identitas dengan foto, daftar obat-obatan saat ini, informasi riwayat medis, dan hasil tes atau catatan medis yang relevan. Direkomendasikan untuk datang 15 menit lebih awal untuk menyelesaikan formulir pendaftaran bagi pasien baru.",
+      "Untuk menggunakan layanan MedisGo bisa langsung:\n\n1. Chat admin medisgo untuk proses pendaftaran\n2. Memilih dokter dan layanan yang dibutuhkan\n3. Melakukan konsultasi terlebih dahulu dengan admin medisgo\n4. Fotokan dan kirimkan passport pasien & tentukan tanggal appointment untuk kunjungan ke dokter\n5. Admin akan lanjut proses membuat group chat bersama dengan team medisgo malaysia untuk membantu pasien saat berada di rs\n6. Sesaat sampai di rs tinggal chat di group dan team akan ketemu & membantu proses pengobatan sampai selesai",
   },
   {
-    question: "Apakah Anda menawarkan layanan telemedicine?",
+    question:
+      "Apa saja keuntungan menggunakan layanan MedisGo untuk berobat di Penang?",
     answer:
-      "Ya, kami menawarkan layanan telemedicine untuk berbagai jenis janji temu. Kunjungan virtual tersedia untuk janji temu lanjutan, pengelolaan obat, dan konsultasi tertentu. Silakan tanyakan kepada penyedia Anda apakah janji temu Anda memenuhi syarat untuk telehealth.",
+      "Keuntungan menggunakan layanan MedisGo antara lain:\n\n- Akses ke dokter dan layanan medis yang berkualitas\n- Kemudahan dalam membuat janji temu dan konsultasi\n- Menghindari jadwal dokter yang cuti & full appointment\n- Membantu proses pengurusan visa selama berobat\n- Membantu proses klaim asuransi dari awal hingga selesai\n- Proses pengobatan di rs menjadi efektif & efisien sehingga menghemat waktu\n- Team selalu siap stanby berada di rumah sakit\n- Gratis penjemputan dari bandara & rekomendasi hotel\n- No antrian medisgo akan bantu aturkan",
   },
   {
-    question: "Bagaimana cara mengakses catatan medis saya?",
+    question:
+      "Saya tertarik dengan Medisgo, bisa dijelaskan tentang service dan fee-nya?",
     answer:
-      "Anda dapat mengakses catatan medis Anda melalui portal pasien aman kami. Anda dapat melihat hasil tes, ringkasan janji temu, dan berkomunikasi dengan tim perawatan kesehatan Anda. Untuk catatan medis lengkap, Anda dapat mengajukan permintaan melalui departemen Manajemen Informasi Kesehatan kami.",
+      "MedisGo adalah platform layanan kesehatan digital yang menyediakan akses ke dokter dan layanan medis berkualitas.\n\nMedisGo bertujuan untuk menyediakan akses ke layanan kesehatan yang mudah dijangkau oleh masyarakat. Pasien yang menggunakan layanan MedisGo dapat memiliki harapan untuk mengakses layanan kesehatan yang profesional dan ramah sehingga mendapatkan hasil konsultasi dengan dokter dan tim medis yang berpengalaman dan tepat.\n\nDengan menggunakan layanan MedisGo, pasien dapat meningkatkan kualitas hidup dan kesehatan mereka, serta mendapatkan solusi yang efektif dan efisien untuk masalah kesehatan mereka.\n\n**Untuk service dan layanan medisgo semuanya FREE OF CHARGE dan tidak dikenakan biaya.**",
   },
 ];
 
@@ -84,7 +90,7 @@ export default function ServicesPage() {
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
           <div className="flex flex-col items-center text-center">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
-              <Calendar className="h-12 w-12 text-white" />
+              <Image src="/services/01.png" height={60} width={60} alt="Icon" />
             </div>
             <h3 className="mb-2 font-semibold">Jadwal & Janji Temu Dokter</h3>
             <p className="text-sm text-muted-foreground">
@@ -94,21 +100,7 @@ export default function ServicesPage() {
 
           <div className="flex flex-col items-center text-center">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-12 w-12 text-white"
-              >
-                <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0" />
-                <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2" />
-                <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8" />
-                <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" />
-              </svg>
+              <Image src="/services/02.png" height={60} width={60} alt="Icon" />
             </div>
             <h3 className="mb-2 font-semibold">Tim Ready di Rumah Sakit</h3>
             <p className="text-sm text-muted-foreground">
@@ -118,21 +110,7 @@ export default function ServicesPage() {
 
           <div className="flex flex-col items-center text-center">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-12 w-12 text-white"
-              >
-                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.6-.4-1-1-1h-2V7c0-1.1-.9-2-2-2H7C5.9 5 5 5.9 5 7v5H3c-.6 0-1 .4-1 1v3c0 .6.4 1 1 1h2" />
-                <circle cx="7" cy="17" r="2" />
-                <path d="M9 17h6" />
-                <circle cx="17" cy="17" r="2" />
-              </svg>
+              <Image src="/services/03.png" height={60} width={60} alt="Icon" />
             </div>
             <h3 className="mb-2 font-semibold">Layanan Jemput dari Bandara</h3>
             <p className="text-sm text-muted-foreground">
@@ -141,19 +119,14 @@ export default function ServicesPage() {
           </div>
 
           <div className="flex flex-col items-center text-center">
-            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-12 w-12 text-white"
-              >
-                <path d="M19 3v12h-5c-.023-3.681.184-7.406 5-12zm0 12v6h-1v-6h1zm-6 0v6h-2v-6h2zm-3 0v6h-1v-6h1zm-5-12v12h-5v-12h5zm0 0c-3.333 5.333-5 9-5 12v-12h5z" />
-              </svg>
+            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-5 shadow-lg">
+              <Image
+                src="/services/04.png"
+                height={200}
+                width={200}
+                alt="Icon"
+                className="bg-white rounded-full p-3"
+              />
             </div>
             <h3 className="mb-2 font-semibold">
               Pemesanan Hotel & Penerbangan
@@ -165,21 +138,7 @@ export default function ServicesPage() {
 
           <div className="flex flex-col items-center text-center">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-12 w-12 text-white"
-              >
-                <path d="M9 10h.01" />
-                <path d="M15 10h.01" />
-                <path d="M12 18H9c-1 0-1.8-.6-2-1.5L5 10h14l-2 6.5c-.2.9-1 1.5-2 1.5h-3Z" />
-                <path d="M5 10V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4" />
-              </svg>
+              <Image src="/services/05.png" height={60} width={60} alt="Icon" />
             </div>
             <h3 className="mb-2 font-semibold">Status Klaim Asuransi</h3>
             <p className="text-sm text-muted-foreground">
@@ -189,22 +148,7 @@ export default function ServicesPage() {
 
           <div className="flex flex-col items-center text-center">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-12 w-12 text-white"
-              >
-                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                <path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4" />
-                <path d="M11 21H7a2 2 0 0 1-2-2v-6" />
-                <path d="M9 18h12" />
-                <path d="m9 15 3 3-3 3" />
-              </svg>
+              <Image src="/services/06.png" height={60} width={60} alt="Icon" />
             </div>
             <h3 className="mb-2 font-semibold">
               Pengumpulan & Pengiriman Dokumen dan Obat
@@ -216,20 +160,7 @@ export default function ServicesPage() {
 
           <div className="flex flex-col items-center text-center">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-12 w-12 text-white"
-              >
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                <circle cx="12" cy="16" r="1" />
-              </svg>
+              <Image src="/services/07.png" height={60} width={60} alt="Icon" />
             </div>
             <h3 className="mb-2 font-semibold">
               Perpanjangan & Pengaturan Visa
@@ -241,20 +172,7 @@ export default function ServicesPage() {
 
           <div className="flex flex-col items-center text-center">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-12 w-12 text-white"
-              >
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                <path d="m15 9 5-5" />
-                <path d="M19.5 4.5h-5v5" />
-              </svg>
+              <Image src="/services/08.png" height={60} width={60} alt="Icon" />
             </div>
             <h3 className="mb-2 font-semibold">
               Pengaturan Penerbangan Evakuasi Medis
@@ -266,21 +184,7 @@ export default function ServicesPage() {
 
           <div className="flex flex-col items-center text-center">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-[#329ff2] p-6 shadow-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-12 w-12 text-white"
-              >
-                <path d="M16 22h2c.5 0 1-.2 1.4-.6.4-.4.6-.9.6-1.4V7.5L14.5 2H6c-.5 0-1 .2-1.4.6C4.2 3 4 3.5 4 4v3" />
-                <polyline points="14 2 14 8 20 8" />
-                <circle cx="7" cy="17" r="5" />
-                <path d="m11 17-4-2v4" />
-              </svg>
+              <Image src="/services/09.png" height={60} width={60} alt="Icon" />
             </div>
             <h3 className="mb-2 font-semibold">Tim Follow-up Rumah Sakit</h3>
             <p className="text-sm text-muted-foreground">
@@ -313,7 +217,9 @@ export default function ServicesPage() {
                       {faq.question}
                     </AccordionTrigger>
                     <AccordionContent className="text-sm sm:text-base text-muted-foreground">
-                      {faq.answer}
+                      <div className="markdown-content">
+                        <ReactMarkdown>{faq.answer}</ReactMarkdown>
+                      </div>
                     </AccordionContent>
                   </AccordionItem>
                 ))}

@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { MobileMenuToggle } from "@/components/mobile-menu";
 import "@/app/globals.css";
+import "./services/markdown-styles.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
