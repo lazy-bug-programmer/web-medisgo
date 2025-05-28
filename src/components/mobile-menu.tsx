@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, Mail, Clock, MapPin } from "lucide-react";
+import { Menu, X, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function MobileMenuToggle() {
@@ -95,35 +95,22 @@ export function MobileMenuToggle() {
           </div>
 
           <div className="mt-auto space-y-4">
-            <div className="grid grid-cols-1 gap-3">
-              <Button
-                variant="outline"
-                className="w-full border-blue-200 hover:bg-blue-50 hover:text-blue-600"
-              >
-                Login
-              </Button>
-              <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                Book Appointment
-              </Button>
-            </div>
-
             <div className="pt-6 border-t border-gray-100">
               <div className="flex flex-col gap-2 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4 text-blue-600" />
-                  <span>+1 (555) 123-4567</span>
+                  <span>+62 811-6380-895</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4 text-blue-600" />
-                  <span>info@medicare-hospital.com</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-blue-600" />
-                  <span>Mon-Fri: 8am-8pm</span>
+                  <span>ask@medisgo.com</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-blue-600" />
-                  <span>123 Medical Drive, Healthville</span>
+                  <span>
+                    Uniland Plaza, LT 2 (MEDISGO), Jl. M. T. Haryono, Gg. Buntu,
+                    Kec. Medan Tim., Kota Medan, Sumatera Utara 20212, Indonesia
+                  </span>
                 </div>
               </div>
             </div>

@@ -2,10 +2,9 @@ import type React from "react";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, Clock, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { MobileMenuToggle } from "@/components/mobile-menu";
 import "@/app/globals.css";
 import "./services/markdown-styles.css";
@@ -76,21 +75,6 @@ export default function RootLayout({
                 </Link>
               </nav>
               <div className="flex items-center gap-2 sm:gap-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-blue-200 hover:bg-blue-50 hover:text-blue-600 hidden sm:inline-flex"
-                >
-                  Login
-                </Button>
-                <Link href="https://linktr.ee/medisgoo">
-                  <Button
-                    size="sm"
-                    className="bg-blue-600 hover:bg-blue-700 text-xs sm:text-sm"
-                  >
-                    Book Appointment
-                  </Button>
-                </Link>
                 <MobileMenuToggle />
               </div>
             </div>
@@ -113,127 +97,27 @@ export default function RootLayout({
 
                 <div className="space-y-3 sm:space-y-4">
                   <h3 className="text-base sm:text-lg font-semibold">
-                    Quick Links
-                  </h3>
-                  <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
-                    <li>
-                      <Link
-                        href="/"
-                        className="text-muted-foreground hover:text-blue-600"
-                      >
-                        Home
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/services"
-                        className="text-muted-foreground hover:text-blue-600"
-                      >
-                        Services
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/doctors"
-                        className="text-muted-foreground hover:text-blue-600"
-                      >
-                        Doctors
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/about"
-                        className="text-muted-foreground hover:text-blue-600"
-                      >
-                        About
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/contact"
-                        className="text-muted-foreground hover:text-blue-600"
-                      >
-                        Contact
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="space-y-3 sm:space-y-4">
-                  <h3 className="text-base sm:text-lg font-semibold">
-                    Services
-                  </h3>
-                  <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
-                    <li>
-                      <Link
-                        href="/services/emergency"
-                        className="text-muted-foreground hover:text-blue-600"
-                      >
-                        Emergency Care
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/services/cardiology"
-                        className="text-muted-foreground hover:text-blue-600"
-                      >
-                        Cardiology
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/services/neurology"
-                        className="text-muted-foreground hover:text-blue-600"
-                      >
-                        Neurology
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/services/pediatrics"
-                        className="text-muted-foreground hover:text-blue-600"
-                      >
-                        Pediatrics
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/services/orthopedics"
-                        className="text-muted-foreground hover:text-blue-600"
-                      >
-                        Orthopedics
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="space-y-3 sm:space-y-4">
-                  <h3 className="text-base sm:text-lg font-semibold">
                     Contact
                   </h3>
                   <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
                     <li className="flex items-center gap-2">
                       <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600 flex-shrink-0" />
                       <span className="text-muted-foreground">
-                        123 Medical Drive, Healthville
+                        Uniland Plaza, LT 2 (MEDISGO), Jl. M. T. Haryono, Gg.
+                        Buntu, Kec. Medan Tim., Kota Medan, Sumatera Utara
+                        20212, Indonesia
                       </span>
                     </li>
                     <li className="flex items-center gap-2">
                       <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600 flex-shrink-0" />
                       <span className="text-muted-foreground">
-                        +1 (555) 123-4567
+                        +62 811-6380-895
                       </span>
                     </li>
                     <li className="flex items-center gap-2">
                       <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600 flex-shrink-0" />
                       <span className="text-muted-foreground">
-                        info@medicare-hospital.com
-                      </span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600 flex-shrink-0" />
-                      <span className="text-muted-foreground">
-                        Mon-Fri: 8am-8pm
+                        ask@medisgo.com
                       </span>
                     </li>
                   </ul>
