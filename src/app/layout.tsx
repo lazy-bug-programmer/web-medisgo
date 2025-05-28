@@ -1,17 +1,23 @@
+"use client";
+
 import type React from "react";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { useEffect } from "react";
+import Head from "next/head";
 
 import { cn } from "@/lib/utils";
 import { MobileMenuToggle } from "@/components/mobile-menu";
+import { UserDropdown } from "@/components/user-dropdown";
 import "@/app/globals.css";
-import "./services/markdown-styles.css";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
+// Define metadata as a constant instead of exporting it
+const siteMetadata = {
   title: "Medisgo",
   description: "Your trusted healthcare partner",
 };
@@ -21,8 +27,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Set document title client-side
+  useEffect(() => {
+    document.title = siteMetadata.title;
+
+    // Optional: set meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", siteMetadata.description);
+    } else {
+      const meta = document.createElement("meta");
+      meta.name = "description";
+      meta.content = siteMetadata.description;
+      document.head.appendChild(meta);
+    }
+  }, []);
+
   return (
     <html lang="en">
+      <Head>
+        <title>{siteMetadata.title}</title>
+        <meta name="description" content={siteMetadata.description} />
+      </Head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
@@ -75,11 +101,14 @@ export default function RootLayout({
                 </Link>
               </nav>
               <div className="flex items-center gap-2 sm:gap-4">
+                <UserDropdown />
                 <MobileMenuToggle />
               </div>
             </div>
           </header>
+
           <main className="flex-1">{children}</main>
+
           <footer className="border-t bg-blue-50">
             <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -148,6 +177,8 @@ export default function RootLayout({
               </svg>
             </button>
           </Link>
+
+          <Toaster />
         </div>
       </body>
     </html>

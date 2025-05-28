@@ -113,7 +113,7 @@ export default function PatientsPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto p-6">
         <Button variant="ghost" size="sm" asChild>
-          <Link href="/admin/dashboard">
+          <Link href="/admin">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Dashboard
           </Link>
