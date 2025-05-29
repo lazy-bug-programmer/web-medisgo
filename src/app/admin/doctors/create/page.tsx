@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import type React from "react";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, Save, Upload } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -25,41 +27,51 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { createDoctorWithImage } from "@/lib/actions/doctors.action";
+import {
+  DoctorGender,
+  DoctorSpecialty,
+  DoctorDepartment,
+  DoctorStatus,
+} from "@/lib/domains/doctors.domain";
+import Image from "next/image";
+import { toast } from "sonner";
 
 export default function CreateDoctorPage() {
+  const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     phone: "",
-    dateOfBirth: "",
-    gender: "",
-    specialty: "",
-    department: "",
-    licenseNumber: "",
-    education: "",
-    experience: "",
+    dob: "",
+    gender: DoctorGender.MALE,
+    specialty: DoctorSpecialty.CARDIOLOGY,
+    department: DoctorDepartment.GENERAL_MEDICINE,
+    medical_license_number: "",
+    education_and_training: "",
+    years_of_experience: 0,
     biography: "",
-    languages: [] as string[],
-    consultationFee: "",
-    workingHours: {
-      monday: { start: "", end: "", available: false },
-      tuesday: { start: "", end: "", available: false },
-      wednesday: { start: "", end: "", available: false },
-      thursday: { start: "", end: "", available: false },
-      friday: { start: "", end: "", available: false },
-      saturday: { start: "", end: "", available: false },
-      sunday: { start: "", end: "", available: false },
-    },
-    emergencyContact: "",
+    languages: ["English"],
     address: "",
-    certifications: "",
-    awards: "",
-    publications: "",
-    status: "Active",
+    status: DoctorStatus.ACTIVE,
+    working_hours: {
+      monday: { start: "09:00", end: "17:00", available: true },
+      tuesday: { start: "09:00", end: "17:00", available: true },
+      wednesday: { start: "09:00", end: "17:00", available: true },
+      thursday: { start: "09:00", end: "17:00", available: true },
+      friday: { start: "09:00", end: "17:00", available: true },
+      saturday: { start: "09:00", end: "17:00", available: false },
+      sunday: { start: "09:00", end: "17:00", available: false },
+    },
   });
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -70,10 +82,10 @@ export default function CreateDoctorPage() {
   ) => {
     setFormData((prev) => ({
       ...prev,
-      workingHours: {
-        ...prev.workingHours,
+      working_hours: {
+        ...prev.working_hours,
         [day]: {
-          ...prev.workingHours[day as keyof typeof prev.workingHours],
+          ...prev.working_hours[day as keyof typeof prev.working_hours],
           [field]: value,
         },
       },
@@ -89,34 +101,86 @@ export default function CreateDoctorPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setPhotoFile(file);
+
+      // Create a preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPhotoPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Creating doctor:", formData);
-    // Handle form submission
+    setIsSubmitting(true);
+
+    try {
+      // Prepare doctor data
+      const doctorData = {
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        email: formData.email,
+        phone: formData.phone,
+        dob: new Date(formData.dob),
+        gender: Number(formData.gender),
+        address: formData.address,
+        specialty: Number(formData.specialty),
+        department: Number(formData.department),
+        medical_license_number: formData.medical_license_number,
+        years_of_experience: Number(formData.years_of_experience),
+        status: Number(formData.status),
+        education_and_training: formData.education_and_training,
+        biography: formData.biography,
+        languages: JSON.stringify(formData.languages),
+        working_hours: JSON.stringify(formData.working_hours),
+        photo_url: "",
+      };
+
+      // Submit the form data with the photo
+      const response = await createDoctorWithImage(
+        doctorData,
+        photoFile || undefined
+      );
+
+      if (response.error) {
+        toast(response.error);
+      } else {
+        toast("Doctor created successfully");
+        router.push("/admin/doctors");
+      }
+    } catch {
+      toast("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const availableLanguages = [
     "English",
-    "Spanish",
-    "French",
-    "German",
+    "Indonesian",
+    "Malay",
     "Mandarin",
+    "Hokkien",
     "Arabic",
     "Hindi",
-    "Portuguese",
+    "German",
   ];
-  const specialties = [
-    "Cardiology",
-    "Neurology",
-    "Pediatrics",
-    "Orthopedics",
-    "Dermatology",
-    "Oncology",
-    "Gynecology",
-    "Urology",
-    "Psychiatry",
-    "Emergency Medicine",
-  ];
+
+  // Helper function to get enum options for select
+  const getEnumOptions = (enumObject: any) => {
+    return Object.keys(enumObject)
+      .filter((key) => !isNaN(Number(key)))
+      .map((key) => ({ value: key, label: enumObject[Number(key)] }));
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -140,11 +204,32 @@ export default function CreateDoctorPage() {
             <CardContent className="space-y-6">
               {/* Profile Photo Upload */}
               <div className="flex items-center gap-6">
-                <div className="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center">
-                  <Upload className="h-8 w-8 text-gray-400" />
+                <div className="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                  {photoPreview ? (
+                    <Image
+                      src={photoPreview}
+                      alt="Doctor preview"
+                      width={96}
+                      height={96}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <Upload className="h-8 w-8 text-gray-400" />
+                  )}
                 </div>
                 <div>
-                  <Button type="button" variant="outline">
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handlePhotoChange}
+                    accept="image/*"
+                    className="hidden"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleUploadClick}
+                  >
                     <Upload className="mr-2 h-4 w-4" />
                     Upload Photo
                   </Button>
@@ -156,23 +241,23 @@ export default function CreateDoctorPage() {
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="firstName">First Name *</Label>
+                  <Label htmlFor="first_name">First Name *</Label>
                   <Input
-                    id="firstName"
-                    value={formData.firstName}
+                    id="first_name"
+                    value={formData.first_name}
                     onChange={(e) =>
-                      handleInputChange("firstName", e.target.value)
+                      handleInputChange("first_name", e.target.value)
                     }
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="lastName">Last Name *</Label>
+                  <Label htmlFor="last_name">Last Name *</Label>
                   <Input
-                    id="lastName"
-                    value={formData.lastName}
+                    id="last_name"
+                    value={formData.last_name}
                     onChange={(e) =>
-                      handleInputChange("lastName", e.target.value)
+                      handleInputChange("last_name", e.target.value)
                     }
                     required
                   />
@@ -197,32 +282,32 @@ export default function CreateDoctorPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="dateOfBirth">Date of Birth *</Label>
+                  <Label htmlFor="dob">Date of Birth *</Label>
                   <Input
-                    id="dateOfBirth"
+                    id="dob"
                     type="date"
-                    value={formData.dateOfBirth}
-                    onChange={(e) =>
-                      handleInputChange("dateOfBirth", e.target.value)
-                    }
+                    value={formData.dob}
+                    onChange={(e) => handleInputChange("dob", e.target.value)}
                     required
                   />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="gender">Gender *</Label>
                   <Select
-                    value={formData.gender}
+                    value={formData.gender.toString()}
                     onValueChange={(value) =>
-                      handleInputChange("gender", value)
+                      handleInputChange("gender", Number(value))
                     }
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select gender" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="male">Male</SelectItem>
-                      <SelectItem value="female">Female</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      {getEnumOptions(DoctorGender).map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -253,21 +338,18 @@ export default function CreateDoctorPage() {
               <div className="space-y-2">
                 <Label htmlFor="specialty">Specialty *</Label>
                 <Select
-                  value={formData.specialty}
+                  value={formData.specialty.toString()}
                   onValueChange={(value) =>
-                    handleInputChange("specialty", value)
+                    handleInputChange("specialty", Number(value))
                   }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select specialty" />
                   </SelectTrigger>
                   <SelectContent>
-                    {specialties.map((specialty) => (
-                      <SelectItem
-                        key={specialty}
-                        value={specialty.toLowerCase()}
-                      >
-                        {specialty}
+                    {getEnumOptions(DoctorSpecialty).map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -276,80 +358,79 @@ export default function CreateDoctorPage() {
               <div className="space-y-2">
                 <Label htmlFor="department">Department *</Label>
                 <Select
-                  value={formData.department}
+                  value={formData.department.toString()}
                   onValueChange={(value) =>
-                    handleInputChange("department", value)
+                    handleInputChange("department", Number(value))
                   }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select department" />
                   </SelectTrigger>
                   <SelectContent>
-                    {specialties.map((dept) => (
-                      <SelectItem key={dept} value={dept.toLowerCase()}>
-                        {dept}
+                    {getEnumOptions(DoctorDepartment).map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="licenseNumber">Medical License Number *</Label>
+                <Label htmlFor="medical_license_number">
+                  Medical License Number *
+                </Label>
                 <Input
-                  id="licenseNumber"
-                  value={formData.licenseNumber}
+                  id="medical_license_number"
+                  value={formData.medical_license_number}
                   onChange={(e) =>
-                    handleInputChange("licenseNumber", e.target.value)
+                    handleInputChange("medical_license_number", e.target.value)
                   }
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="experience">Years of Experience *</Label>
+                <Label htmlFor="years_of_experience">
+                  Years of Experience *
+                </Label>
                 <Input
-                  id="experience"
+                  id="years_of_experience"
                   type="number"
-                  value={formData.experience}
+                  value={formData.years_of_experience}
                   onChange={(e) =>
-                    handleInputChange("experience", e.target.value)
+                    handleInputChange("years_of_experience", e.target.value)
                   }
                   required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="consultationFee">Consultation Fee ($)</Label>
-                <Input
-                  id="consultationFee"
-                  type="number"
-                  value={formData.consultationFee}
-                  onChange={(e) =>
-                    handleInputChange("consultationFee", e.target.value)
-                  }
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="status">Status</Label>
                 <Select
-                  value={formData.status}
-                  onValueChange={(value) => handleInputChange("status", value)}
+                  value={formData.status.toString()}
+                  onValueChange={(value) =>
+                    handleInputChange("status", Number(value))
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Active">Active</SelectItem>
-                    <SelectItem value="On Leave">On Leave</SelectItem>
-                    <SelectItem value="Inactive">Inactive</SelectItem>
+                    {getEnumOptions(DoctorStatus).map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="education">Education & Training</Label>
+                <Label htmlFor="education_and_training">
+                  Education & Training
+                </Label>
                 <Textarea
-                  id="education"
-                  value={formData.education}
+                  id="education_and_training"
+                  value={formData.education_and_training}
                   onChange={(e) =>
-                    handleInputChange("education", e.target.value)
+                    handleInputChange("education_and_training", e.target.value)
                   }
                   rows={4}
                   placeholder="Medical school, residency, fellowships, etc."
@@ -406,7 +487,7 @@ export default function CreateDoctorPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {Object.entries(formData.workingHours).map(([day, hours]) => (
+                {Object.entries(formData.working_hours).map(([day, hours]) => (
                   <div key={day} className="flex items-center gap-4">
                     <div className="w-28">
                       <Checkbox
@@ -459,9 +540,9 @@ export default function CreateDoctorPage() {
             <Button type="button" variant="outline" asChild>
               <Link href="/admin/doctors">Cancel</Link>
             </Button>
-            <Button type="submit">
+            <Button type="submit" disabled={isSubmitting}>
               <Save className="mr-2 h-4 w-4" />
-              Create Doctor
+              {isSubmitting ? "Creating..." : "Create Doctor"}
             </Button>
           </div>
         </form>

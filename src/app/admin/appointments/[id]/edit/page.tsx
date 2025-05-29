@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import type React from "react";
-
 import { useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Save, Search } from "lucide-react";
+import { ArrowLeft, Save, Search, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -37,81 +37,192 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { toast } from "sonner";
 
-// Mock data
-const patients = [
-  { id: "1", name: "John Doe", email: "john.doe@email.com" },
-  { id: "2", name: "Jane Smith", email: "jane.smith@email.com" },
-  { id: "3", name: "Robert Brown", email: "robert.brown@email.com" },
-  { id: "4", name: "Maria Garcia", email: "maria.garcia@email.com" },
-];
+import {
+  getAppointmentById,
+  adminUpdateAppointment,
+} from "@/lib/actions/appointments.action";
+import { adminGetAllPatients } from "@/lib/actions/patients.action";
+import { getDoctors } from "@/lib/actions/doctors.action";
+import {
+  AppointmentType,
+  AppointmentPriority,
+  Appointment,
+} from "@/lib/domains/appointments.domain";
+import { Patient } from "@/lib/domains/patients.domain";
+import { Doctor, DoctorSpecialty } from "@/lib/domains/doctors.domain";
 
-const doctors = [
-  { id: "1", name: "Dr. Sarah Johnson", specialty: "Cardiology" },
-  { id: "2", name: "Dr. Michael Chen", specialty: "Neurology" },
-  { id: "3", name: "Dr. Emily Rodriguez", specialty: "Pediatrics" },
-  { id: "4", name: "Dr. David Patel", specialty: "Orthopedics" },
-];
+// Define interface for the patient and doctor maps
+interface PatientMap {
+  [key: string]: Patient;
+}
 
-// Mock existing appointment data
-const mockAppointment = {
-  id: "1",
-  patientId: "1",
-  doctorId: "1",
-  date: "2024-01-20",
-  time: "09:00",
-  type: "consultation",
-  duration: "30",
-  notes: "Regular checkup for cardiac health",
-  priority: "normal",
-  status: "confirmed",
-  reason: "Routine cardiac examination",
-};
+interface DoctorMap {
+  [key: string]: Doctor;
+}
 
-export default function EditAppointmentPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function EditAppointmentPage() {
+  const router = useRouter();
+  const params = useParams<{ id: string }>();
   const [formData, setFormData] = useState({
-    patientId: "",
-    doctorId: "",
-    date: "",
-    time: "",
-    type: "",
+    patient_id: "",
+    doctor_id: "",
+    datetime: "",
+    appointment_type: "",
     duration: "",
-    notes: "",
     priority: "",
-    status: "",
-    reason: "",
+    notes: "",
   });
 
+  const [id, setId] = useState<string>("");
+  const [patients, setPatients] = useState<Patient[]>([]);
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [patientMap, setPatientMap] = useState<PatientMap>({});
+  const [doctorMap, setDoctorMap] = useState<DoctorMap>({});
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [patientOpen, setPatientOpen] = useState(false);
   const [doctorOpen, setDoctorOpen] = useState(false);
 
   useEffect(() => {
-    // Load existing appointment data
-    if (params.id === "1") {
-      setFormData(mockAppointment);
+    async function fetchData() {
+      setLoading(true);
+      try {
+        setId(await params.id);
+
+        // Fetch appointment
+        const appointmentResult = await getAppointmentById(params.id);
+        if (appointmentResult.error) {
+          toast(appointmentResult.error);
+          return;
+        }
+
+        const appointment = appointmentResult.data as unknown as Appointment;
+
+        // Format the datetime for the form with error handling
+        let formattedDatetime = "";
+        try {
+          const date = new Date(appointment.datetime);
+          if (!isNaN(date.getTime())) {
+            // Check if date is valid
+            formattedDatetime = date.toISOString().slice(0, 16); // Format as "YYYY-MM-DDThh:mm"
+          } else {
+            // If date is invalid, use current date
+            formattedDatetime = new Date().toISOString().slice(0, 16);
+            console.warn(
+              "Invalid appointment date detected, using current date instead"
+            );
+          }
+        } catch (error) {
+          console.error("Error formatting date:", error);
+          formattedDatetime = new Date().toISOString().slice(0, 16);
+        }
+
+        // Set form data
+        setFormData({
+          patient_id: appointment.patient_id,
+          doctor_id: appointment.doctor_id,
+          datetime: formattedDatetime,
+          appointment_type: appointment.appointment_type.toString(),
+          duration: appointment.duration.toString(),
+          priority: appointment.priority.toString(),
+          notes: appointment.notes || "",
+        });
+
+        // Fetch patients and doctors
+        const [patientsResult, doctorsResult] = await Promise.all([
+          adminGetAllPatients(),
+          getDoctors(),
+        ]);
+
+        if (patientsResult.data) {
+          const patientsData = patientsResult.data as unknown as Patient[];
+          setPatients(patientsData);
+
+          // Create patient map for easy lookup
+          const patientMapData: PatientMap = {};
+          patientsData.forEach((patient) => {
+            patientMapData[patient.$id] = patient;
+          });
+          setPatientMap(patientMapData);
+        }
+
+        if (doctorsResult.data) {
+          const doctorsData = doctorsResult.data as unknown as Doctor[];
+          setDoctors(doctorsData);
+
+          // Create doctor map for easy lookup
+          const doctorMapData: DoctorMap = {};
+          doctorsData.forEach((doctor) => {
+            doctorMapData[doctor.$id] = doctor;
+          });
+          setDoctorMap(doctorMapData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        toast("Failed to load appointment data");
+      } finally {
+        setLoading(false);
+      }
     }
+
+    fetchData();
   }, [params.id]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Updating appointment:", formData);
-    // Handle form submission
+    setSubmitting(true);
+
+    try {
+      // Convert form data to appointment format
+      const appointmentData = {
+        patient_id: formData.patient_id,
+        doctor_id: formData.doctor_id,
+        datetime: new Date(formData.datetime),
+        appointment_type: Number(formData.appointment_type),
+        duration: Number(formData.duration),
+        priority: Number(formData.priority),
+        notes: formData.notes,
+      };
+
+      const result = await adminUpdateAppointment(id, appointmentData);
+
+      if (result.error) {
+        toast(result.error);
+      } else {
+        toast("Appointment updated successfully");
+        router.push("/admin/appointments");
+      }
+    } catch (error) {
+      console.error("Error updating appointment:", error);
+      toast("Failed to update appointment");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const selectedPatient = patients.find((p) => p.id === formData.patientId);
-  const selectedDoctor = doctors.find((d) => d.id === formData.doctorId);
+  const selectedPatient = patientMap[formData.patient_id];
+  const selectedDoctor = doctorMap[formData.doctor_id];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-2">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p>Loading appointment data...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="p-6">
+      <div className="container mx-auto p-6">
         <form onSubmit={handleSubmit} className="mx-auto max-w-4xl space-y-6">
           <Button variant="ghost" size="sm" asChild>
             <Link href="/admin/appointments">
@@ -140,7 +251,7 @@ export default function EditAppointmentPage({
                       className="w-full justify-between"
                     >
                       {selectedPatient
-                        ? selectedPatient.name
+                        ? `${selectedPatient.first_name} ${selectedPatient.last_name}`
                         : "Select patient..."}
                       <Search className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
@@ -153,15 +264,17 @@ export default function EditAppointmentPage({
                         <CommandGroup>
                           {patients.map((patient) => (
                             <CommandItem
-                              key={patient.id}
-                              value={patient.name}
+                              key={patient.$id}
+                              value={`${patient.first_name} ${patient.last_name}`}
                               onSelect={() => {
-                                handleInputChange("patientId", patient.id);
+                                handleInputChange("patient_id", patient.$id);
                                 setPatientOpen(false);
                               }}
                             >
                               <div>
-                                <p className="font-medium">{patient.name}</p>
+                                <p className="font-medium">
+                                  {patient.first_name} {patient.last_name}
+                                </p>
                                 <p className="text-sm text-muted-foreground">
                                   {patient.email}
                                 </p>
@@ -185,7 +298,7 @@ export default function EditAppointmentPage({
                       className="w-full justify-between"
                     >
                       {selectedDoctor
-                        ? selectedDoctor.name
+                        ? `${selectedDoctor.first_name} ${selectedDoctor.last_name}`
                         : "Select doctor..."}
                       <Search className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
@@ -198,17 +311,19 @@ export default function EditAppointmentPage({
                         <CommandGroup>
                           {doctors.map((doctor) => (
                             <CommandItem
-                              key={doctor.id}
-                              value={doctor.name}
+                              key={doctor.$id}
+                              value={`${doctor.first_name} ${doctor.last_name}`}
                               onSelect={() => {
-                                handleInputChange("doctorId", doctor.id);
+                                handleInputChange("doctor_id", doctor.$id);
                                 setDoctorOpen(false);
                               }}
                             >
                               <div>
-                                <p className="font-medium">{doctor.name}</p>
+                                <p className="font-medium">
+                                  {doctor.first_name} {doctor.last_name}
+                                </p>
                                 <p className="text-sm text-muted-foreground">
-                                  {doctor.specialty}
+                                  {DoctorSpecialty[doctor.specialty]}
                                 </p>
                               </div>
                             </CommandItem>
@@ -232,42 +347,35 @@ export default function EditAppointmentPage({
             </CardHeader>
             <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="date">Date *</Label>
+                <Label htmlFor="datetime">Date and Time *</Label>
                 <Input
-                  id="date"
-                  type="date"
-                  value={formData.date}
-                  onChange={(e) => handleInputChange("date", e.target.value)}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="time">Time *</Label>
-                <Input
-                  id="time"
-                  type="time"
-                  value={formData.time}
-                  onChange={(e) => handleInputChange("time", e.target.value)}
+                  id="datetime"
+                  type="datetime-local"
+                  value={formData.datetime}
+                  onChange={(e) =>
+                    handleInputChange("datetime", e.target.value)
+                  }
                   required
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="type">Appointment Type *</Label>
                 <Select
-                  value={formData.type}
-                  onValueChange={(value) => handleInputChange("type", value)}
+                  value={formData.appointment_type}
+                  onValueChange={(value) =>
+                    handleInputChange("appointment_type", value)
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select appointment type" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="consultation">Consultation</SelectItem>
-                    <SelectItem value="follow-up">Follow-up</SelectItem>
-                    <SelectItem value="surgery">Surgery</SelectItem>
-                    <SelectItem value="emergency">Emergency</SelectItem>
-                    <SelectItem value="routine-checkup">
-                      Routine Checkup
-                    </SelectItem>
+                    <SelectItem value="0">{AppointmentType[0]}</SelectItem>
+                    <SelectItem value="1">{AppointmentType[1]}</SelectItem>
+                    <SelectItem value="2">{AppointmentType[2]}</SelectItem>
+                    <SelectItem value="3">{AppointmentType[3]}</SelectItem>
+                    <SelectItem value="4">{AppointmentType[4]}</SelectItem>
+                    <SelectItem value="5">{AppointmentType[5]}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -283,12 +391,9 @@ export default function EditAppointmentPage({
                     <SelectValue placeholder="Select duration" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="15">15 minutes</SelectItem>
-                    <SelectItem value="30">30 minutes</SelectItem>
-                    <SelectItem value="45">45 minutes</SelectItem>
-                    <SelectItem value="60">1 hour</SelectItem>
-                    <SelectItem value="90">1.5 hours</SelectItem>
-                    <SelectItem value="120">2 hours</SelectItem>
+                    <SelectItem value="0">Short</SelectItem>
+                    <SelectItem value="1">Medium</SelectItem>
+                    <SelectItem value="2">Long</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -304,39 +409,12 @@ export default function EditAppointmentPage({
                     <SelectValue placeholder="Select priority" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="low">Low</SelectItem>
-                    <SelectItem value="normal">Normal</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="urgent">Urgent</SelectItem>
+                    <SelectItem value="0">{AppointmentPriority[0]}</SelectItem>
+                    <SelectItem value="1">{AppointmentPriority[1]}</SelectItem>
+                    <SelectItem value="2">{AppointmentPriority[2]}</SelectItem>
+                    <SelectItem value="3">{AppointmentPriority[3]}</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="status">Status</Label>
-                <Select
-                  value={formData.status}
-                  onValueChange={(value) => handleInputChange("status", value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="pending">Pending</SelectItem>
-                    <SelectItem value="confirmed">Confirmed</SelectItem>
-                    <SelectItem value="completed">Completed</SelectItem>
-                    <SelectItem value="cancelled">Cancelled</SelectItem>
-                    <SelectItem value="no-show">No Show</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="reason">Reason for Visit</Label>
-                <Input
-                  id="reason"
-                  value={formData.reason}
-                  onChange={(e) => handleInputChange("reason", e.target.value)}
-                  placeholder="Brief description of the visit reason"
-                />
               </div>
               <div className="space-y-2 md:col-span-2">
                 <Label htmlFor="notes">Notes</Label>
@@ -356,9 +434,9 @@ export default function EditAppointmentPage({
             <Button type="button" variant="outline" asChild>
               <Link href="/admin/appointments">Cancel</Link>
             </Button>
-            <Button type="submit">
+            <Button type="submit" disabled={submitting}>
               <Save className="mr-2 h-4 w-4" />
-              Update Appointment
+              {submitting ? "Updating..." : "Update Appointment"}
             </Button>
           </div>
         </form>

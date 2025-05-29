@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Search,
   Plus,
   Edit,
   Trash2,
-  Eye,
   MoreHorizontal,
   ArrowLeft,
+  Loader2,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -43,69 +43,104 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  adminDeletePatient,
+  adminGetAllPatients,
+} from "@/lib/actions/patients.action";
+import {
+  Patient,
+  PatientBloodType,
+  PatientGender,
+} from "@/lib/domains/patients.domain";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { formatDate } from "@/lib/utils";
 
-// Mock data for patients
-const patients = [
-  {
-    id: "1",
-    name: "John Doe",
-    email: "john.doe@email.com",
-    phone: "+1 (555) 123-4567",
-    dateOfBirth: "1985-03-15",
-    gender: "Male",
-    bloodType: "O+",
-    status: "Active",
-    lastVisit: "2024-01-15",
-    emergencyContact: "Jane Doe - +1 (555) 123-4568",
-  },
-  {
-    id: "2",
-    name: "Jane Smith",
-    email: "jane.smith@email.com",
-    phone: "+1 (555) 234-5678",
-    dateOfBirth: "1990-07-22",
-    gender: "Female",
-    bloodType: "A+",
-    status: "Active",
-    lastVisit: "2024-01-10",
-    emergencyContact: "John Smith - +1 (555) 234-5679",
-  },
-  {
-    id: "3",
-    name: "Robert Brown",
-    email: "robert.brown@email.com",
-    phone: "+1 (555) 345-6789",
-    dateOfBirth: "1978-11-08",
-    gender: "Male",
-    bloodType: "B+",
-    status: "Inactive",
-    lastVisit: "2023-12-20",
-    emergencyContact: "Mary Brown - +1 (555) 345-6790",
-  },
-  {
-    id: "4",
-    name: "Maria Garcia",
-    email: "maria.garcia@email.com",
-    phone: "+1 (555) 456-7890",
-    dateOfBirth: "1995-05-12",
-    gender: "Female",
-    bloodType: "AB+",
-    status: "Active",
-    lastVisit: "2024-01-18",
-    emergencyContact: "Carlos Garcia - +1 (555) 456-7891",
-  },
-];
+// Helper function to format patient data for display
+const formatPatientForDisplay = (patient: Patient) => {
+  const bloodTypeMap: Record<number, string> = {
+    [PatientBloodType.A_POSITIVE]: "A+",
+    [PatientBloodType.A_NEGATIVE]: "A-",
+    [PatientBloodType.B_POSITIVE]: "B+",
+    [PatientBloodType.B_NEGATIVE]: "B-",
+    [PatientBloodType.AB_POSITIVE]: "AB+",
+    [PatientBloodType.AB_NEGATIVE]: "AB-",
+    [PatientBloodType.O_POSITIVE]: "O+",
+    [PatientBloodType.O_NEGATIVE]: "O-",
+  };
+
+  const genderMap: Record<number, string> = {
+    [PatientGender.MALE]: "Male",
+    [PatientGender.FEMALE]: "Female",
+    [PatientGender.OTHERS]: "Other",
+  };
+
+  return {
+    id: patient.$id,
+    name: `${patient.first_name} ${patient.last_name}`,
+    email: patient.email,
+    dateOfBirth: formatDate(new Date(patient.dob)),
+    gender: genderMap[patient.gender] || "Unknown",
+    bloodType: bloodTypeMap[patient.blood_type] || "Unknown",
+    status: "Active", // You might want to add a status field to your Patient domain
+    emergencyContact: `${patient.emergency_contact_name} - ${patient.emergency_contact_phone}`,
+  };
+};
 
 export default function PatientsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [patients, setPatients] = useState<Patient[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const filteredPatients = patients.filter((patient) => {
+  useEffect(() => {
+    const fetchPatients = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const result = await adminGetAllPatients();
+        if (result.error) {
+          setError(result.error);
+        } else {
+          setPatients((result.data as unknown as Patient[]) || []);
+        }
+      } catch (err) {
+        setError("Failed to fetch patients. Please try again later.");
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPatients();
+  }, []);
+
+  const handleDeletePatient = async (patientId: string) => {
+    if (window.confirm("Are you sure you want to delete this patient?")) {
+      try {
+        const result = await adminDeletePatient(patientId);
+        if (result.error) {
+          setError(result.error);
+        } else {
+          // Remove the deleted patient from the state
+          setPatients(patients.filter((p) => p.$id !== patientId));
+        }
+      } catch (err) {
+        setError("Failed to delete patient. Please try again later.");
+        console.error(err);
+      }
+    }
+  };
+
+  const displayPatients = patients.map(formatPatientForDisplay);
+
+  const filteredPatients = displayPatients.filter((patient) => {
     const matchesSearch =
       patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       patient.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus =
-      statusFilter === "all" || patient.status.toLowerCase() === statusFilter;
+      statusFilter === "all" ||
+      patient.status.toLowerCase() === statusFilter.toLowerCase();
     return matchesSearch && matchesStatus;
   });
 
@@ -137,6 +172,14 @@ export default function PatientsPage() {
             </div>
           </CardHeader>
           <CardContent>
+            {/* Error display */}
+            {error && (
+              <Alert variant="destructive" className="mb-6">
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+
             {/* Filters */}
             <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex flex-1 items-center gap-4">
@@ -162,105 +205,126 @@ export default function PatientsPage() {
               </div>
             </div>
 
-            {/* Table */}
-            <div className="rounded-md border">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Contact</TableHead>
-                    <TableHead>Date of Birth</TableHead>
-                    <TableHead>Blood Type</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Last Visit</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredPatients.map((patient) => (
-                    <TableRow key={patient.id}>
-                      <TableCell className="font-medium">
-                        <div>
-                          <p>{patient.name}</p>
-                          <p className="text-sm text-muted-foreground">
-                            {patient.gender}
-                          </p>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div>
-                          <p className="text-sm">{patient.email}</p>
-                          <p className="text-sm text-muted-foreground">
-                            {patient.phone}
-                          </p>
-                        </div>
-                      </TableCell>
-                      <TableCell>{patient.dateOfBirth}</TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{patient.bloodType}</Badge>
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={
-                            patient.status === "Active"
-                              ? "default"
-                              : "secondary"
-                          }
-                        >
-                          {patient.status}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{patient.lastVisit}</TableCell>
-                      <TableCell className="text-right">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                              <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem asChild>
-                              <Link href={`/admin/patients/${patient.id}`}>
-                                <Eye className="mr-2 h-4 w-4" />
-                                View Details
-                              </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
-                              <Link href={`/admin/patients/${patient.id}/edit`}>
-                                <Edit className="mr-2 h-4 w-4" />
-                                Edit
-                              </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="text-red-600">
-                              <Trash2 className="mr-2 h-4 w-4" />
-                              Delete
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-
-            {/* Pagination */}
-            <div className="mt-6 flex items-center justify-between">
-              <p className="text-sm text-muted-foreground">
-                Showing {filteredPatients.length} of {patients.length} patients
-              </p>
-              <div className="flex items-center space-x-2">
-                <Button variant="outline" size="sm" disabled>
-                  Previous
-                </Button>
-                <Button variant="outline" size="sm">
-                  1
-                </Button>
-                <Button variant="outline" size="sm" disabled>
-                  Next
-                </Button>
+            {/* Loading State */}
+            {isLoading ? (
+              <div className="flex justify-center items-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                <span className="ml-2 text-lg">Loading patients...</span>
               </div>
-            </div>
+            ) : (
+              <>
+                {/* Table */}
+                <div className="rounded-md border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Email</TableHead>
+                        <TableHead>Date of Birth</TableHead>
+                        <TableHead>Blood Type</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredPatients.length === 0 ? (
+                        <TableRow>
+                          <TableCell
+                            colSpan={7}
+                            className="text-center py-8 text-muted-foreground"
+                          >
+                            {searchTerm || statusFilter !== "all"
+                              ? "No patients match your search criteria"
+                              : "No patients found in the system"}
+                          </TableCell>
+                        </TableRow>
+                      ) : (
+                        filteredPatients.map((patient) => (
+                          <TableRow key={patient.id}>
+                            <TableCell className="font-medium">
+                              <div>
+                                <p>{patient.name}</p>
+                                <p className="text-sm text-muted-foreground">
+                                  {patient.gender}
+                                </p>
+                              </div>
+                            </TableCell>
+                            <TableCell>{patient.email}</TableCell>
+                            <TableCell>{patient.dateOfBirth}</TableCell>
+                            <TableCell>
+                              <Badge variant="outline">
+                                {patient.bloodType}
+                              </Badge>
+                            </TableCell>
+                            <TableCell>
+                              <Badge
+                                variant={
+                                  patient.status === "Active"
+                                    ? "default"
+                                    : "secondary"
+                                }
+                              >
+                                {patient.status}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    className="h-8 w-8 p-0"
+                                  >
+                                    <MoreHorizontal className="h-4 w-4" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuItem asChild>
+                                    <Link
+                                      href={`/admin/patients/${patient.id}/edit`}
+                                    >
+                                      <Edit className="mr-2 h-4 w-4" />
+                                      View / Edit
+                                    </Link>
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem
+                                    className="text-red-600"
+                                    onClick={() =>
+                                      handleDeletePatient(patient.id)
+                                    }
+                                  >
+                                    <Trash2 className="mr-2 h-4 w-4" />
+                                    Delete
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
+                    </TableBody>
+                  </Table>
+                </div>
+
+                {/* Pagination */}
+                <div className="mt-6 flex items-center justify-between">
+                  <p className="text-sm text-muted-foreground">
+                    Showing {filteredPatients.length} of {patients.length}{" "}
+                    patients
+                  </p>
+                  <div className="flex items-center space-x-2">
+                    <Button variant="outline" size="sm" disabled>
+                      Previous
+                    </Button>
+                    <Button variant="outline" size="sm">
+                      1
+                    </Button>
+                    <Button variant="outline" size="sm" disabled>
+                      Next
+                    </Button>
+                  </div>
+                </div>
+              </>
+            )}
           </CardContent>
         </Card>
       </div>

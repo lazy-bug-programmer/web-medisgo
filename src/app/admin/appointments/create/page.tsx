@@ -2,7 +2,8 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Save, Search } from "lucide-react";
 
@@ -38,48 +39,91 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-// Mock data
-const patients = [
-  { id: "1", name: "John Doe", email: "john.doe@email.com" },
-  { id: "2", name: "Jane Smith", email: "jane.smith@email.com" },
-  { id: "3", name: "Robert Brown", email: "robert.brown@email.com" },
-  { id: "4", name: "Maria Garcia", email: "maria.garcia@email.com" },
-];
-
-const doctors = [
-  { id: "1", name: "Dr. Sarah Johnson", specialty: "Cardiology" },
-  { id: "2", name: "Dr. Michael Chen", specialty: "Neurology" },
-  { id: "3", name: "Dr. Emily Rodriguez", specialty: "Pediatrics" },
-  { id: "4", name: "Dr. David Patel", specialty: "Orthopedics" },
-];
+import { createAppointment } from "@/lib/actions/appointments.action";
+import { adminGetAllPatients } from "@/lib/actions/patients.action";
+import { getDoctors } from "@/lib/actions/doctors.action";
+import {
+  AppointmentPriority,
+  AppointmentType,
+} from "@/lib/domains/appointments.domain";
+import { Patient } from "@/lib/domains/patients.domain";
+import { Doctor } from "@/lib/domains/doctors.domain";
+import { toast } from "sonner";
 
 export default function CreateAppointmentPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    patientId: "",
-    doctorId: "",
-    date: "",
-    time: "",
-    type: "",
+    patient_id: "",
+    doctor_id: "",
+    datetime: "",
+    appointment_type: "",
     duration: "",
-    notes: "",
     priority: "",
+    notes: "",
   });
 
+  const [patients, setPatients] = useState<Patient[]>([]);
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [loading, setLoading] = useState(false);
   const [patientOpen, setPatientOpen] = useState(false);
   const [doctorOpen, setDoctorOpen] = useState(false);
+
+  useEffect(() => {
+    // Fetch patients and doctors on component mount
+    const fetchData = async () => {
+      const patientsResult = await adminGetAllPatients();
+      if (patientsResult.data) {
+        setPatients(patientsResult.data as unknown as Patient[]);
+      }
+
+      const doctorsResult = await getDoctors();
+      if (doctorsResult.data) {
+        setDoctors(doctorsResult.data as unknown as Doctor[]);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Creating appointment:", formData);
-    // Handle form submission
+    setLoading(true);
+
+    try {
+      // Format date and time into a datetime object
+      const dateTime = new Date(formData.datetime);
+
+      const appointmentData = {
+        patient_id: formData.patient_id,
+        doctor_id: formData.doctor_id,
+        datetime: dateTime,
+        appointment_type: Number(formData.appointment_type),
+        duration: Number(formData.duration),
+        priority: Number(formData.priority),
+        notes: formData.notes || "",
+      };
+
+      const result = await createAppointment(appointmentData);
+
+      if (result.error) {
+        toast(result.error);
+      } else {
+        toast("Appointment created successfully");
+        router.push("/admin/appointments");
+      }
+    } catch {
+      toast("Failed to create appointment");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const selectedPatient = patients.find((p) => p.id === formData.patientId);
-  const selectedDoctor = doctors.find((d) => d.id === formData.doctorId);
+  const selectedPatient = patients.find((p) => p.$id === formData.patient_id);
+  const selectedDoctor = doctors.find((d) => d.$id === formData.doctor_id);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -112,7 +156,7 @@ export default function CreateAppointmentPage() {
                       className="w-full justify-between"
                     >
                       {selectedPatient
-                        ? selectedPatient.name
+                        ? `${selectedPatient.first_name} ${selectedPatient.last_name}`
                         : "Select patient..."}
                       <Search className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
@@ -125,15 +169,17 @@ export default function CreateAppointmentPage() {
                         <CommandGroup>
                           {patients.map((patient) => (
                             <CommandItem
-                              key={patient.id}
-                              value={patient.name}
+                              key={patient.$id}
+                              value={`${patient.first_name} ${patient.last_name}`}
                               onSelect={() => {
-                                handleInputChange("patientId", patient.id);
+                                handleInputChange("patient_id", patient.$id);
                                 setPatientOpen(false);
                               }}
                             >
                               <div>
-                                <p className="font-medium">{patient.name}</p>
+                                <p className="font-medium">
+                                  {patient.first_name} {patient.last_name}
+                                </p>
                                 <p className="text-sm text-muted-foreground">
                                   {patient.email}
                                 </p>
@@ -157,7 +203,7 @@ export default function CreateAppointmentPage() {
                       className="w-full justify-between"
                     >
                       {selectedDoctor
-                        ? selectedDoctor.name
+                        ? `${selectedDoctor.first_name} ${selectedDoctor.last_name}`
                         : "Select doctor..."}
                       <Search className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
@@ -170,17 +216,19 @@ export default function CreateAppointmentPage() {
                         <CommandGroup>
                           {doctors.map((doctor) => (
                             <CommandItem
-                              key={doctor.id}
-                              value={doctor.name}
+                              key={doctor.$id}
+                              value={`${doctor.first_name} ${doctor.last_name}`}
                               onSelect={() => {
-                                handleInputChange("doctorId", doctor.id);
+                                handleInputChange("doctor_id", doctor.$id);
                                 setDoctorOpen(false);
                               }}
                             >
                               <div>
-                                <p className="font-medium">{doctor.name}</p>
+                                <p className="font-medium">
+                                  {doctor.first_name} {doctor.last_name}
+                                </p>
                                 <p className="text-sm text-muted-foreground">
-                                  {doctor.specialty}
+                                  {AppointmentType[doctor.specialty]}
                                 </p>
                               </div>
                             </CommandItem>
@@ -204,42 +252,35 @@ export default function CreateAppointmentPage() {
             </CardHeader>
             <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="date">Date *</Label>
+                <Label htmlFor="datetime">Date and Time *</Label>
                 <Input
-                  id="date"
-                  type="date"
-                  value={formData.date}
-                  onChange={(e) => handleInputChange("date", e.target.value)}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="time">Time *</Label>
-                <Input
-                  id="time"
-                  type="time"
-                  value={formData.time}
-                  onChange={(e) => handleInputChange("time", e.target.value)}
+                  id="datetime"
+                  type="datetime-local"
+                  value={formData.datetime}
+                  onChange={(e) =>
+                    handleInputChange("datetime", e.target.value)
+                  }
                   required
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="type">Appointment Type *</Label>
                 <Select
-                  value={formData.type}
-                  onValueChange={(value) => handleInputChange("type", value)}
+                  value={formData.appointment_type}
+                  onValueChange={(value) =>
+                    handleInputChange("appointment_type", value)
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select appointment type" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="consultation">Consultation</SelectItem>
-                    <SelectItem value="follow-up">Follow-up</SelectItem>
-                    <SelectItem value="surgery">Surgery</SelectItem>
-                    <SelectItem value="emergency">Emergency</SelectItem>
-                    <SelectItem value="routine-checkup">
-                      Routine Checkup
-                    </SelectItem>
+                    <SelectItem value="0">{AppointmentType[0]}</SelectItem>
+                    <SelectItem value="1">{AppointmentType[1]}</SelectItem>
+                    <SelectItem value="2">{AppointmentType[2]}</SelectItem>
+                    <SelectItem value="3">{AppointmentType[3]}</SelectItem>
+                    <SelectItem value="4">{AppointmentType[4]}</SelectItem>
+                    <SelectItem value="5">{AppointmentType[5]}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -255,12 +296,9 @@ export default function CreateAppointmentPage() {
                     <SelectValue placeholder="Select duration" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="15">15 minutes</SelectItem>
-                    <SelectItem value="30">30 minutes</SelectItem>
-                    <SelectItem value="45">45 minutes</SelectItem>
-                    <SelectItem value="60">1 hour</SelectItem>
-                    <SelectItem value="90">1.5 hours</SelectItem>
-                    <SelectItem value="120">2 hours</SelectItem>
+                    <SelectItem value="0">Short</SelectItem>
+                    <SelectItem value="1">Medium</SelectItem>
+                    <SelectItem value="2">Long</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -276,10 +314,10 @@ export default function CreateAppointmentPage() {
                     <SelectValue placeholder="Select priority" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="low">Low</SelectItem>
-                    <SelectItem value="normal">Normal</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="urgent">Urgent</SelectItem>
+                    <SelectItem value="0">{AppointmentPriority[0]}</SelectItem>
+                    <SelectItem value="1">{AppointmentPriority[1]}</SelectItem>
+                    <SelectItem value="2">{AppointmentPriority[2]}</SelectItem>
+                    <SelectItem value="3">{AppointmentPriority[3]}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -301,9 +339,9 @@ export default function CreateAppointmentPage() {
             <Button type="button" variant="outline" asChild>
               <Link href="/admin/appointments">Cancel</Link>
             </Button>
-            <Button type="submit">
+            <Button type="submit" disabled={loading}>
               <Save className="mr-2 h-4 w-4" />
-              Schedule Appointment
+              {loading ? "Scheduling..." : "Schedule Appointment"}
             </Button>
           </div>
         </form>

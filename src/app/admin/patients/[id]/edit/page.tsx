@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import type React from "react";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, Loader2 } from "lucide-react";
+import { z } from "zod";
+import { useParams, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,38 +27,54 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { toast } from "sonner";
+import {
+  getPatientById,
+  adminUpdatePatient,
+} from "@/lib/actions/patients.action";
+import {
+  PatientBloodType,
+  PatientEmergencyContactRelationship,
+  PatientGender,
+} from "@/lib/domains/patients.domain";
 
-// Mock existing patient data
-const mockPatient = {
-  id: "1",
-  firstName: "John",
-  lastName: "Doe",
-  email: "john.doe@email.com",
-  phone: "+1 (555) 123-4567",
-  dateOfBirth: "1985-03-15",
-  gender: "male",
-  bloodType: "O+",
-  address: "123 Main Street, Anytown, State 12345",
-  emergencyContactName: "Jane Doe",
-  emergencyContactPhone: "+1 (555) 123-4568",
-  emergencyContactRelation: "spouse",
-  medicalHistory:
-    "Hypertension diagnosed in 2020, managed with medication. No known allergies to medications.",
-  allergies: "Peanuts, shellfish",
-  currentMedications: "Lisinopril 10mg daily, Metformin 500mg twice daily",
-  insuranceProvider: "Blue Cross Blue Shield",
-  insurancePolicyNumber: "BC123456789",
-  status: "Active",
-  registrationDate: "2023-01-15",
-};
+// Zod schema for form validation - similar to create page
+const patientSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().min(1, "Phone number is required"),
+  dateOfBirth: z.string().min(1, "Date of birth is required"),
+  gender: z.string().min(1, "Gender is required"),
+  bloodType: z.string().optional(),
+  address: z.string().optional(),
+  emergencyContactName: z.string().min(1, "Emergency contact name is required"),
+  emergencyContactPhone: z
+    .string()
+    .min(1, "Emergency contact phone is required"),
+  emergencyContactRelation: z.string().min(1, "Relationship is required"),
+  medicalHistory: z.string().optional(),
+  allergies: z.string().optional(),
+  currentMedications: z.string().optional(),
+  insuranceProvider: z.string().optional(),
+  insurancePolicyNumber: z.string().optional(),
+});
 
-export default function EditPatientPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const [formData, setFormData] = useState({
+type PatientFormData = z.infer<typeof patientSchema>;
+
+export default function EditPatientPage() {
+  const router = useRouter();
+  const params = useParams<{ id: string }>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<
+    Record<string, string>
+  >({});
+  const [registrationDate, setRegistrationDate] = useState<string>("");
+
+  const [formData, setFormData] = useState<PatientFormData>({
     firstName: "",
     lastName: "",
     email: "",
@@ -72,25 +91,253 @@ export default function EditPatientPage({
     currentMedications: "",
     insuranceProvider: "",
     insurancePolicyNumber: "",
-    status: "Active",
   });
 
   useEffect(() => {
-    // Load existing patient data
-    if (params.id === "1") {
-      setFormData(mockPatient);
-    }
+    const fetchPatient = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        const result = await getPatientById(params.id);
+
+        if (result.error) {
+          setError(result.error);
+          return;
+        }
+
+        if (!result.data) {
+          setError("Patient not found");
+          return;
+        }
+
+        const patient = result.data;
+
+        // Format date
+        const dobDate = new Date(patient.dob);
+        const formattedDob = dobDate.toISOString().split("T")[0];
+
+        // Set registration date
+        const createdAt = new Date(patient.$createdAt);
+        setRegistrationDate(createdAt.toISOString().split("T")[0]);
+
+        // Convert gender enum to string
+        const genderMap: Record<number, string> = {
+          [PatientGender.MALE]: "male",
+          [PatientGender.FEMALE]: "female",
+          [PatientGender.OTHERS]: "other",
+        };
+
+        // Convert blood type enum to string
+        const bloodTypeMap: Record<number, string> = {
+          [PatientBloodType.A_POSITIVE]: "A+",
+          [PatientBloodType.A_NEGATIVE]: "A-",
+          [PatientBloodType.B_POSITIVE]: "B+",
+          [PatientBloodType.B_NEGATIVE]: "B-",
+          [PatientBloodType.AB_POSITIVE]: "AB+",
+          [PatientBloodType.AB_NEGATIVE]: "AB-",
+          [PatientBloodType.O_POSITIVE]: "O+",
+          [PatientBloodType.O_NEGATIVE]: "O-",
+        };
+
+        // Convert relationship enum to string
+        const relationshipMap: Record<number, string> = {
+          [PatientEmergencyContactRelationship.PARENT]: "parent",
+          [PatientEmergencyContactRelationship.SIBLING]: "sibling",
+          [PatientEmergencyContactRelationship.SPOUSE]: "spouse",
+          [PatientEmergencyContactRelationship.CHILD]: "child",
+          [PatientEmergencyContactRelationship.FRIEND]: "friend",
+          [PatientEmergencyContactRelationship.OTHER]: "other",
+        };
+
+        setFormData({
+          firstName: patient.first_name,
+          lastName: patient.last_name,
+          email: patient.email,
+          phone: patient.phone || "",
+          dateOfBirth: formattedDob,
+          gender: genderMap[patient.gender] || "other",
+          bloodType: bloodTypeMap[patient.blood_type] || "",
+          address: patient.address || "",
+          emergencyContactName: patient.emergency_contact_name,
+          emergencyContactPhone: patient.emergency_contact_phone,
+          emergencyContactRelation:
+            relationshipMap[patient.emergency_contact_relationship] || "other",
+          medicalHistory: patient.medical_history || "",
+          allergies: patient.allergies || "",
+          currentMedications: patient.current_medications || "",
+          insuranceProvider: patient.insurance_provider || "",
+          insurancePolicyNumber: patient.insurance_policy_number || "",
+        });
+      } catch {
+        setError("Failed to load patient data");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPatient();
   }, [params.id]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+
+    // Clear validation error for this field if it exists
+    if (validationErrors[field]) {
+      setValidationErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Updating patient:", formData);
-    // Handle form submission
+  const validateForm = (): boolean => {
+    try {
+      patientSchema.parse(formData);
+      setValidationErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            errors[err.path[0].toString()] = err.message;
+          }
+        });
+        setValidationErrors(errors);
+      }
+      return false;
+    }
   };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      toast("Please fix the form errors before submitting.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Convert form data to match the Patient domain model
+      const patientData = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        dob: new Date(formData.dateOfBirth),
+        gender:
+          formData.gender === "male"
+            ? PatientGender.MALE
+            : formData.gender === "female"
+            ? PatientGender.FEMALE
+            : PatientGender.OTHERS,
+        address: formData.address || "",
+        emergency_contact_name: formData.emergencyContactName,
+        emergency_contact_phone: formData.emergencyContactPhone,
+        emergency_contact_relationship: getEmergencyContactRelationship(
+          formData.emergencyContactRelation
+        ),
+        blood_type: getBloodType(formData.bloodType || ""),
+        allergies: formData.allergies || "",
+        current_medications: formData.currentMedications || "",
+        medical_history: formData.medicalHistory || "",
+        insurance_provider: formData.insuranceProvider || "",
+        insurance_policy_number: formData.insurancePolicyNumber || "",
+      };
+
+      const result = await adminUpdatePatient(params.id, patientData);
+
+      if (result.error) {
+        toast(result.error);
+      } else {
+        toast("Patient updated successfully");
+        router.push("/admin/patients");
+      }
+    } catch {
+      toast("Failed to update patient. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Helper function to convert string values to enum values - same as create page
+  const getBloodType = (value: string): PatientBloodType => {
+    switch (value) {
+      case "A+":
+        return PatientBloodType.A_POSITIVE;
+      case "A-":
+        return PatientBloodType.A_NEGATIVE;
+      case "B+":
+        return PatientBloodType.B_POSITIVE;
+      case "B-":
+        return PatientBloodType.B_NEGATIVE;
+      case "AB+":
+        return PatientBloodType.AB_POSITIVE;
+      case "AB-":
+        return PatientBloodType.AB_NEGATIVE;
+      case "O+":
+        return PatientBloodType.O_POSITIVE;
+      case "O-":
+        return PatientBloodType.O_NEGATIVE;
+      default:
+        return PatientBloodType.O_POSITIVE; // Default value
+    }
+  };
+
+  const getEmergencyContactRelationship = (
+    value: string
+  ): PatientEmergencyContactRelationship => {
+    switch (value) {
+      case "parent":
+        return PatientEmergencyContactRelationship.PARENT;
+      case "sibling":
+        return PatientEmergencyContactRelationship.SIBLING;
+      case "spouse":
+        return PatientEmergencyContactRelationship.SPOUSE;
+      case "child":
+        return PatientEmergencyContactRelationship.CHILD;
+      case "friend":
+        return PatientEmergencyContactRelationship.FRIEND;
+      default:
+        return PatientEmergencyContactRelationship.OTHER;
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <Loader2 className="h-12 w-12 animate-spin text-primary" />
+          <p className="text-lg">Loading patient data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-6">
+        <div className="mx-auto max-w-4xl">
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/admin/patients">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Patients
+            </Link>
+          </Button>
+
+          <Alert variant="destructive" className="mt-6">
+            <AlertDescription>
+              {error}. Please try again or go back to the patients list.
+            </AlertDescription>
+          </Alert>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -103,12 +350,12 @@ export default function EditPatientPage({
             </Link>
           </Button>
 
-          {/* Patient Status */}
+          {/* Patient Information - Updated to remove status controls */}
           <Card>
             <CardHeader>
-              <CardTitle>Patient Status</CardTitle>
+              <CardTitle>Patient Information</CardTitle>
               <CardDescription>
-                Current patient information and status
+                Current patient registration information
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -121,37 +368,7 @@ export default function EditPatientPage({
                   <p className="text-sm text-muted-foreground">
                     Registration Date
                   </p>
-                  <p className="font-medium">{mockPatient.registrationDate}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">
-                    Current Status
-                  </p>
-                  <Badge
-                    variant={
-                      formData.status === "Active" ? "default" : "secondary"
-                    }
-                  >
-                    {formData.status}
-                  </Badge>
-                </div>
-                <div className="ml-auto">
-                  <Label htmlFor="status">Update Status</Label>
-                  <Select
-                    value={formData.status}
-                    onValueChange={(value) =>
-                      handleInputChange("status", value)
-                    }
-                  >
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Active">Active</SelectItem>
-                      <SelectItem value="Inactive">Inactive</SelectItem>
-                      <SelectItem value="Suspended">Suspended</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <p className="font-medium">{registrationDate}</p>
                 </div>
               </div>
             </CardContent>
@@ -175,7 +392,13 @@ export default function EditPatientPage({
                     handleInputChange("firstName", e.target.value)
                   }
                   required
+                  className={validationErrors.firstName ? "border-red-500" : ""}
                 />
+                {validationErrors.firstName && (
+                  <p className="text-sm text-red-500">
+                    {validationErrors.firstName}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="lastName">Last Name *</Label>
@@ -186,7 +409,13 @@ export default function EditPatientPage({
                     handleInputChange("lastName", e.target.value)
                   }
                   required
+                  className={validationErrors.lastName ? "border-red-500" : ""}
                 />
+                {validationErrors.lastName && (
+                  <p className="text-sm text-red-500">
+                    {validationErrors.lastName}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email *</Label>
@@ -196,7 +425,13 @@ export default function EditPatientPage({
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
                   required
+                  className={validationErrors.email ? "border-red-500" : ""}
                 />
+                {validationErrors.email && (
+                  <p className="text-sm text-red-500">
+                    {validationErrors.email}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone Number *</Label>
@@ -205,7 +440,13 @@ export default function EditPatientPage({
                   value={formData.phone}
                   onChange={(e) => handleInputChange("phone", e.target.value)}
                   required
+                  className={validationErrors.phone ? "border-red-500" : ""}
                 />
+                {validationErrors.phone && (
+                  <p className="text-sm text-red-500">
+                    {validationErrors.phone}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="dateOfBirth">Date of Birth *</Label>
@@ -217,7 +458,15 @@ export default function EditPatientPage({
                     handleInputChange("dateOfBirth", e.target.value)
                   }
                   required
+                  className={
+                    validationErrors.dateOfBirth ? "border-red-500" : ""
+                  }
                 />
+                {validationErrors.dateOfBirth && (
+                  <p className="text-sm text-red-500">
+                    {validationErrors.dateOfBirth}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="gender">Gender *</Label>
@@ -225,7 +474,9 @@ export default function EditPatientPage({
                   value={formData.gender}
                   onValueChange={(value) => handleInputChange("gender", value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger
+                    className={validationErrors.gender ? "border-red-500" : ""}
+                  >
                     <SelectValue placeholder="Select gender" />
                   </SelectTrigger>
                   <SelectContent>
@@ -234,6 +485,11 @@ export default function EditPatientPage({
                     <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
+                {validationErrors.gender && (
+                  <p className="text-sm text-red-500">
+                    {validationErrors.gender}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="bloodType">Blood Type</Label>
@@ -286,7 +542,17 @@ export default function EditPatientPage({
                     handleInputChange("emergencyContactName", e.target.value)
                   }
                   required
+                  className={
+                    validationErrors.emergencyContactName
+                      ? "border-red-500"
+                      : ""
+                  }
                 />
+                {validationErrors.emergencyContactName && (
+                  <p className="text-sm text-red-500">
+                    {validationErrors.emergencyContactName}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="emergencyContactPhone">Contact Phone *</Label>
@@ -297,7 +563,17 @@ export default function EditPatientPage({
                     handleInputChange("emergencyContactPhone", e.target.value)
                   }
                   required
+                  className={
+                    validationErrors.emergencyContactPhone
+                      ? "border-red-500"
+                      : ""
+                  }
                 />
+                {validationErrors.emergencyContactPhone && (
+                  <p className="text-sm text-red-500">
+                    {validationErrors.emergencyContactPhone}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="emergencyContactRelation">Relationship *</Label>
@@ -307,7 +583,13 @@ export default function EditPatientPage({
                     handleInputChange("emergencyContactRelation", value)
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger
+                    className={
+                      validationErrors.emergencyContactRelation
+                        ? "border-red-500"
+                        : ""
+                    }
+                  >
                     <SelectValue placeholder="Select relationship" />
                   </SelectTrigger>
                   <SelectContent>
@@ -319,6 +601,11 @@ export default function EditPatientPage({
                     <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
+                {validationErrors.emergencyContactRelation && (
+                  <p className="text-sm text-red-500">
+                    {validationErrors.emergencyContactRelation}
+                  </p>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -406,9 +693,9 @@ export default function EditPatientPage({
             <Button type="button" variant="outline" asChild>
               <Link href="/admin/patients">Cancel</Link>
             </Button>
-            <Button type="submit">
+            <Button type="submit" disabled={isSubmitting}>
               <Save className="mr-2 h-4 w-4" />
-              Update Patient
+              {isSubmitting ? "Updating..." : "Update Patient"}
             </Button>
           </div>
         </form>
