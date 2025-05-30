@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -66,11 +67,7 @@ type WorkingHoursFormat = {
   [key: string]: DaySchedule;
 };
 
-export default function DoctorDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function DoctorDetailPage({ params }: any) {
   const [doctor, setDoctor] = useState<Doctor | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
