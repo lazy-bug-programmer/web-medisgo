@@ -1,6 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { Search, User, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,100 +15,179 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  getDoctors,
+  getDoctorsBySpecialty,
+} from "@/lib/actions/doctors.action";
+import { getImage } from "@/lib/appwrite/bucket";
+import { Doctor, DoctorSpecialty } from "@/lib/domains/doctors.domain";
 
-// Mock data for doctors
-const doctors = [
-  {
-    id: "sarah-johnson",
-    name: "Dr. Sarah Johnson",
-    specialty: "Kardiologi",
-    image: "/placeholder.svg?height=400&width=400",
-    education: "Harvard Medical School",
-    experience: "15 tahun",
-  },
-  {
-    id: "michael-chen",
-    name: "Dr. Michael Chen",
-    specialty: "Neurologi",
-    image: "/placeholder.svg?height=400&width=400",
-    education: "Johns Hopkins University",
-    experience: "12 tahun",
-  },
-  {
-    id: "emily-rodriguez",
-    name: "Dr. Emily Rodriguez",
-    specialty: "Pediatri",
-    image: "/placeholder.svg?height=400&width=400",
-    education: "Stanford University",
-    experience: "10 tahun",
-  },
-  {
-    id: "david-patel",
-    name: "Dr. David Patel",
-    specialty: "Ortopedi",
-    image: "/placeholder.svg?height=400&width=400",
-    education: "Yale University",
-    experience: "18 tahun",
-  },
-  {
-    id: "lisa-wong",
-    name: "Dr. Lisa Wong",
-    specialty: "Dermatologi",
-    image: "/placeholder.svg?height=400&width=400",
-    education: "University of California",
-    experience: "8 tahun",
-  },
-  {
-    id: "james-wilson",
-    name: "Dr. James Wilson",
-    specialty: "Onkologi",
-    image: "/placeholder.svg?height=400&width=400",
-    education: "Columbia University",
-    experience: "20 tahun",
-  },
-  {
-    id: "maria-garcia",
-    name: "Dr. Maria Garcia",
-    specialty: "Ginekologi",
-    image: "/placeholder.svg?height=400&width=400",
-    education: "University of Pennsylvania",
-    experience: "14 tahun",
-  },
-  {
-    id: "robert-kim",
-    name: "Dr. Robert Kim",
-    specialty: "Urologi",
-    image: "/placeholder.svg?height=400&width=400",
-    education: "Duke University",
-    experience: "16 tahun",
-  },
-  {
-    id: "jennifer-taylor",
-    name: "Dr. Jennifer Taylor",
-    specialty: "Psikiatri",
-    image: "/placeholder.svg?height=400&width=400",
-    education: "University of Michigan",
-    experience: "11 tahun",
-  },
-];
-
-// Specialties for filtering
-const specialties = [
-  "Semua",
-  "Kardiologi",
-  "Neurologi",
-  "Pediatri",
-  "Ortopedi",
-  "Dermatologi",
-  "Onkologi",
-  "Ginekologi",
-  "Urologi",
-  "Psikiatri",
-];
+// Specialties mapping for display
+const specialtiesMap = {
+  [DoctorSpecialty.CARDIOLOGY]: "Kardiologi",
+  [DoctorSpecialty.DERMATOLOGY]: "Dermatologi",
+  [DoctorSpecialty.GASTROENTEROLOGY]: "Gastroenterologi",
+  [DoctorSpecialty.NEUROLOGY]: "Neurologi",
+  [DoctorSpecialty.ONCOLOGY]: "Onkologi",
+  [DoctorSpecialty.PEDIATRICS]: "Pediatri",
+  [DoctorSpecialty.PSYCHIATRY]: "Psikiatri",
+  [DoctorSpecialty.RADIOLOGY]: "Radiologi",
+  [DoctorSpecialty.SURGERY]: "Bedah",
+  [DoctorSpecialty.UROLOGY]: "Urologi",
+  [DoctorSpecialty.OTHER]: "Lainnya",
+};
 
 export default function DoctorsPage() {
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [filteredDoctors, setFilteredDoctors] = useState<Doctor[]>([]);
+  const [displayedDoctors, setDisplayedDoctors] = useState<Doctor[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedSpecialty, setSelectedSpecialty] = useState("Semua");
+  const [imageUrls, setImageUrls] = useState<Record<string, string>>({});
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const ITEMS_PER_PAGE = 10;
+
+  // Create specialty options for filtering
+  const specialties = ["Semua", ...Object.values(specialtiesMap)];
+
+  useEffect(() => {
+    async function fetchDoctors() {
+      setLoading(true);
+      try {
+        let result;
+        if (selectedSpecialty === "Semua") {
+          result = await getDoctors();
+        } else {
+          // Find the specialty enum value by its display name
+          const specialtyEnum = Object.entries(specialtiesMap).find(
+            ([, value]) => value === selectedSpecialty
+          )?.[0];
+
+          if (specialtyEnum !== undefined) {
+            result = await getDoctorsBySpecialty(Number(specialtyEnum));
+          } else {
+            result = await getDoctors();
+          }
+        }
+
+        if (result.data) {
+          setDoctors(result.data as unknown as Doctor[]);
+          setFilteredDoctors(result.data as unknown as Doctor[]);
+        }
+      } catch (error) {
+        console.error("Error fetching doctors:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchDoctors();
+  }, [selectedSpecialty]);
+
+  useEffect(() => {
+    // Filter doctors based on search query
+    if (searchQuery.trim() === "") {
+      setFilteredDoctors(doctors);
+    } else {
+      const filtered = doctors.filter(
+        (doctor) =>
+          `${doctor.first_name} ${doctor.last_name}`
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          specialtiesMap[doctor.specialty as keyof typeof specialtiesMap]
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase())
+      );
+      setFilteredDoctors(filtered);
+    }
+  }, [searchQuery, doctors]);
+
+  useEffect(() => {
+    // Fetch images for doctors
+    async function fetchDoctorImages() {
+      const newImageUrls: Record<string, string> = {};
+      const newImageLoading: Record<string, boolean> = {};
+
+      for (const doctor of doctors) {
+        if (doctor.photo_url) {
+          try {
+            newImageLoading[doctor.$id] = true;
+            const result = await getImage(doctor.photo_url);
+            if (result.data && result.data.file) {
+              // Convert ArrayBuffer to object URL
+              const arrayBufferView = new Uint8Array(result.data.file);
+              const blob = new Blob([arrayBufferView], { type: "image/jpeg" });
+              const url = URL.createObjectURL(blob);
+              newImageUrls[doctor.$id] = url;
+            }
+            newImageLoading[doctor.$id] = false;
+          } catch (error) {
+            console.error(
+              `Error fetching image for doctor ${doctor.$id}:`,
+              error
+            );
+            newImageLoading[doctor.$id] = false;
+          }
+        }
+      }
+
+      setImageUrls(newImageUrls);
+    }
+
+    if (doctors.length > 0) {
+      fetchDoctorImages();
+    }
+
+    // Cleanup function to revoke object URLs
+    return () => {
+      Object.values(imageUrls).forEach((url) => {
+        URL.revokeObjectURL(url);
+      });
+    };
+  }, [doctors]);
+
+  useEffect(() => {
+    // Calculate pagination for filtered doctors
+    const totalItems = filteredDoctors.length;
+    const calculatedTotalPages = Math.max(
+      1,
+      Math.ceil(totalItems / ITEMS_PER_PAGE)
+    );
+    setTotalPages(calculatedTotalPages);
+
+    // Reset to page 1 when filters change
+    if (currentPage > calculatedTotalPages) {
+      setCurrentPage(1);
+    }
+
+    // Get current page items
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalItems);
+    setDisplayedDoctors(filteredDoctors.slice(startIndex, endIndex));
+  }, [filteredDoctors, currentPage]);
+
+  const handleSpecialtyChange = (value: string) => {
+    setSelectedSpecialty(value);
+  };
+
+  const handlePageChange = (pageNumber: number) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
   return (
     <div>
       <div className="bg-gradient-to-r from-[#1f6fad] to-[#2a80c5] py-8 sm:py-10 md:py-12">
@@ -137,151 +219,170 @@ export default function DoctorsPage() {
               type="search"
               placeholder="Cari dokter..."
               className="w-full pl-8"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
 
-          {/* Responsive tabs with scrollable overflow on small screens */}
-          <div className="w-full md:w-auto overflow-x-auto pb-2">
-            <Tabs defaultValue="Semua" className="w-full md:w-auto">
-              <TabsList className="w-max min-w-full md:w-auto md:min-w-0 grid grid-flow-col auto-cols-auto md:grid-cols-5 gap-px">
-                {specialties.slice(0, 5).map((specialty) => (
-                  <TabsTrigger
-                    key={specialty}
-                    value={specialty}
-                    className="text-xs whitespace-nowrap px-3 md:px-4 md:text-sm"
-                  >
+          {/* Specialty dropdown menu */}
+          <div className="w-full md:w-auto">
+            <Select
+              value={selectedSpecialty}
+              onValueChange={handleSpecialtyChange}
+            >
+              <SelectTrigger className="w-full md:w-[200px] bg-white">
+                <SelectValue placeholder="Pilih Spesialisasi" />
+              </SelectTrigger>
+              <SelectContent>
+                {specialties.map((specialty) => (
+                  <SelectItem key={specialty} value={specialty}>
                     {specialty}
-                  </TabsTrigger>
+                  </SelectItem>
                 ))}
-              </TabsList>
-            </Tabs>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
-        <div className="mt-6 sm:mt-8 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {doctors.map((doctor) => (
-            <Card
-              key={doctor.id}
-              className="group overflow-hidden border-[#e5f5ff] transition-all duration-300 hover:border-[#7fcbff] hover:shadow-lg"
-            >
-              <div className="aspect-square relative">
-                <Image
-                  src={doctor.image || "/placeholder.svg"}
-                  alt={doctor.name}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1f6fad]/80 via-[#1f6fad]/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-              </div>
-              <CardHeader className="p-4 sm:p-6">
-                <CardTitle className="text-lg sm:text-xl text-[#1f6fad]">
-                  {doctor.name}
-                </CardTitle>
-                <CardDescription className="text-sm text-[#329ff2]">
-                  {doctor.specialty}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
-                <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
-                  <div>
-                    <p className="font-medium">Pendidikan</p>
-                    <p className="text-muted-foreground">{doctor.education}</p>
-                  </div>
-                  <div>
-                    <p className="font-medium">Pengalaman</p>
-                    <p className="text-muted-foreground">{doctor.experience}</p>
-                  </div>
+        {loading ? (
+          <div className="mt-10 flex justify-center">
+            <p className="text-muted-foreground">Memuat data dokter...</p>
+          </div>
+        ) : filteredDoctors.length === 0 ? (
+          <div className="mt-10 flex justify-center">
+            <p className="text-muted-foreground">
+              Tidak ada dokter yang ditemukan
+            </p>
+          </div>
+        ) : (
+          <div className="mt-6 sm:mt-8 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {displayedDoctors.map((doctor) => (
+              <Card
+                key={doctor.$id}
+                className="group overflow-hidden border-[#e5f5ff] transition-all duration-300 hover:border-[#7fcbff] hover:shadow-lg"
+              >
+                <div className="aspect-square relative bg-[#f0f9ff]">
+                  {imageUrls[doctor.$id] ? (
+                    <Image
+                      src={imageUrls[doctor.$id]}
+                      alt={`${doctor.first_name} ${doctor.last_name}`}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <User size={100} className="text-[#1f6fad]/30" />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1f6fad]/80 via-[#1f6fad]/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                 </div>
-              </CardContent>
-              <CardFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:justify-between p-4 sm:p-6 pt-0 sm:pt-0">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-[#d0ecff] hover:bg-[#f0f9ff] hover:text-[#329ff2] w-full sm:w-auto text-xs sm:text-sm"
-                  asChild
-                >
-                  <Link href={`/doctors/${doctor.id}`}>Lihat Profil</Link>
-                </Button>
-                <Button
-                  size="sm"
-                  className="bg-[#329ff2] hover:bg-[#1e8ddd] w-full sm:w-auto text-xs sm:text-sm"
-                  asChild
-                >
-                  <Link href="/appointment">Buat Janji</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-
-        <div className="mt-6 sm:mt-8 flex items-center justify-center">
-          <div className="flex items-center space-x-1 sm:space-x-2">
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8 sm:h-9 sm:w-9"
-              disabled
-            >
-              <span className="sr-only">Halaman sebelumnya</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4"
-              >
-                <path d="m15 18-6-6 6-6" />
-              </svg>
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-8 w-8 bg-[#f0f9ff] text-[#329ff2] text-xs sm:text-sm"
-            >
-              1
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-8 w-8 text-xs sm:text-sm"
-            >
-              2
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-8 w-8 text-xs sm:text-sm"
-            >
-              3
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8 sm:h-9 sm:w-9"
-            >
-              <span className="sr-only">Halaman berikutnya</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4"
-              >
-                <path d="m9 18 6-6-6-6" />
-              </svg>
-            </Button>
+                <CardHeader className="p-4 sm:p-6">
+                  <CardTitle className="text-lg sm:text-xl text-[#1f6fad]">
+                    Dr. {doctor.first_name} {doctor.last_name}
+                  </CardTitle>
+                  <CardDescription className="text-sm text-[#329ff2]">
+                    {specialtiesMap[
+                      doctor.specialty as keyof typeof specialtiesMap
+                    ] || "Umum"}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
+                  <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+                    <div>
+                      <p className="font-medium">Pendidikan</p>
+                      <p className="text-muted-foreground">
+                        {doctor.education_and_training || "-"}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-medium">Pengalaman</p>
+                      <p className="text-muted-foreground">
+                        {doctor.years_of_experience} tahun
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:justify-between p-4 sm:p-6 pt-0 sm:pt-0">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-[#d0ecff] hover:bg-[#f0f9ff] hover:text-[#329ff2] w-full sm:w-auto text-xs sm:text-sm"
+                    asChild
+                  >
+                    <Link href={`/doctors/${doctor.$id}`}>Lihat Profil</Link>
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="bg-[#329ff2] hover:bg-[#1e8ddd] w-full sm:w-auto text-xs sm:text-sm"
+                    asChild
+                  >
+                    <Link href="/contact">Buat Janji</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
           </div>
-        </div>
+        )}
+
+        {filteredDoctors.length > 0 && (
+          <div className="mt-6 sm:mt-8 flex items-center justify-center">
+            <div className="flex items-center space-x-1 sm:space-x-2">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8 sm:h-9 sm:w-9"
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                <span className="sr-only">Halaman sebelumnya</span>
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+
+              {/* Generate page buttons */}
+              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                let pageNum: number;
+
+                // Logic to show correct page numbers when there are many pages
+                if (totalPages <= 5) {
+                  pageNum = i + 1;
+                } else if (currentPage <= 3) {
+                  pageNum = i + 1;
+                } else if (currentPage >= totalPages - 2) {
+                  pageNum = totalPages - 4 + i;
+                } else {
+                  pageNum = currentPage - 2 + i;
+                }
+
+                return (
+                  <Button
+                    key={pageNum}
+                    variant="outline"
+                    size="sm"
+                    className={`h-8 w-8 text-xs sm:text-sm ${
+                      currentPage === pageNum
+                        ? "bg-[#f0f9ff] text-[#329ff2]"
+                        : ""
+                    }`}
+                    onClick={() => handlePageChange(pageNum)}
+                  >
+                    {pageNum}
+                  </Button>
+                );
+              })}
+
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8 sm:h-9 sm:w-9"
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                <span className="sr-only">Halaman berikutnya</span>
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Hospital Partners Section */}

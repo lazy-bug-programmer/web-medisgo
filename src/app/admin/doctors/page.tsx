@@ -50,6 +50,7 @@ import {
 } from "@/lib/actions/doctors.action";
 import {
   Doctor,
+  DoctorDepartment,
   DoctorSpecialty,
   DoctorStatus,
 } from "@/lib/domains/doctors.domain";
@@ -311,7 +312,7 @@ export default function DoctorsPage() {
                                 </p>
                                 <p className="text-sm text-muted-foreground">
                                   {doctor.department !== undefined
-                                    ? DoctorSpecialty[doctor.department]
+                                    ? DoctorDepartment[doctor.department]
                                     : ""}
                                 </p>
                               </div>

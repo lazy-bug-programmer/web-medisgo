@@ -260,11 +260,11 @@ export default function EditDoctorPage() {
 
   const availableLanguages = [
     "English",
-    "Spanish",
-    "French",
-    "German",
+    "Indonesian",
+    "Malay",
     "Mandarin",
-    "Arabic",
+    "Cantonese",
+    "Hokkien",
     "Hindi",
     "Portuguese",
   ];

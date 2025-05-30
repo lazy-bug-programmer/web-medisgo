@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server"
 
 import { Query } from "node-appwrite";
@@ -10,7 +11,7 @@ export async function getAllUsers(limit = 10000, offset = 0) {
             return { error: "Not authorized", total: 0 };
         }
 
-        const client = await createAdminClient();
+        const { users } = await createAdminClient();
 
         const queries = [
             Query.limit(limit),
@@ -18,15 +19,37 @@ export async function getAllUsers(limit = 10000, offset = 0) {
             Query.orderDesc("$createdAt")
         ];
 
-        const response = await client.users.list(queries);
+        const response = await users.list(queries);
 
         // Return only serializable properties of each user
         return {
             data: response.users,
             total: response.total
         };
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error getting users:", error);
-        return { error: "Failed to get user accounts", total: 0 };
+        return { error: error.message || "Failed to get user accounts", total: 0 };
+    }
+}
+
+export async function getUserById(userId: string) {
+    try {
+        const currentUser = await getLoggedInUser();
+        if (!currentUser) {
+            return { error: "Not authorized" };
+        }
+
+        // If requesting own profile or user is admin
+        if (currentUser.$id === userId || currentUser.email === 'admin@web.com') {
+            const { users } = await createAdminClient();
+            const user = await users.get(userId);
+
+            return { data: user };
+        }
+
+        return { error: "Not authorized to view this user" };
+    } catch (error: any) {
+        console.error("Error getting user:", error);
+        return { error: error.message || "Failed to get user" };
     }
 }

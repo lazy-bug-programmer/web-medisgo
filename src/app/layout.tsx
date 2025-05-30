@@ -118,10 +118,6 @@ export default function RootLayout({
                       Medisgo
                     </span>
                   </Link>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    Providing quality healthcare services with compassion and
-                    excellence since 1985.
-                  </p>
                 </div>
 
                 <div className="space-y-3 sm:space-y-4">
@@ -160,6 +156,28 @@ export default function RootLayout({
               </div>
             </div>
           </footer>
+
+          <Link href="/message">
+            <button
+              className="p-1 fixed bottom-28 right-6 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-lg transition-all duration-300 flex items-center justify-center z-50"
+              aria-label="Go to Messages"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="m-5"
+              >
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </button>
+          </Link>
 
           <Link href="https://linktr.ee/medisgoo">
             <button
