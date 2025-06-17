@@ -241,58 +241,53 @@ export default function CreateDoctorPage() {
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="first_name">First Name *</Label>
+                  <Label htmlFor="first_name">First Name</Label>
                   <Input
                     id="first_name"
                     value={formData.first_name}
                     onChange={(e) =>
                       handleInputChange("first_name", e.target.value)
                     }
-                    required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="last_name">Last Name *</Label>
+                  <Label htmlFor="last_name">Last Name</Label>
                   <Input
                     id="last_name"
                     value={formData.last_name}
                     onChange={(e) =>
                       handleInputChange("last_name", e.target.value)
                     }
-                    required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email *</Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number *</Label>
+                  <Label htmlFor="phone">Phone Number</Label>
                   <Input
                     id="phone"
                     value={formData.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
-                    required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="dob">Date of Birth *</Label>
+                  <Label htmlFor="dob">Date of Birth</Label>
                   <Input
                     id="dob"
                     type="date"
                     value={formData.dob}
                     onChange={(e) => handleInputChange("dob", e.target.value)}
-                    required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="gender">Gender *</Label>
+                  <Label htmlFor="gender">Gender</Label>
                   <Select
                     value={formData.gender.toString()}
                     onValueChange={(value) =>
@@ -336,7 +331,7 @@ export default function CreateDoctorPage() {
             </CardHeader>
             <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="specialty">Specialty *</Label>
+                <Label htmlFor="specialty">Specialty</Label>
                 <Select
                   value={formData.specialty.toString()}
                   onValueChange={(value) =>
@@ -356,7 +351,7 @@ export default function CreateDoctorPage() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="department">Department *</Label>
+                <Label htmlFor="department">Department</Label>
                 <Select
                   value={formData.department.toString()}
                   onValueChange={(value) =>
@@ -377,7 +372,7 @@ export default function CreateDoctorPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="medical_license_number">
-                  Medical License Number *
+                  Medical License Number
                 </Label>
                 <Input
                   id="medical_license_number"
@@ -385,13 +380,10 @@ export default function CreateDoctorPage() {
                   onChange={(e) =>
                     handleInputChange("medical_license_number", e.target.value)
                   }
-                  required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="years_of_experience">
-                  Years of Experience *
-                </Label>
+                <Label htmlFor="years_of_experience">Years of Experience</Label>
                 <Input
                   id="years_of_experience"
                   type="number"
@@ -399,7 +391,6 @@ export default function CreateDoctorPage() {
                   onChange={(e) =>
                     handleInputChange("years_of_experience", e.target.value)
                   }
-                  required
                 />
               </div>
               <div className="space-y-2">
