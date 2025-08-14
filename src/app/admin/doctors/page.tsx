@@ -74,6 +74,10 @@ export default function DoctorsPage() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [doctorImages, setDoctorImages] = useState<Record<string, string>>({});
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+
   useEffect(() => {
     const fetchDoctors = async () => {
       setLoading(true);
@@ -186,6 +190,21 @@ export default function DoctorsPage() {
     return matchesSearch && matchesSpecialty && matchesStatus;
   });
 
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredDoctors.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentDoctors = filteredDoctors.slice(startIndex, endIndex);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, specialtyFilter, statusFilter]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto p-6">
@@ -205,12 +224,20 @@ export default function DoctorsPage() {
                   A list of all doctors in the system
                 </CardDescription>
               </div>
-              <Button asChild>
-                <Link href="/admin/doctors/create">
-                  <Plus className="mr-2 h-4 w-4" />
-                  Add Doctor
-                </Link>
-              </Button>
+              <div className="flex gap-2">
+                {/* <Button variant="outline" asChild>
+                  <Link href="/admin/doctors/import">
+                    <Upload className="mr-2 h-4 w-4" />
+                    Import Doctors
+                  </Link>
+                </Button> */}
+                <Button asChild>
+                  <Link href="/admin/doctors/create">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Add Doctor
+                  </Link>
+                </Button>
+              </div>
             </div>
           </CardHeader>
           <CardContent>
@@ -282,14 +309,14 @@ export default function DoctorsPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredDoctors.length === 0 ? (
+                    {currentDoctors.length === 0 ? (
                       <TableRow>
                         <TableCell colSpan={7} className="text-center py-4">
                           No doctors found
                         </TableCell>
                       </TableRow>
                     ) : (
-                      filteredDoctors.map((doctor) => (
+                      currentDoctors.map((doctor) => (
                         <TableRow key={doctor.$id}>
                           <TableCell className="font-medium">
                             <div className="flex items-center gap-3">
@@ -385,22 +412,56 @@ export default function DoctorsPage() {
             )}
 
             {/* Pagination */}
-            <div className="mt-6 flex items-center justify-between">
-              <p className="text-sm text-muted-foreground">
-                Showing {filteredDoctors.length} of {doctors.length} doctors
-              </p>
-              <div className="flex items-center space-x-2">
-                <Button variant="outline" size="sm" disabled>
-                  Previous
-                </Button>
-                <Button variant="outline" size="sm">
-                  1
-                </Button>
-                <Button variant="outline" size="sm" disabled>
-                  Next
-                </Button>
+            {filteredDoctors.length > 0 && (
+              <div className="mt-6 flex items-center justify-center">
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    Previous
+                  </Button>
+
+                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                    let pageNum: number;
+
+                    if (totalPages <= 5) {
+                      pageNum = i + 1;
+                    } else if (currentPage <= 3) {
+                      pageNum = i + 1;
+                    } else if (currentPage >= totalPages - 2) {
+                      pageNum = totalPages - 4 + i;
+                    } else {
+                      pageNum = currentPage - 2 + i;
+                    }
+
+                    return (
+                      <Button
+                        key={pageNum}
+                        variant={
+                          currentPage === pageNum ? "default" : "outline"
+                        }
+                        size="sm"
+                        onClick={() => handlePageChange(pageNum)}
+                      >
+                        {pageNum}
+                      </Button>
+                    );
+                  })}
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    Next
+                  </Button>
+                </div>
               </div>
-            </div>
+            )}
           </CardContent>
         </Card>
       </div>

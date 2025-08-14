@@ -98,10 +98,12 @@ export default function DoctorsPage() {
 
   useEffect(() => {
     // Filter doctors based on search query
+    let filtered: Doctor[];
+
     if (searchQuery.trim() === "") {
-      setFilteredDoctors(doctors);
+      filtered = doctors;
     } else {
-      const filtered = doctors.filter(
+      filtered = doctors.filter(
         (doctor) =>
           `${doctor.first_name} ${doctor.last_name}`
             .toLowerCase()
@@ -110,20 +112,26 @@ export default function DoctorsPage() {
             ?.toLowerCase()
             .includes(searchQuery.toLowerCase())
       );
-      setFilteredDoctors(filtered);
     }
+
+    // Sort doctors to show those with images first
+    const sortedFiltered = filtered.sort((a, b) => {
+      const aHasImage = a.photo_url ? 1 : 0;
+      const bHasImage = b.photo_url ? 1 : 0;
+      return bHasImage - aHasImage; // Doctors with images first
+    });
+
+    setFilteredDoctors(sortedFiltered);
   }, [searchQuery, doctors]);
 
   useEffect(() => {
-    // Fetch images for doctors
+    // Fetch images only for currently displayed doctors
     async function fetchDoctorImages() {
       const newImageUrls: Record<string, string> = {};
-      const newImageLoading: Record<string, boolean> = {};
 
-      for (const doctor of doctors) {
-        if (doctor.photo_url) {
+      for (const doctor of displayedDoctors) {
+        if (doctor.photo_url && !imageUrls[doctor.$id]) {
           try {
-            newImageLoading[doctor.$id] = true;
             const result = await getImage(doctor.photo_url);
             if (result.data && result.data.file) {
               // Convert ArrayBuffer to object URL
@@ -132,31 +140,39 @@ export default function DoctorsPage() {
               const url = URL.createObjectURL(blob);
               newImageUrls[doctor.$id] = url;
             }
-            newImageLoading[doctor.$id] = false;
           } catch (error) {
             console.error(
               `Error fetching image for doctor ${doctor.$id}:`,
               error
             );
-            newImageLoading[doctor.$id] = false;
           }
         }
       }
 
-      setImageUrls(newImageUrls);
+      if (Object.keys(newImageUrls).length > 0) {
+        setImageUrls((prev) => ({ ...prev, ...newImageUrls }));
+      }
     }
 
-    if (doctors.length > 0) {
+    if (displayedDoctors.length > 0) {
       fetchDoctorImages();
     }
 
-    // Cleanup function to revoke object URLs
+    // Cleanup function to revoke object URLs for doctors no longer displayed
     return () => {
-      Object.values(imageUrls).forEach((url) => {
-        URL.revokeObjectURL(url);
+      const displayedDoctorIds = new Set(displayedDoctors.map((d) => d.$id));
+      Object.entries(imageUrls).forEach(([doctorId, url]) => {
+        if (!displayedDoctorIds.has(doctorId)) {
+          URL.revokeObjectURL(url);
+          setImageUrls((prev) => {
+            const updated = { ...prev };
+            delete updated[doctorId];
+            return updated;
+          });
+        }
       });
     };
-  }, [doctors]);
+  }, [displayedDoctors]);
 
   useEffect(() => {
     // Calculate pagination for filtered doctors
