@@ -158,13 +158,11 @@ export default function DoctorImporter() {
   const [currentDoctor, setCurrentDoctor] = useState<string>("");
   const [results, setResults] = useState<ProcessResult[]>([]);
   const [progress, setProgress] = useState(0);
-  const [csvFile, setCsvFile] = useState<File | null>(null);
   const [scrapedDoctors, setScrapedDoctors] = useState<ScrapedDoctor[]>([]);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type === "text/csv") {
-      setCsvFile(file);
       parseCsvFile(file);
     } else {
       toast.error("Please select a valid CSV file");
