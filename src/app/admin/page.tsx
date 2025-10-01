@@ -96,6 +96,18 @@ async function DashboardContent() {
               </Link>
             </Button>
             <Button asChild className="w-full justify-start" variant="outline">
+              <Link href="/admin/hospitals/create">
+                <Plus className="mr-2 h-4 w-4" />
+                Add New Hospital
+              </Link>
+            </Button>
+            <Button asChild className="w-full justify-start" variant="outline">
+              <Link href="/admin/hospital_checkups/create">
+                <Plus className="mr-2 h-4 w-4" />
+                Add New Hospital Checkup
+              </Link>
+            </Button>
+            <Button asChild className="w-full justify-start" variant="outline">
               <Link href="/admin/appointments/create">
                 <Plus className="mr-2 h-4 w-4" />
                 Schedule Appointment
@@ -117,6 +129,18 @@ async function DashboardContent() {
               <Link href="/admin/appointments">
                 <Eye className="mr-2 h-4 w-4" />
                 View All Appointments
+              </Link>
+            </Button>
+            <Button asChild className="w-full justify-start" variant="outline">
+              <Link href="/admin/hospitals">
+                <Eye className="mr-2 h-4 w-4" />
+                View All Hospitals
+              </Link>
+            </Button>
+            <Button asChild className="w-full justify-start" variant="outline">
+              <Link href="/admin/hospital_checkups">
+                <Eye className="mr-2 h-4 w-4" />
+                View All Hospital Checkups
               </Link>
             </Button>
           </CardContent>

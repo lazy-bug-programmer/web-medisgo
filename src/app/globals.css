@@ -1,3 +1,7 @@
+/* MDEditor styles - must be imported before other rules */
+@import "@uiw/react-md-editor/markdown-editor.css";
+@import "@uiw/react-markdown-preview/markdown.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -211,4 +215,149 @@
 
 .markdown-content strong {
   font-weight: 600;
+}
+
+/* MDEditor Custom Styling */
+.markdown-editor-wrapper .w-md-editor {
+  border-radius: calc(var(--radius) - 2px);
+  border-color: hsl(var(--border));
+}
+
+.markdown-editor-wrapper .w-md-editor-focus {
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 1px hsl(var(--ring));
+  outline: none;
+}
+
+.markdown-editor-wrapper .w-md-editor-text-container,
+.markdown-editor-wrapper .w-md-editor-text,
+.markdown-editor-wrapper .w-md-editor-text-input,
+.markdown-editor-wrapper .w-md-editor-text-textarea,
+.markdown-editor-wrapper .w-md-editor-text-area,
+.markdown-editor-wrapper .w-md-editor-text textarea {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  color: hsl(var(--foreground)) !important;
+  background-color: hsl(var(--background)) !important;
+}
+
+/* Additional specific selectors for textarea */
+.markdown-editor-wrapper .w-md-editor .w-md-editor-text-container .w-md-editor-text textarea,
+.markdown-editor-wrapper .w-md-editor-text textarea,
+.markdown-editor-wrapper textarea {
+  color: hsl(var(--foreground)) !important;
+  background-color: hsl(var(--background)) !important;
+  caret-color: hsl(var(--foreground)) !important;
+}
+
+.markdown-editor-wrapper .w-md-editor-toolbar {
+  border-bottom: 1px solid hsl(var(--border));
+  background-color: hsl(var(--muted) / 0.5);
+  border-top-left-radius: calc(var(--radius) - 2px);
+  border-top-right-radius: calc(var(--radius) - 2px);
+}
+
+.markdown-editor-wrapper .w-md-editor-toolbar-item button {
+  color: hsl(var(--foreground));
+  border-radius: calc(var(--radius) - 4px);
+}
+
+.markdown-editor-wrapper .w-md-editor-toolbar-item button:hover {
+  background-color: hsl(var(--muted));
+  color: hsl(var(--foreground));
+}
+
+.markdown-editor-wrapper .w-md-editor-toolbar-item button[data-active="true"] {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.markdown-editor-wrapper .w-md-editor-preview {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Markdown preview content styling */
+.markdown-editor-wrapper .w-md-editor-preview .wmde-markdown {
+  background-color: transparent;
+  color: hsl(var(--foreground));
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.markdown-editor-wrapper .w-md-editor-preview .wmde-markdown h1,
+.markdown-editor-wrapper .w-md-editor-preview .wmde-markdown h2,
+.markdown-editor-wrapper .w-md-editor-preview .wmde-markdown h3,
+.markdown-editor-wrapper .w-md-editor-preview .wmde-markdown h4,
+.markdown-editor-wrapper .w-md-editor-preview .wmde-markdown h5,
+.markdown-editor-wrapper .w-md-editor-preview .wmde-markdown h6 {
+  color: hsl(var(--foreground));
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.markdown-editor-wrapper .w-md-editor-preview .wmde-markdown code {
+  background-color: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  border-radius: calc(var(--radius) - 4px);
+  padding: 0.125rem 0.25rem;
+}
+
+.markdown-editor-wrapper .w-md-editor-preview .wmde-markdown pre {
+  background-color: hsl(var(--muted));
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
+}
+
+.markdown-editor-wrapper .w-md-editor-preview .wmde-markdown blockquote {
+  border-left: 4px solid hsl(var(--border));
+  background-color: hsl(var(--muted) / 0.5);
+  color: hsl(var(--muted-foreground));
+}
+
+/* Force text visibility - override any conflicting styles with maximum specificity */
+div.w-md-editor div.w-md-editor-text-container div.w-md-editor-text textarea,
+div.w-md-editor div.w-md-editor-text textarea,
+div.w-md-editor textarea,
+.w-md-editor-text-container textarea,
+.w-md-editor-text textarea,
+.w-md-editor-text-input textarea,
+.w-md-editor-text-textarea,
+.w-md-editor-text-area,
+.w-md-editor .w-md-editor-text textarea,
+.w-md-editor textarea,
+textarea[data-color-mode="light"],
+[data-color-mode="light"] textarea {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  caret-color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Even more specific - target by attribute */
+textarea[placeholder*="markdown"],
+textarea[placeholder*="content"],
+div[data-color-mode="light"] textarea {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  caret-color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Dark mode support */
+.dark div.w-md-editor div.w-md-editor-text-container div.w-md-editor-text textarea,
+.dark div.w-md-editor div.w-md-editor-text textarea,
+.dark div.w-md-editor textarea,
+.dark .w-md-editor-text-container textarea,
+.dark .w-md-editor-text textarea,
+.dark .w-md-editor-text-input textarea,
+.dark .w-md-editor-text-textarea,
+.dark .w-md-editor-text-area,
+.dark .w-md-editor .w-md-editor-text textarea,
+.dark .w-md-editor textarea {
+  color: #ffffff !important;
+  background-color: #1a1a1a !important;
+  caret-color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }

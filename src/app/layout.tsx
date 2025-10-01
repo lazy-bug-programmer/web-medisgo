@@ -11,8 +11,10 @@ import Head from "next/head";
 import { cn } from "@/lib/utils";
 import { MobileMenuToggle } from "@/components/mobile-menu";
 import { UserDropdown } from "@/components/user-dropdown";
-import "@/app/globals.css";
+import { HospitalDropdown } from "@/components/hospital-dropdown";
 import { Toaster } from "sonner";
+
+import "@/app/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -87,6 +89,7 @@ export default function RootLayout({
                 >
                   Doctors
                 </Link>
+                <HospitalDropdown />
                 <Link
                   href="/about"
                   className="text-sm font-medium transition-colors hover:text-blue-600"

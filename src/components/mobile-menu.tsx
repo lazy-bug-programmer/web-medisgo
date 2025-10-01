@@ -2,11 +2,25 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, Mail, MapPin } from "lucide-react";
+import {
+  Menu,
+  X,
+  Phone,
+  Mail,
+  MapPin,
+  Building,
+  ChevronDown,
+  ChevronRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Hospital } from "@/lib/domains/hospitals.domain";
+import { getPublicHospitals } from "@/lib/actions/hospitals.action";
 
 export function MobileMenuToggle() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showHospitals, setShowHospitals] = useState(false);
+  const [hospitals, setHospitals] = useState<Hospital[]>([]);
+  const [hospitalsLoading, setHospitalsLoading] = useState(false);
 
   // Close menu when ESC key is pressed
   useEffect(() => {
@@ -29,6 +43,37 @@ export function MobileMenuToggle() {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  // Fetch hospitals when hospitals section is expanded
+  useEffect(() => {
+    const fetchHospitals = async () => {
+      if (showHospitals && hospitals.length === 0 && !hospitalsLoading) {
+        setHospitalsLoading(true);
+        try {
+          const response = await getPublicHospitals();
+          if (response.error) {
+            console.error("Error fetching hospitals:", response.error);
+          } else {
+            setHospitals(response.data as unknown as Hospital[]);
+          }
+        } catch (error) {
+          console.error("Failed to fetch hospitals:", error);
+        } finally {
+          setHospitalsLoading(false);
+        }
+      }
+    };
+
+    fetchHospitals();
+  }, [showHospitals, hospitals.length, hospitalsLoading]);
+
+  // Convert hospital name to URL-friendly slug
+  const createSlug = (name: string) => {
+    return name
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9\-]/g, "");
+  };
 
   return (
     <>
@@ -78,6 +123,51 @@ export function MobileMenuToggle() {
             >
               Doctors
             </Link>
+
+            {/* Hospitals Section */}
+            <div className="border-b border-gray-100 pb-2">
+              <button
+                onClick={() => setShowHospitals(!showHospitals)}
+                className="w-full flex items-center justify-between text-lg font-medium text-left"
+                aria-expanded={showHospitals}
+              >
+                <span>Hospitals</span>
+                {showHospitals ? (
+                  <ChevronDown className="h-4 w-4" />
+                ) : (
+                  <ChevronRight className="h-4 w-4" />
+                )}
+              </button>
+
+              {showHospitals && (
+                <div className="mt-3 pl-4 space-y-2">
+                  {hospitalsLoading ? (
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <Building className="h-4 w-4" />
+                      Loading hospitals...
+                    </div>
+                  ) : hospitals.length === 0 ? (
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <Building className="h-4 w-4" />
+                      No hospitals available
+                    </div>
+                  ) : (
+                    hospitals.map((hospital) => (
+                      <Link
+                        key={hospital.$id}
+                        href={`/hospital/${createSlug(hospital.name)}`}
+                        className="flex items-center gap-2 text-base text-gray-700 hover:text-blue-600 transition-colors"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <Building className="h-4 w-4" />
+                        {hospital.name}
+                      </Link>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+
             <Link
               href="/about"
               className="text-lg font-medium border-b border-gray-100 pb-2"

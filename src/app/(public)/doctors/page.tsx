@@ -51,6 +51,7 @@ export default function DoctorsPage() {
   const [displayedDoctors, setDisplayedDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [addressQuery, setAddressQuery] = useState("");
   const [selectedSpecialty, setSelectedSpecialty] = useState("Semua");
   const [imageUrls, setImageUrls] = useState<Record<string, string>>({});
 
@@ -97,21 +98,28 @@ export default function DoctorsPage() {
   }, [selectedSpecialty]);
 
   useEffect(() => {
-    // Filter doctors based on search query
+    // Filter doctors based on search queries
     let filtered: Doctor[];
 
-    if (searchQuery.trim() === "") {
+    if (searchQuery.trim() === "" && addressQuery.trim() === "") {
       filtered = doctors;
     } else {
-      filtered = doctors.filter(
-        (doctor) =>
+      filtered = doctors.filter((doctor) => {
+        const nameMatch =
+          searchQuery.trim() === "" ||
           `${doctor.first_name} ${doctor.last_name}`
             .toLowerCase()
             .includes(searchQuery.toLowerCase()) ||
           specialtiesMap[doctor.specialty as keyof typeof specialtiesMap]
             ?.toLowerCase()
-            .includes(searchQuery.toLowerCase())
-      );
+            .includes(searchQuery.toLowerCase());
+
+        const addressMatch =
+          addressQuery.trim() === "" ||
+          doctor.address?.toLowerCase().includes(addressQuery.toLowerCase());
+
+        return nameMatch && addressMatch;
+      });
     }
 
     // Sort doctors to show those with images first
@@ -122,7 +130,7 @@ export default function DoctorsPage() {
     });
 
     setFilteredDoctors(sortedFiltered);
-  }, [searchQuery, doctors]);
+  }, [searchQuery, addressQuery, doctors]);
 
   useEffect(() => {
     // Fetch images only for currently displayed doctors
@@ -172,7 +180,7 @@ export default function DoctorsPage() {
         }
       });
     };
-  }, [displayedDoctors]);
+  }, [displayedDoctors, imageUrls]);
 
   useEffect(() => {
     // Calculate pagination for filtered doctors
@@ -228,25 +236,38 @@ export default function DoctorsPage() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="relative w-full md:max-w-sm">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Cari dokter..."
-              className="w-full pl-8"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center flex-1">
+            <div className="relative w-full sm:max-w-sm">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Cari dokter..."
+                className="w-full pl-8"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            <div className="relative w-full sm:max-w-sm">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Cari rumah sakit/alamat..."
+                className="w-full pl-8"
+                value={addressQuery}
+                onChange={(e) => setAddressQuery(e.target.value)}
+              />
+            </div>
           </div>
 
           {/* Specialty dropdown menu */}
-          <div className="w-full md:w-auto">
+          <div className="w-full lg:w-auto">
             <Select
               value={selectedSpecialty}
               onValueChange={handleSpecialtyChange}
             >
-              <SelectTrigger className="w-full md:w-[200px] bg-white">
+              <SelectTrigger className="w-full lg:w-[200px] bg-white">
                 <SelectValue placeholder="Pilih Spesialisasi" />
               </SelectTrigger>
               <SelectContent>
