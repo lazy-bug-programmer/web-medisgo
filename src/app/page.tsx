@@ -250,7 +250,7 @@ export default function Home() {
               </CardContent>
               <CardFooter className="px-4 pt-2 pb-4 sm:px-6 sm:pt-2 sm:pb-6">
                 <Link
-                  href="/services/cardiology"
+                  href="/services"
                   className="flex items-center text-xs sm:text-sm text-[#329ff2] hover:underline"
                 >
                   Pelajari Lebih Lanjut{" "}
@@ -290,7 +290,7 @@ export default function Home() {
               </CardContent>
               <CardFooter className="px-4 pt-2 pb-4 sm:px-6 sm:pt-2 sm:pb-6">
                 <Link
-                  href="/services/neurology"
+                  href="/services"
                   className="flex items-center text-xs sm:text-sm text-[#329ff2] hover:underline"
                 >
                   Pelajari Lebih Lanjut{" "}
@@ -330,7 +330,7 @@ export default function Home() {
               </CardContent>
               <CardFooter className="px-4 pt-2 pb-4 sm:px-6 sm:pt-2 sm:pb-6">
                 <Link
-                  href="/services/pediatrics"
+                  href="/services"
                   className="flex items-center text-xs sm:text-sm text-[#329ff2] hover:underline"
                 >
                   Pelajari Lebih Lanjut{" "}
@@ -353,7 +353,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="bg-gradient-to-b from-white to-[#f0f9ff] py-12 sm:py-16 md:py-20 lg:py-24">
+      {/* <section className="bg-gradient-to-b from-white to-[#f0f9ff] py-12 sm:py-16 md:py-20 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
             <Badge className="mb-4" variant="outline">
@@ -488,7 +488,7 @@ export default function Home() {
             </Card>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Location Section */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">

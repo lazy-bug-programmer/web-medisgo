@@ -11,6 +11,7 @@ import {
   MoreHorizontal,
   ArrowLeft,
   UserCircle,
+  Download,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -51,6 +52,7 @@ import {
 import {
   Doctor,
   DoctorDepartment,
+  DoctorGender,
   DoctorSpecialty,
   DoctorStatus,
 } from "@/lib/domains/doctors.domain";
@@ -161,6 +163,90 @@ export default function DoctorsPage() {
     }
   };
 
+  const handleExportCSV = () => {
+    try {
+      // Use filtered doctors to respect current filters
+      const dataToExport = filteredDoctors;
+
+      if (dataToExport.length === 0) {
+        toast("No doctors to export");
+        return;
+      }
+
+      // Define CSV headers
+      const headers = [
+        "ID",
+        "Photo URL",
+        "First Name",
+        "Last Name",
+        "Email",
+        "Phone",
+        "Date of Birth",
+        "Gender",
+        "Address",
+        "Specialty",
+        "Department",
+        "Medical License Number",
+        "Years of Experience",
+        "Status",
+        "Education and Training",
+        "Biography",
+        "Languages",
+        "Working Hours",
+      ];
+
+      // Convert doctors data to CSV rows
+      const csvRows = dataToExport.map((doctor) => [
+        doctor.$id,
+        doctor.photo_url || "",
+        doctor.first_name,
+        doctor.last_name,
+        doctor.email,
+        doctor.phone,
+        doctor.dob ? new Date(doctor.dob).toLocaleDateString() : "",
+        DoctorGender[doctor.gender],
+        doctor.address.replace(/,/g, ";"), // Replace commas to avoid CSV issues
+        getSpecialtyName(doctor.specialty),
+        doctor.department !== undefined
+          ? DoctorDepartment[doctor.department]
+          : "",
+        doctor.medical_license_number,
+        doctor.years_of_experience,
+        getStatusName(doctor.status),
+        doctor.education_and_training?.replace(/,/g, ";") || "",
+        doctor.biography?.replace(/,/g, ";") || "",
+        doctor.languages?.replace(/,/g, ";") || "",
+        doctor.working_hours?.replace(/,/g, ";") || "",
+      ]);
+
+      // Combine headers and rows
+      const csvContent = [headers, ...csvRows]
+        .map((row) => row.map((field) => `"${field}"`).join(","))
+        .join("\n");
+
+      // Create and download the file
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+
+      link.setAttribute("href", url);
+      link.setAttribute(
+        "download",
+        `doctors-export-${new Date().toISOString().split("T")[0]}.csv`
+      );
+      link.style.visibility = "hidden";
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      toast(`Exported ${dataToExport.length} doctors to CSV`);
+    } catch (error) {
+      console.error("Error exporting CSV:", error);
+      toast("Failed to export CSV");
+    }
+  };
+
   // Get specialty name from enum
   const getSpecialtyName = (specialty: DoctorSpecialty) => {
     return DoctorSpecialty[specialty];
@@ -231,6 +317,10 @@ export default function DoctorsPage() {
                     Import Doctors
                   </Link>
                 </Button> */}
+                <Button variant="outline" onClick={handleExportCSV}>
+                  <Download className="mr-2 h-4 w-4" />
+                  Export CSV
+                </Button>
                 <Button asChild>
                   <Link href="/admin/doctors/create">
                     <Plus className="mr-2 h-4 w-4" />
