@@ -51,7 +51,6 @@ import {
 } from "@/lib/actions/doctors.action";
 import {
   Doctor,
-  DoctorDepartment,
   DoctorGender,
   DoctorSpecialty,
   DoctorStatus,
@@ -206,10 +205,8 @@ export default function DoctorsPage() {
         doctor.dob ? new Date(doctor.dob).toLocaleDateString() : "",
         DoctorGender[doctor.gender],
         doctor.address.replace(/,/g, ";"), // Replace commas to avoid CSV issues
-        getSpecialtyName(doctor.specialty),
-        doctor.department !== undefined
-          ? DoctorDepartment[doctor.department]
-          : "",
+        doctor.specialty,
+        doctor.department,
         doctor.medical_license_number,
         doctor.years_of_experience,
         getStatusName(doctor.status),
@@ -247,11 +244,6 @@ export default function DoctorsPage() {
     }
   };
 
-  // Get specialty name from enum
-  const getSpecialtyName = (specialty: DoctorSpecialty) => {
-    return DoctorSpecialty[specialty];
-  };
-
   // Get status name from enum
   const getStatusName = (status: DoctorStatus) => {
     return DoctorStatus[status];
@@ -262,9 +254,7 @@ export default function DoctorsPage() {
     const matchesSearch =
       fullName.includes(searchTerm.toLowerCase()) ||
       doctor.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      getSpecialtyName(doctor.specialty)
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
+      doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesSpecialty =
       specialtyFilter === "all" ||
@@ -428,9 +418,7 @@ export default function DoctorsPage() {
                                   Dr. {doctor.first_name} {doctor.last_name}
                                 </p>
                                 <p className="text-sm text-muted-foreground">
-                                  {doctor.department !== undefined
-                                    ? DoctorDepartment[doctor.department]
-                                    : ""}
+                                  {doctor.department}
                                 </p>
                               </div>
                             </div>
@@ -444,9 +432,7 @@ export default function DoctorsPage() {
                             </div>
                           </TableCell>
                           <TableCell>
-                            <Badge variant="outline">
-                              {getSpecialtyName(doctor.specialty)}
-                            </Badge>
+                            <Badge variant="outline">{doctor.specialty}</Badge>
                           </TableCell>
                           <TableCell>
                             {doctor.years_of_experience} years

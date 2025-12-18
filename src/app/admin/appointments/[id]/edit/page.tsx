@@ -51,7 +51,7 @@ import {
   Appointment,
 } from "@/lib/domains/appointments.domain";
 import { Patient } from "@/lib/domains/patients.domain";
-import { Doctor, DoctorSpecialty } from "@/lib/domains/doctors.domain";
+import { Doctor } from "@/lib/domains/doctors.domain";
 
 // Define interface for the patient and doctor maps
 interface PatientMap {
@@ -323,7 +323,7 @@ export default function EditAppointmentPage() {
                                   {doctor.first_name} {doctor.last_name}
                                 </p>
                                 <p className="text-sm text-muted-foreground">
-                                  {DoctorSpecialty[doctor.specialty]}
+                                  {doctor.specialty}
                                 </p>
                               </div>
                             </CommandItem>

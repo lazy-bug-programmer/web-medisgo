@@ -228,7 +228,7 @@ export default function CreateAppointmentPage() {
                                   {doctor.first_name} {doctor.last_name}
                                 </p>
                                 <p className="text-sm text-muted-foreground">
-                                  {AppointmentType[doctor.specialty]}
+                                  {doctor.specialty}
                                 </p>
                               </div>
                             </CommandItem>

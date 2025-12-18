@@ -33,22 +33,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { getDoctorById } from "@/lib/actions/doctors.action";
 import { getImage } from "@/lib/appwrite/bucket";
-import { Doctor, DoctorSpecialty } from "@/lib/domains/doctors.domain";
-
-// Specialties mapping for display
-const specialtiesMap = {
-  [DoctorSpecialty.CARDIOLOGY]: "Kardiologi",
-  [DoctorSpecialty.DERMATOLOGY]: "Dermatologi",
-  [DoctorSpecialty.GASTROENTEROLOGY]: "Gastroenterologi",
-  [DoctorSpecialty.NEUROLOGY]: "Neurologi",
-  [DoctorSpecialty.ONCOLOGY]: "Onkologi",
-  [DoctorSpecialty.PEDIATRICS]: "Pediatri",
-  [DoctorSpecialty.PSYCHIATRY]: "Psikiatri",
-  [DoctorSpecialty.RADIOLOGY]: "Radiologi",
-  [DoctorSpecialty.SURGERY]: "Bedah",
-  [DoctorSpecialty.UROLOGY]: "Urologi",
-  [DoctorSpecialty.OTHER]: "Lainnya",
-};
+import { Doctor } from "@/lib/domains/doctors.domain";
 
 type DaySchedule = {
   start: string;
@@ -243,9 +228,7 @@ export default function DoctorDetailPage({ params }: any) {
               Dr. {doctor.first_name} {doctor.last_name}
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-[#c9eaff]">
-              {specialtiesMap[
-                doctor.specialty as keyof typeof specialtiesMap
-              ] || "Umum"}
+              {doctor.specialty || "Umum"}
             </p>
           </div>
         </div>

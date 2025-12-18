@@ -26,24 +26,11 @@ import {
 import {
   getDoctors,
   getDoctorsBySpecialty,
+  getUniqueSpecialties,
+  getUniqueHospitals,
 } from "@/lib/actions/doctors.action";
 import { getImage } from "@/lib/appwrite/bucket";
-import { Doctor, DoctorSpecialty } from "@/lib/domains/doctors.domain";
-
-// Specialties mapping for display
-const specialtiesMap = {
-  [DoctorSpecialty.CARDIOLOGY]: "Kardiologi",
-  [DoctorSpecialty.DERMATOLOGY]: "Dermatologi",
-  [DoctorSpecialty.GASTROENTEROLOGY]: "Gastroenterologi",
-  [DoctorSpecialty.NEUROLOGY]: "Neurologi",
-  [DoctorSpecialty.ONCOLOGY]: "Onkologi",
-  [DoctorSpecialty.PEDIATRICS]: "Pediatri",
-  [DoctorSpecialty.PSYCHIATRY]: "Psikiatri",
-  [DoctorSpecialty.RADIOLOGY]: "Radiologi",
-  [DoctorSpecialty.SURGERY]: "Bedah",
-  [DoctorSpecialty.UROLOGY]: "Urologi",
-  [DoctorSpecialty.OTHER]: "Lainnya",
-};
+import { Doctor } from "@/lib/domains/doctors.domain";
 
 export default function DoctorsPage() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
@@ -51,17 +38,42 @@ export default function DoctorsPage() {
   const [displayedDoctors, setDisplayedDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [addressQuery, setAddressQuery] = useState("");
   const [selectedSpecialty, setSelectedSpecialty] = useState("Semua");
+  const [selectedHospital, setSelectedHospital] = useState("Semua");
   const [imageUrls, setImageUrls] = useState<Record<string, string>>({});
+
+  // Dynamic filter options
+  const [specialties, setSpecialties] = useState<string[]>(["Semua"]);
+  const [hospitals, setHospitals] = useState<string[]>(["Semua"]);
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const ITEMS_PER_PAGE = 10;
 
-  // Create specialty options for filtering
-  const specialties = ["Semua", ...Object.values(specialtiesMap)];
+  // Fetch unique specialties and hospitals on mount
+  useEffect(() => {
+    async function fetchFilters() {
+      try {
+        const [specialtiesResult, hospitalsResult] = await Promise.all([
+          getUniqueSpecialties(),
+          getUniqueHospitals(),
+        ]);
+
+        if (specialtiesResult.data) {
+          setSpecialties(["Semua", ...specialtiesResult.data]);
+        }
+
+        if (hospitalsResult.data) {
+          setHospitals(["Semua", ...hospitalsResult.data]);
+        }
+      } catch (error) {
+        console.error("Error fetching filters:", error);
+      }
+    }
+
+    fetchFilters();
+  }, []);
 
   useEffect(() => {
     async function fetchDoctors() {
@@ -71,16 +83,7 @@ export default function DoctorsPage() {
         if (selectedSpecialty === "Semua") {
           result = await getDoctors();
         } else {
-          // Find the specialty enum value by its display name
-          const specialtyEnum = Object.entries(specialtiesMap).find(
-            ([, value]) => value === selectedSpecialty
-          )?.[0];
-
-          if (specialtyEnum !== undefined) {
-            result = await getDoctorsBySpecialty(Number(specialtyEnum));
-          } else {
-            result = await getDoctors();
-          }
+          result = await getDoctorsBySpecialty(selectedSpecialty);
         }
 
         if (result.data) {
@@ -101,7 +104,7 @@ export default function DoctorsPage() {
     // Filter doctors based on search queries
     let filtered: Doctor[];
 
-    if (searchQuery.trim() === "" && addressQuery.trim() === "") {
+    if (searchQuery.trim() === "" && selectedHospital === "Semua") {
       filtered = doctors;
     } else {
       filtered = doctors.filter((doctor) => {
@@ -110,15 +113,12 @@ export default function DoctorsPage() {
           `${doctor.first_name} ${doctor.last_name}`
             .toLowerCase()
             .includes(searchQuery.toLowerCase()) ||
-          specialtiesMap[doctor.specialty as keyof typeof specialtiesMap]
-            ?.toLowerCase()
-            .includes(searchQuery.toLowerCase());
+          doctor.specialty?.toLowerCase().includes(searchQuery.toLowerCase());
 
-        const addressMatch =
-          addressQuery.trim() === "" ||
-          doctor.address?.toLowerCase().includes(addressQuery.toLowerCase());
+        const hospitalMatch =
+          selectedHospital === "Semua" || doctor.address === selectedHospital;
 
-        return nameMatch && addressMatch;
+        return nameMatch && hospitalMatch;
       });
     }
 
@@ -130,7 +130,7 @@ export default function DoctorsPage() {
     });
 
     setFilteredDoctors(sortedFiltered);
-  }, [searchQuery, addressQuery, doctors]);
+  }, [searchQuery, selectedHospital, doctors]);
 
   useEffect(() => {
     // Fetch images only for currently displayed doctors
@@ -249,15 +249,22 @@ export default function DoctorsPage() {
               />
             </div>
 
-            <div className="relative w-full sm:max-w-sm">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Cari rumah sakit/alamat..."
-                className="w-full pl-8"
-                value={addressQuery}
-                onChange={(e) => setAddressQuery(e.target.value)}
-              />
+            <div className="w-full sm:max-w-sm">
+              <Select
+                value={selectedHospital}
+                onValueChange={(value) => setSelectedHospital(value)}
+              >
+                <SelectTrigger className="w-full bg-white">
+                  <SelectValue placeholder="Pilih Rumah Sakit" />
+                </SelectTrigger>
+                <SelectContent>
+                  {hospitals.map((hospital) => (
+                    <SelectItem key={hospital} value={hospital}>
+                      {hospital}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -318,9 +325,7 @@ export default function DoctorsPage() {
                     Dr. {doctor.first_name} {doctor.last_name}
                   </CardTitle>
                   <CardDescription className="text-sm text-[#329ff2]">
-                    {specialtiesMap[
-                      doctor.specialty as keyof typeof specialtiesMap
-                    ] || "Umum"}
+                    {doctor.specialty || "Umum"}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
