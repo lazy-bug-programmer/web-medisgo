@@ -10,10 +10,8 @@ import {
   MapPin,
   Phone,
   Mail,
-  Award,
   BookOpen,
   Briefcase,
-  Star,
   ChevronRight,
   User,
   Loader2,
@@ -69,10 +67,6 @@ export default function DoctorDetailPage({ params }: any) {
   const [experience, setExperience] = useState<
     { position: string; institution: string; period: string }[]
   >([]);
-  const [certifications, setCertifications] = useState<string[]>([]);
-  const [awards, setAwards] = useState<
-    { title: string; organization: string; year: string }[]
-  >([]);
 
   useEffect(() => {
     async function fetchDoctor() {
@@ -125,9 +119,6 @@ export default function DoctorDetailPage({ params }: any) {
                 const bioData = JSON.parse(result.data.biography);
                 if (bioData.education) setEducation(bioData.education);
                 if (bioData.experience) setExperience(bioData.experience);
-                if (bioData.certifications)
-                  setCertifications(bioData.certifications);
-                if (bioData.awards) setAwards(bioData.awards);
               } catch {
                 // Biography is just plain text, not JSON
               }
@@ -360,7 +351,7 @@ export default function DoctorDetailPage({ params }: any) {
               {/* Responsive tabs that scroll horizontally on mobile */}
               <div className="overflow-x-auto pb-2">
                 <Tabs defaultValue="education" className="border-[#e5f5ff]">
-                  <TabsList className="w-max min-w-full sm:w-full sm:min-w-0 grid grid-flow-col auto-cols-auto sm:grid-cols-3 bg-[#f0f9ff]">
+                  <TabsList className="w-max min-w-full sm:w-full sm:min-w-0 grid grid-flow-col auto-cols-auto sm:grid-cols-2 bg-[#f0f9ff]">
                     <TabsTrigger
                       value="education"
                       className="text-xs sm:text-sm px-2 sm:px-4"
@@ -372,12 +363,6 @@ export default function DoctorDetailPage({ params }: any) {
                       className="text-xs sm:text-sm px-2 sm:px-4"
                     >
                       Pengalaman
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="certifications"
-                      className="text-xs sm:text-sm px-2 sm:px-4"
-                    >
-                      Sertifikasi
                     </TabsTrigger>
                   </TabsList>
 
@@ -451,63 +436,11 @@ export default function DoctorDetailPage({ params }: any) {
                       ) : (
                         <div className="rounded-lg border border-[#e5f5ff] bg-white p-3 sm:p-4">
                           <p className="text-sm text-muted-foreground">
-                            {`Pengalaman: ${doctor.years_of_experience} tahun`}
+                            Pengalaman: 10 tahun
                           </p>
                         </div>
                       )}
                     </div>
-                  </TabsContent>
-
-                  <TabsContent
-                    value="certifications"
-                    className="space-y-3 sm:space-y-4 pt-4"
-                  >
-                    <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold text-[#1f6fad]">
-                      <Award className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
-                      Sertifikasi & Lisensi
-                    </h3>
-                    {certifications.length > 0 ? (
-                      <ul className="list-inside list-disc space-y-1 sm:space-y-2 text-xs sm:text-sm">
-                        {certifications.map((cert, index) => (
-                          <li key={index} className="text-muted-foreground">
-                            {cert}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-sm text-muted-foreground">
-                        No. Lisensi Medis:{" "}
-                        {doctor.medical_license_number || "Tidak tersedia"}
-                      </p>
-                    )}
-                    {awards.length > 0 && (
-                      <>
-                        <h3 className="flex items-center gap-2 text-base sm:text-lg md:text-xl font-semibold mt-4 sm:mt-6 text-[#1f6fad]">
-                          <Star className="h-4 w-4 sm:h-5 sm:w-5 text-[#329ff2]" />{" "}
-                          Penghargaan & Pengakuan
-                        </h3>
-                        <div className="space-y-3 sm:space-y-4">
-                          {awards.map((award, index) => (
-                            <div
-                              key={index}
-                              className="rounded-lg border border-[#e5f5ff] bg-white p-3 sm:p-4 shadow-sm transition-all duration-200 hover:border-[#7fcbff] hover:shadow-md"
-                            >
-                              <div className="flex flex-wrap gap-2 sm:items-center sm:justify-between">
-                                <h4 className="text-sm sm:text-base font-semibold text-[#1f6fad]">
-                                  {award.title}
-                                </h4>
-                                <span className="rounded-full bg-[#f0f9ff] px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium text-[#329ff2]">
-                                  {award.year}
-                                </span>
-                              </div>
-                              <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-                                {award.organization}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      </>
-                    )}
                   </TabsContent>
                 </Tabs>
               </div>

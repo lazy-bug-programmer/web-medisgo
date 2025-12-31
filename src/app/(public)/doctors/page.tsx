@@ -338,9 +338,7 @@ export default function DoctorsPage() {
                     </div>
                     <div>
                       <p className="font-medium">Pengalaman</p>
-                      <p className="text-muted-foreground">
-                        {doctor.years_of_experience} tahun
-                      </p>
+                      <p className="text-muted-foreground">10 tahun</p>
                     </div>
                   </div>
                 </CardContent>
